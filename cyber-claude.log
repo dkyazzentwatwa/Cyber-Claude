@@ -156,3 +156,5 @@ Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Yo
     at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
     at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
     at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/pcap.js:120:34)
+2025-09-30 00:14:13 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-09-30 00:14:36 [INFO]: Agent mode changed to desktopsecurity
