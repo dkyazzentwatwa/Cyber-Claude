@@ -4,12 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Cyber Claude is an AI-powered cybersecurity agent CLI that supports multiple AI providers (Claude and Gemini). It provides desktop security scanning, web application vulnerability testing, network traffic analysis (pcap), system hardening checks, and interactive chat capabilities with persistent REPL-style sessions.
+Cyber Claude is an AI-powered cybersecurity agent CLI that supports multiple AI providers (Claude and Gemini). It provides desktop security scanning, web application vulnerability testing, network traffic analysis (pcap), OSINT reconnaissance, system hardening checks, and interactive chat capabilities with persistent REPL-style sessions.
 
 **Key Differentiators**:
 - Multi-provider architecture allowing seamless switching between Claude (Anthropic) and Gemini (Google) models
 - Comprehensive web security testing with OWASP Top 10 coverage
 - AI-powered network traffic analysis with pcap file support (Wireshark-inspired CLI)
+- Professional OSINT suite with 10+ reconnaissance tools (no API keys required)
 - Ethical-first design with built-in authorization framework and domain blocklists
 
 ## Build & Development Commands
@@ -30,6 +31,7 @@ cyber-claude
 npm run dev -- scan --quick
 npm run dev -- webscan https://example.com
 npm run dev -- pcap capture.pcap
+npm run dev -- recon example.com --full
 npm run dev -- interactive
 ```
 
@@ -56,12 +58,13 @@ AIProvider interface (src/agent/providers/base.ts)
 
 ### Agent Modes & System Prompts
 
-Five operational modes defined in `src/agent/prompts/system.ts` (all lowercase):
+Six operational modes defined in `src/agent/prompts/system.ts` (all lowercase):
 - `base` - General security assistant
 - `redteam` - Offensive security perspective (defensive only)
 - `blueteam` - Defensive operations focus
 - `desktopsecurity` - Personal computer security
 - `webpentest` - Web application security testing (OWASP Top 10, CTF support)
+- `osint` - Open Source Intelligence reconnaissance
 
 **Important**: All mode names are lowercase (changed in v0.3.0).
 
@@ -84,6 +87,7 @@ Commands (Commander.js):
 ├─ interactive (default) - Persistent REPL session
 ├─ scan - Desktop security scanning (quick/full/network)
 ├─ webscan - Web application vulnerability scanning
+├─ recon - OSINT reconnaissance (quick/full/domain/person)
 ├─ pcap - Network traffic analysis (.pcap/.pcapng files)
 ├─ harden - System hardening checks
 └─ chat - One-off chat mode
@@ -108,6 +112,19 @@ Default behavior: `cyber-claude` with no args starts interactive session (change
 - **PcapAnalyzer** - Parses pcap/pcapng files, extracts packets, protocols, conversations, endpoints
 - **PcapReporter** - Formats pcap analysis results with statistics, exports to JSON/Markdown/CSV
 
+**OSINT Tools** (`src/agent/tools/osint/`):
+- **DNSRecon** - DNS reconnaissance using Node.js built-in dns module (no API key)
+- **WhoisLookup** - Domain WHOIS information using whois-json package (no API key)
+- **SubdomainEnum** - Certificate transparency logs (crt.sh) + DNS brute forcing (no API key)
+- **EmailHarvest** - Email harvesting from websites and common patterns (no API key)
+- **UsernameEnum** - Username enumeration across 35+ social media platforms (no API key)
+- **BreachCheck** - Data breach lookup using Have I Been Pwned API (no API key)
+- **Wayback** - Wayback Machine/Archive.org historical data (no API key)
+- **TechDetect** - Technology stack detection (reverse-engineered Wappalyzer approach, no API key)
+- **IPLookup** - IP geolocation (ip-api.com) and reverse IP lookup (HackerTarget, no API key)
+- **OSINTOrchestrator** - Coordinates all OSINT tools for comprehensive reconnaissance
+- **OSINTReporter** - Formats and exports OSINT results to JSON/Markdown
+
 Tools collect data, then `CyberAgent.analyze()` passes data + task description to AI for analysis.
 
 **Web Security Features**:
@@ -131,6 +148,35 @@ Tools collect data, then `CyberAgent.analyze()` passes data + task description t
 - Multiple analysis modes (quick, full, threat-hunt)
 - Export capabilities (JSON, Markdown, CSV)
 - Link layer type detection (Ethernet, Raw IP, Linux SLL)
+
+**OSINT Reconnaissance Features** (All tools require NO API keys):
+- **DNS Reconnaissance** - A/AAAA/MX/NS/TXT/CNAME/SOA records, reverse DNS, security posture analysis
+- **WHOIS Lookup** - Domain registration info, age analysis, DNSSEC status, expiration tracking
+- **Subdomain Enumeration** - Certificate transparency logs (crt.sh), DNS brute forcing, 100+ common subdomains
+- **Email Harvesting** - Website scraping, mailto links, meta tags, common email patterns (info@, contact@, etc.)
+- **Username Enumeration** - 35+ platforms (GitHub, Twitter, Instagram, LinkedIn, Reddit, YouTube, etc.)
+- **Breach Data Lookup** - Have I Been Pwned integration, password breach checking (k-anonymity), breach severity analysis
+- **Technology Detection** - Web server, CMS, frameworks, analytics, CDN, security tools (50+ signatures)
+- **Wayback Machine** - Historical snapshots, first/last archived dates, change detection, domain history
+- **IP Geolocation** - Country/city/ISP/org lookup, timezone, coordinates (ip-api.com)
+- **Reverse IP Lookup** - Find other domains on same IP, shared hosting detection (HackerTarget)
+- **Risk Scoring** - Automated risk assessment based on exposed data, age, breaches, and attack surface
+- **Export Options** - JSON and Markdown export for all reconnaissance results
+
+**OSINT Command Modes**:
+- `recon <target>` or `recon <target> --quick` - Essential information only (WHOIS, DNS, IPs)
+- `recon <target> --full` - Comprehensive scan (all 10 tools, takes 2-5 minutes)
+- `recon <domain> --domain` - Domain-focused (WHOIS, DNS, subdomains, emails, tech, wayback)
+- `recon <username> --person` - Person-focused (username enumeration, breach data if email)
+
+**OSINT Subcommands**:
+- `recon dns <domain>` - DNS reconnaissance only
+- `recon subdomains <domain>` - Subdomain enumeration only
+- `recon emails <domain>` - Email harvesting only
+- `recon username <username>` - Username enumeration only
+- `recon breach <email>` - Breach data check only
+- `recon tech <url>` - Technology detection only
+- `recon ip <ip>` - IP analysis only (geolocation + reverse IP)
 
 ### MCP Security Tool Integration
 

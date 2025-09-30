@@ -4,5 +4,6 @@ export declare const SYSTEM_PROMPTS: {
     blueteam: string;
     desktopsecurity: string;
     webpentest: string;
+    osint: string;
 };
 //# sourceMappingURL=system.d.ts.map

@@ -1,16 +1,56 @@
 # 🛡️ Cyber Claude
 
-**AI-Powered Cybersecurity Agent for Red/Blue Teaming, Web Security Testing, Network Traffic Analysis & Desktop Security**
+**AI-Powered Cybersecurity Agent for Red/Blue Teaming, Web Security Testing, OSINT Reconnaissance, Network Traffic Analysis & Desktop Security**
 
-An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview), designed for defensive security operations, web application vulnerability testing, network traffic analysis (pcap), system hardening, and security analysis.
+An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview), designed for defensive security operations, web application vulnerability testing, OSINT reconnaissance, network traffic analysis (pcap), system hardening, and security analysis.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
 ![Claude](https://img.shields.io/badge/Claude-Sonnet%204-purple)
 
-## 🆕 What's New in v0.4.0
+## 🆕 What's New in v0.5.0
 
-**🔧 Professional Security Tool Integration - MCP Powered!**
+**🔍 OSINT Reconnaissance Suite - NO API KEYS REQUIRED!**
+
+- **📡 10 Comprehensive OSINT Tools**: All free, no API keys needed!
+  ```bash
+  # Full reconnaissance
+  cyber-claude recon example.com --full
+
+  # Domain-focused scan
+  cyber-claude recon example.com --domain
+
+  # Username enumeration
+  cyber-claude recon john_doe --person
+
+  # Individual tools
+  cyber-claude recon subdomains example.com
+  cyber-claude recon breach user@example.com
+  cyber-claude recon tech https://example.com
+  cyber-claude recon username john_doe
+  ```
+
+- **🛠️ Included Tools** (All FREE):
+  - **DNS Reconnaissance** - A/AAAA/MX/NS/TXT/SOA records, reverse DNS
+  - **WHOIS Lookup** - Domain registration, age, expiration analysis
+  - **Subdomain Enumeration** - Certificate transparency + DNS brute force
+  - **Email Harvesting** - Website scraping + common patterns
+  - **Username Enumeration** - 35+ platforms (GitHub, Twitter, Instagram, etc.)
+  - **Breach Data Lookup** - Have I Been Pwned integration
+  - **Technology Detection** - Web server, CMS, frameworks (50+ signatures)
+  - **Wayback Machine** - Historical snapshots and domain history
+  - **IP Geolocation** - Country/city/ISP lookup
+  - **Reverse IP Lookup** - Find other domains on same IP
+
+- **🎯 Professional Features**:
+  - Risk scoring and assessment
+  - Attack surface identification
+  - Data exposure analysis
+  - Export to JSON/Markdown
+  - No rate limits (free tier APIs)
+  - Privacy-respecting (passive only)
+
+**Previous: v0.4.0 - Professional Security Tool Integration - MCP Powered!**
 
 - **⚡ 9 Professional Security Tools**: Integrated via Model Context Protocol (MCP)
   ```bash
@@ -81,12 +121,28 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 ### 🔍 Security Scanning
 - **Desktop Security Scan**: Comprehensive system analysis
 - **Web Application Scanning**: OWASP Top 10 vulnerability detection
+- **OSINT Reconnaissance**: Domain, email, username intelligence gathering
 - **Network Traffic Analysis**: PCAP file analysis with AI insights
 - **Quick Check**: Rapid security assessment
 - **Network Analysis**: Connection monitoring and threat detection
 - **Process Monitoring**: Identify suspicious activity
 
-### 📦 Network Traffic Analysis (NEW!)
+### 🕵️ OSINT Reconnaissance (NEW!)
+- **NO API KEYS NEEDED**: All 10 tools completely free
+- **DNS Reconnaissance**: Full DNS record analysis with security posture assessment
+- **WHOIS Lookup**: Domain age, expiration, registrar info with risk analysis
+- **Subdomain Enumeration**: Certificate transparency logs + DNS brute forcing (100+ wordlist)
+- **Email Harvesting**: Website scraping, mailto links, common patterns (info@, support@, etc.)
+- **Username Enumeration**: Check 35+ platforms (GitHub, Twitter, Instagram, LinkedIn, Reddit, etc.)
+- **Breach Data Lookup**: Have I Been Pwned integration with password breach checking
+- **Technology Detection**: Identify web server, CMS, frameworks, analytics (50+ signatures)
+- **Wayback Machine**: Historical snapshots, first/last archive dates, change detection
+- **IP Geolocation**: Country, city, ISP, organization, timezone lookup
+- **Reverse IP Lookup**: Find other domains hosted on same IP (shared hosting detection)
+- **Risk Scoring**: Automated assessment based on exposure, age, breaches, attack surface
+- **Export Options**: JSON and Markdown export for all results
+
+### 📦 Network Traffic Analysis
 - **PCAP/PCAPNG Support**: Analyze Wireshark capture files
 - **Protocol Dissection**: Ethernet, IPv4/IPv6, TCP/UDP, HTTP, DNS, ICMP, ARP
 - **Traffic Statistics**: Protocol distribution, conversations, endpoints
@@ -136,14 +192,15 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 - **Seamless Switching**: Switch between Claude and Gemini anytime
 - **Use Cases**: Opus for complex analysis, Gemini Flash for speed & cost-efficiency
 
-### 💬 Multiple Agent Modes
+### 💬 Multiple Agent Modes (6 total)
 - **Switch On-The-Fly**: Change modes without restarting
 - **Modes Available**:
   - 🤖 **base**: General security assistant
   - ⚔️ **redteam**: Offensive security perspective (defensive only)
   - 🛡️ **blueteam**: Defensive operations focus
   - 🔒 **desktopsecurity**: Personal computer security
-  - 🌐 **webpentest**: Web application security testing (NEW!)
+  - 🌐 **webpentest**: Web application security testing
+  - 🕵️ **osint**: Open source intelligence reconnaissance (NEW!)
 
 ### 📊 Reporting
 - **Beautiful Terminal UI**: Gradient colors, ASCII art, formatted tables
