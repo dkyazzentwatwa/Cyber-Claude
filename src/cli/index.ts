@@ -9,6 +9,7 @@ import { createHardenCommand } from './commands/harden.js';
 import { createChatCommand } from './commands/chat.js';
 import { createInteractiveCommand } from './commands/interactive.js';
 import { createWebScanCommand } from './commands/webscan.js';
+import { createPcapCommand } from './commands/pcap.js';
 import { InteractiveSession } from './session.js';
 
 const program = new Command();
@@ -24,6 +25,7 @@ program.addCommand(createScanCommand());
 program.addCommand(createHardenCommand());
 program.addCommand(createChatCommand());
 program.addCommand(createWebScanCommand());
+program.addCommand(createPcapCommand());
 
 // Default action - start interactive session
 program
@@ -35,6 +37,7 @@ program
       console.log(`  ${chalk.cyan('cyber-claude interactive')} - Start interactive session ${chalk.green('(Recommended)')}`);
       console.log(`  ${chalk.cyan('cyber-claude scan')}        - Scan your system for security issues`);
       console.log(`  ${chalk.cyan('cyber-claude webscan <url>')} - Scan web applications for vulnerabilities`);
+      console.log(`  ${chalk.cyan('cyber-claude pcap <file>')}   - Analyze network capture files`);
       console.log(`  ${chalk.cyan('cyber-claude harden')}      - Check system hardening status`);
       console.log(`  ${chalk.cyan('cyber-claude chat')}        - One-off chat mode`);
       console.log(`  ${chalk.cyan('cyber-claude --help')}      - Show all commands and options\n`);

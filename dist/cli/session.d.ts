@@ -5,6 +5,8 @@ export declare class InteractiveSession {
     private hardening;
     private reporter;
     private webScanner;
+    private pcapAnalyzer;
+    private pcapReporter;
     constructor(initialMode?: AgentMode, model?: string);
     /**
      * Start the interactive session
@@ -23,5 +25,7 @@ export declare class InteractiveSession {
     private handleHarden;
     private handleChat;
     private handleWebScan;
+    private handlePcap;
+    private formatDuration;
 }
 //# sourceMappingURL=session.d.ts.map

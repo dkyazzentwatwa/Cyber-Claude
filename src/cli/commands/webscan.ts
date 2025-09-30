@@ -7,6 +7,7 @@ import { getModelByKey } from '../../utils/models.js';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { WebScanResult } from '../../agent/types.js';
+import { NucleiMCP, SSLScanMCP, SQLmapMCP } from '../../mcp/tools/index.js';
 
 /**
  * Save scan results to the /scans directory as markdown
@@ -140,6 +141,10 @@ export function createWebScanCommand(): Command {
     .option('--skip-auth', 'Skip authorization checks (use only for sites you own)')
     .option('--model <model>', 'AI model to use for analysis')
     .option('--timeout <ms>', 'Request timeout in milliseconds', '10000')
+    .option('--nuclei', 'Run Nuclei vulnerability scan (5000+ templates)')
+    .option('--sslscan', 'Run SSL/TLS security analysis')
+    .option('--sqlmap', 'Test for SQL injection vulnerabilities')
+    .option('--with-mcp', 'Run all available MCP security tools')
     .action(async (url: string, options) => {
       const validation = validateConfig();
       if (!validation.valid) {
@@ -224,9 +229,143 @@ export function createWebScanCommand(): Command {
           ui.success('No security issues found!');
         }
 
+        // MCP Security Tool Scans
+        const mcpFindings: any[] = [];
+        const enableAllMCP = options.withMcp;
+
+        // Nuclei Vulnerability Scan
+        if (options.nuclei || enableAllMCP) {
+          if (NucleiMCP.isAvailable()) {
+            console.log('');
+            ui.section('🔍 Nuclei Vulnerability Scan');
+            const nucleiSpinner = ui.spinner('Running Nuclei scan with 5000+ templates...').start();
+
+            try {
+              const nucleiResult = await NucleiMCP.scan({
+                target: url,
+                templates: ['cves', 'owasp', 'vulnerabilities'],
+                severity: ['critical', 'high', 'medium'],
+              });
+
+              nucleiSpinner.succeed(`Nuclei scan complete`);
+
+              console.log(`\nFound ${nucleiResult.summary.total} vulnerabilities:`);
+              console.log(`  🔴 Critical: ${nucleiResult.summary.critical}`);
+              console.log(`  🟠 High: ${nucleiResult.summary.high}`);
+              console.log(`  🟡 Medium: ${nucleiResult.summary.medium}`);
+
+              if (nucleiResult.vulnerabilities.length > 0) {
+                console.log('\nTop Vulnerabilities:');
+                nucleiResult.vulnerabilities.slice(0, 5).forEach((vuln, idx) => {
+                  console.log(`  ${idx + 1}. [${vuln.severity.toUpperCase()}] ${vuln.name}`);
+                  console.log(`     Template: ${vuln.templateID}`);
+                });
+              }
+
+              mcpFindings.push({ tool: 'Nuclei', result: nucleiResult });
+            } catch (error: any) {
+              nucleiSpinner.fail(`Nuclei scan failed: ${error.message}`);
+            }
+          } else {
+            ui.warning('Nuclei MCP not enabled. Set MCP_NUCLEI_ENABLED=true');
+          }
+        }
+
+        // SSL/TLS Security Analysis
+        const parsedUrl = new URL(url);
+        if ((options.sslscan || enableAllMCP) && parsedUrl.protocol === 'https:') {
+          if (SSLScanMCP.isAvailable()) {
+            console.log('');
+            ui.section('🔒 SSL/TLS Security Analysis');
+            const sslSpinner = ui.spinner('Analyzing SSL/TLS configuration...').start();
+
+            try {
+              const sslResult = await SSLScanMCP.scan({
+                host: parsedUrl.hostname,
+                port: 443,
+              });
+
+              sslSpinner.succeed('SSL/TLS analysis complete');
+
+              console.log(`\nSecurity Grade: ${sslResult.grade} (Score: ${sslResult.score}/100)`);
+              console.log(`Supported Protocols: ${sslResult.supportedProtocols.join(', ')}`);
+
+              if (sslResult.deprecatedProtocols.length > 0) {
+                console.log(`⚠️  Deprecated Protocols: ${sslResult.deprecatedProtocols.join(', ')}`);
+              }
+
+              if (sslResult.vulnerabilities.length > 0) {
+                console.log(`\nSSL/TLS Vulnerabilities Found:`);
+                sslResult.vulnerabilities.forEach(vuln => {
+                  console.log(`  🔴 ${vuln.name} (${vuln.severity}): ${vuln.description}`);
+                });
+              }
+
+              if (sslResult.certificate) {
+                console.log(`\nCertificate:`);
+                console.log(`  Subject: ${sslResult.certificate.subject}`);
+                console.log(`  Issuer: ${sslResult.certificate.issuer}`);
+                console.log(`  Expires: ${sslResult.certificate.validTo} (${sslResult.certificate.daysUntilExpiry} days)`);
+              }
+
+              mcpFindings.push({ tool: 'SSLScan', result: sslResult });
+            } catch (error: any) {
+              sslSpinner.fail(`SSL/TLS scan failed: ${error.message}`);
+            }
+          } else {
+            ui.warning('SSLScan MCP not enabled. Set MCP_SSLSCAN_ENABLED=true');
+          }
+        }
+
+        // SQL Injection Testing
+        if (options.sqlmap || enableAllMCP) {
+          if (SQLmapMCP.isAvailable()) {
+            console.log('');
+            ui.section('💉 SQL Injection Testing');
+            const sqlSpinner = ui.spinner('Testing for SQL injection vulnerabilities...').start();
+
+            try {
+              const sqlResult = await SQLmapMCP.scan({
+                url,
+                level: 2,
+                risk: 1,
+                timeout: 120,
+              });
+
+              sqlSpinner.succeed('SQL injection test complete');
+
+              if (sqlResult.vulnerable) {
+                console.log(`\n🚨 SQL INJECTION DETECTED - Severity: ${sqlResult.severity.toUpperCase()}`);
+                console.log(`Found ${sqlResult.injections.length} injection point(s):\n`);
+
+                sqlResult.injections.forEach((inj, idx) => {
+                  console.log(`  ${idx + 1}. Parameter: ${inj.parameter}`);
+                  console.log(`     Type: ${inj.type}`);
+                  console.log(`     DBMS: ${inj.dbms}`);
+                });
+
+                if (sqlResult.recommendations.length > 0) {
+                  console.log(`\nRecommendations:`);
+                  sqlResult.recommendations.slice(0, 3).forEach(rec => {
+                    console.log(`  • ${rec}`);
+                  });
+                }
+              } else {
+                console.log('\n✓ No SQL injection vulnerabilities detected');
+              }
+
+              mcpFindings.push({ tool: 'SQLmap', result: sqlResult });
+            } catch (error: any) {
+              sqlSpinner.fail(`SQL injection test failed: ${error.message}`);
+            }
+          } else {
+            ui.warning('SQLmap MCP not enabled. Set MCP_SQLMAP_ENABLED=true');
+          }
+        }
+
         // AI Analysis
         let analysis: string | undefined;
-        if (result.findings.length > 0) {
+        if (result.findings.length > 0 || mcpFindings.length > 0) {
           const agent = new CyberAgent({
             mode: 'webpentest',
             apiKey: config.anthropicApiKey,
@@ -235,9 +374,17 @@ export function createWebScanCommand(): Command {
           });
 
           const spinner = ui.spinner('🤖 Analyzing findings with AI...');
+
+          // Combine all findings for AI analysis
+          const analysisData = {
+            builtInFindings: result.findings,
+            mcpFindings: mcpFindings,
+            target: result.target,
+          };
+
           analysis = await agent.analyze(
-            'Analyze these web security findings. Prioritize the issues, explain their impact, and provide actionable remediation guidance. Focus on the most critical vulnerabilities first.',
-            { findings: result.findings, target: result.target }
+            'Analyze these comprehensive web security findings from multiple tools (built-in scanner + MCP security tools). Prioritize the issues, explain their impact, provide actionable remediation guidance, and identify any patterns or relationships between findings from different tools. Focus on the most critical vulnerabilities first.',
+            analysisData
           );
           spinner.succeed('✓ AI analysis complete');
 

@@ -65,3 +65,12 @@ Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Yo
     at async ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
     at async CyberAgent.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/core.ts:66:32)
     at async Command.<anonymous> (/Users/cypher/Documents/coding/Cyber-Claude/src/cli/commands/webscan.ts:114:28)
+2025-09-29 21:42:06 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdyLhsJrFHCmJ62wHhtL"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdyLhsJrFHCmJ62wHhtL"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/pcap.js:120:34)

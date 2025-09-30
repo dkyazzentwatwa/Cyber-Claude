@@ -4,11 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Cyber Claude is an AI-powered cybersecurity agent CLI that supports multiple AI providers (Claude and Gemini). It provides desktop security scanning, web application vulnerability testing, system hardening checks, and interactive chat capabilities with persistent REPL-style sessions.
+Cyber Claude is an AI-powered cybersecurity agent CLI that supports multiple AI providers (Claude and Gemini). It provides desktop security scanning, web application vulnerability testing, network traffic analysis (pcap), system hardening checks, and interactive chat capabilities with persistent REPL-style sessions.
 
 **Key Differentiators**:
 - Multi-provider architecture allowing seamless switching between Claude (Anthropic) and Gemini (Google) models
 - Comprehensive web security testing with OWASP Top 10 coverage
+- AI-powered network traffic analysis with pcap file support (Wireshark-inspired CLI)
 - Ethical-first design with built-in authorization framework and domain blocklists
 
 ## Build & Development Commands
@@ -28,6 +29,7 @@ cyber-claude
 # Test CLI in dev mode
 npm run dev -- scan --quick
 npm run dev -- webscan https://example.com
+npm run dev -- pcap capture.pcap
 npm run dev -- interactive
 ```
 
@@ -69,7 +71,7 @@ System prompts are composed by combining base prompt + mode-specific prompt in `
 
 `InteractiveSession` class (`src/cli/session.ts`) implements persistent REPL:
 - Maintains `SessionState` with agent instance, mode, model, and command history
-- Built-in commands (`scan`, `webscan`, `harden`, `mode`, `model`, `status`, `help`) are parsed in `handleCommand()`
+- Built-in commands (`scan`, `webscan`, `pcap`, `harden`, `mode`, `model`, `status`, `help`) are parsed in `handleCommand()`
 - Non-command input is passed directly to `CyberAgent.chat()`
 - Model switching recreates `CyberAgent` instance with new provider but preserves session context
 
@@ -82,6 +84,7 @@ Commands (Commander.js):
 ├─ interactive (default) - Persistent REPL session
 ├─ scan - Desktop security scanning (quick/full/network)
 ├─ webscan - Web application vulnerability scanning
+├─ pcap - Network traffic analysis (.pcap/.pcapng files)
 ├─ harden - System hardening checks
 └─ chat - One-off chat mode
 ```
@@ -101,6 +104,10 @@ Default behavior: `cyber-claude` with no args starts interactive session (change
 - **WebScanner** - Orchestrates quick/full web vulnerability scans
 - **Authorization** - Ethical scanning framework with domain blocklists and user consent workflows
 
+**Network Analysis Tools** (`src/agent/tools/`):
+- **PcapAnalyzer** - Parses pcap/pcapng files, extracts packets, protocols, conversations, endpoints
+- **PcapReporter** - Formats pcap analysis results with statistics, exports to JSON/Markdown/CSV
+
 Tools collect data, then `CyberAgent.analyze()` passes data + task description to AI for analysis.
 
 **Web Security Features**:
@@ -111,6 +118,100 @@ Tools collect data, then `CyberAgent.analyze()` passes data + task description t
 - Form security analysis
 - Information disclosure checks
 - CTF challenge support
+
+**Network Traffic Analysis Features**:
+- Protocol dissection (Ethernet, IPv4/IPv6, TCP/UDP, HTTP, DNS, ICMP, ARP)
+- Packet parsing and statistics
+- Conversation/flow tracking
+- Endpoint analysis
+- DNS query extraction
+- HTTP request extraction
+- Anomaly detection (port scans, suspicious ports, unencrypted traffic)
+- Display filters (protocol, IP, port filtering)
+- Multiple analysis modes (quick, full, threat-hunt)
+- Export capabilities (JSON, Markdown, CSV)
+- Link layer type detection (Ethernet, Raw IP, Linux SLL)
+
+### MCP Security Tool Integration
+
+**MCP (Model Context Protocol) Architecture** (`src/mcp/`):
+- **MCPClientManager** (`src/mcp/client.ts`) - Manages connections to MCP servers via stdio transport
+- **MCP Configuration** (`src/mcp/config.ts`) - 9 security tool server definitions with environment-based enable/disable
+- **Tool Adapters** (`src/mcp/tools/`) - TypeScript wrappers for each MCP tool with result parsing
+
+**Available MCP Tools** (9 total):
+1. **NucleiMCP** - Vulnerability scanning with 5000+ templates (CVEs, OWASP, vulns)
+2. **SSLScanMCP** - SSL/TLS analysis with security grading (A+ to F), certificate validation, vulnerability detection
+3. **SQLmapMCP** - SQL injection testing with injection point detection and DBMS identification
+4. **NmapMCP** - Network scanning with host discovery, port scanning, service detection, OS detection
+5. **HttpxMCP** - HTTP probing and technology detection
+6. **KatanaMCP** - Web crawler with JavaScript parsing
+7. **AmassMCP** - Subdomain enumeration for reconnaissance
+8. **MasscanMCP** - Ultra-fast port scanning
+9. **HTTPHeadersMCP** - Security header analysis
+
+**MCP Integration Pattern**:
+```typescript
+// Check availability
+if (NucleiMCP.isAvailable()) {
+  // Run scan
+  const result = await NucleiMCP.scan({
+    target: url,
+    templates: ['cves', 'owasp'],
+    severity: ['critical', 'high']
+  });
+
+  // Display results
+  console.log(`Found ${result.summary.total} vulnerabilities`);
+}
+```
+
+**Command Integration**:
+- `webscan` command: `--nuclei`, `--sslscan`, `--sqlmap`, `--with-mcp` flags
+- `scan` command: `--nmap`, `--target`, `--ports`, `--nmap-aggressive` flags
+- MCP results combined with built-in scanning and fed into AI analysis
+
+**Configuration**: Environment variables in `.env`:
+```bash
+MCP_NUCLEI_ENABLED=true
+MCP_SSLSCAN_ENABLED=true
+MCP_SQLMAP_ENABLED=true
+MCP_NMAP_ENABLED=true
+# ... etc for all 9 tools
+```
+
+### Professional Analysis Features
+
+**IOC Extraction** (`src/utils/ioc.ts`):
+- Pattern-based extraction: IPv4, domains, URLs, emails, MD5/SHA1/SHA256 hashes, CVEs
+- Smart filtering: excludes private IPs (10.x, 192.168.x, 127.x), reserved ranges, false positives
+- Context tracking: associates IOCs with their source (DNS query, HTTP request, alert)
+- Frequency analysis: counts IOC occurrences
+- STIX 2.1 export: standard threat intelligence format
+
+**MITRE ATT&CK Mapping** (`src/utils/mitre.ts`):
+- 20+ technique definitions covering all attack phases
+- Automatic mapping based on keywords and patterns
+- Confidence scoring (high/medium/low)
+- Multiple tactics support per technique
+- Direct links to MITRE documentation
+- Categories: Initial Access, Execution, Persistence, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, Exfiltration, Command & Control
+
+**Evidence Preservation** (`src/utils/evidence.ts`):
+- Triple hash calculation: MD5, SHA1, SHA256 for file integrity
+- Chain of custody tracking: analyst name, case number, timestamps
+- Collection metadata: method, location, system info
+- Integrity verification: rehash and compare
+- JSON export: forensically sound evidence packages
+- Case management: organizes evidence by case number
+
+**PCAP Command Professional Options**:
+- `--extract-iocs` - Extract indicators of compromise
+- `--export-iocs <file>` - Export IOCs in STIX 2.1 format
+- `--mitre` - Map findings to MITRE ATT&CK techniques
+- `--preserve-evidence` - Create evidence package with chain of custody
+- `--case-number <number>` - Case number for evidence tracking
+- `--analyst <name>` - Analyst name for chain of custody
 
 ## Environment Configuration
 
@@ -195,13 +296,21 @@ Logger is used internally for debugging. User-facing output goes through `ui` mo
 **Core Dependencies**:
 - `@anthropic-ai/sdk` - Claude AI integration
 - `@google/generative-ai` - Gemini AI integration
+- `@modelcontextprotocol/sdk` - MCP client for security tool integration
 - `systeminformation` - Desktop system information gathering
+- `pcap-parser` - Network capture file parsing
 - `axios` - HTTP client for web scanning
 - `cheerio` - HTML parsing for web analysis
 - `validator` - URL and input validation
 - `inquirer` - Interactive CLI prompts
 - `chalk`, `boxen`, `ora` - Terminal UI
 - `uuid` - Unique ID generation
+- `winston` - Logging framework
+
+**Professional Features**:
+- IOC extraction patterns (built-in regex)
+- MITRE ATT&CK mappings (built-in database)
+- Evidence preservation (crypto module for hashing)
 
 ## Security Constraints
 

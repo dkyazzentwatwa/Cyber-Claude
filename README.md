@@ -1,38 +1,68 @@
 # 🛡️ Cyber Claude
 
-**AI-Powered Cybersecurity Agent for Red/Blue Teaming, Web Security Testing & Desktop Security**
+**AI-Powered Cybersecurity Agent for Red/Blue Teaming, Web Security Testing, Network Traffic Analysis & Desktop Security**
 
-An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview), designed for defensive security operations, web application vulnerability testing, system hardening, and security analysis.
+An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview), designed for defensive security operations, web application vulnerability testing, network traffic analysis (pcap), system hardening, and security analysis.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
 ![Claude](https://img.shields.io/badge/Claude-Sonnet%204-purple)
 
-## 🆕 What's New in v0.3.0
+## 🆕 What's New in v0.4.0
 
-**🌐 Web Application Security Testing + Multi-Provider Support!**
+**🔧 Professional Security Tool Integration - MCP Powered!**
 
-- **🔍 Web Vulnerability Scanning**: Test web applications for OWASP Top 10 vulnerabilities!
+- **⚡ 9 Professional Security Tools**: Integrated via Model Context Protocol (MCP)
   ```bash
-  cyber-claude webscan https://example.com
-  cyber-claude webscan --full https://myapp.local
-  > webscan https://ctf.example.com         # CTF mode support!
+  # Web Security
+  cyber-claude webscan https://example.com --nuclei --sslscan --sqlmap
+  cyber-claude webscan https://example.com --with-mcp  # Run all tools
+
+  # Network Security
+  cyber-claude scan --network --nmap --target 192.168.1.0/24
   ```
 
+- **🛠️ Included Tools**:
+  - **Nuclei** - 5000+ vulnerability templates
+  - **SSLScan** - SSL/TLS security grading
+  - **SQLmap** - SQL injection testing
+  - **Nmap** - Network port scanning
+  - **Httpx** - HTTP probing & tech detection
+  - **Katana** - Web crawler with JS parsing
+  - **Amass** - Subdomain enumeration
+  - **Masscan** - Ultra-fast port scanning
+  - **HTTP Headers** - Security header analysis
+
+- **🎯 Professional Features**:
+  - IOC extraction with STIX 2.1 export
+  - MITRE ATT&CK technique mapping
+  - Evidence preservation with chain of custody
+  - Triple hash verification (MD5/SHA1/SHA256)
+  - Forensically sound metadata tracking
+
+**📦 Network Traffic Analysis - AI-Powered Wireshark!**
+
+- **🔍 PCAP Analysis**: Analyze network capture files with AI-powered insights!
+  ```bash
+  cyber-claude pcap capture.pcap --extract-iocs --mitre
+  cyber-claude pcap --mode threat-hunt suspicious.pcap --preserve-evidence
+  cyber-claude pcap --filter tcp --port 443 traffic.pcap
+  > pcap network-capture.pcap              # Works in interactive session!
+  ```
+
+- **🎯 Wireshark-Inspired Features**: Protocol dissection, display filters, statistics
+- **📊 Comprehensive Analysis**: Conversations, endpoints, DNS queries, HTTP requests
+- **🚨 Threat Detection**: Port scans, suspicious ports, anomaly detection
+- **📈 Export Options**: JSON, Markdown, CSV formats
+- **🔬 Analysis Modes**: Quick, full, or threat-hunt analysis
+
+**Previous: v0.3.0 - Web Security Testing + Multi-Provider Support**
+
+- **🔍 Web Vulnerability Scanning**: Test web applications for OWASP Top 10 vulnerabilities
 - **🎯 New `webpentest` Mode**: AI agent specialized in web security analysis
 - **🔒 Ethical Framework**: Authorization required, domain blocklists, CTF mode
-- **🛡️ Security Analysis**: Headers, CSRF, XSS detection, cookie security, form analysis
-
 - **🔮 Gemini API Support**: Use Google's Gemini 2.5 models alongside Claude!
-  ```bash
-  cyber-claude webscan --model gemini-2.5-flash https://example.com
-  cyber-claude scan --model opus-4.1
-  > model                                        # Switch in session!
-  ```
-
 - **9 Total Models**: 6 Claude models + 3 Gemini models to choose from
-- **Provider Abstraction**: Seamless switching between Claude and Gemini
-- **📖 See [GEMINI_INTEGRATION.md](GEMINI_INTEGRATION.md)** for Gemini setup!
 
 **Previous Updates (v0.2.0):**
 - ✨ Interactive Session (REPL) - persistent, no re-typing commands
@@ -51,11 +81,23 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 ### 🔍 Security Scanning
 - **Desktop Security Scan**: Comprehensive system analysis
 - **Web Application Scanning**: OWASP Top 10 vulnerability detection
+- **Network Traffic Analysis**: PCAP file analysis with AI insights
 - **Quick Check**: Rapid security assessment
 - **Network Analysis**: Connection monitoring and threat detection
 - **Process Monitoring**: Identify suspicious activity
 
-### 🌐 Web Security Testing (NEW!)
+### 📦 Network Traffic Analysis (NEW!)
+- **PCAP/PCAPNG Support**: Analyze Wireshark capture files
+- **Protocol Dissection**: Ethernet, IPv4/IPv6, TCP/UDP, HTTP, DNS, ICMP, ARP
+- **Traffic Statistics**: Protocol distribution, conversations, endpoints
+- **DNS Analysis**: Query extraction and analysis
+- **HTTP Extraction**: Request/response analysis
+- **Threat Detection**: Port scans, suspicious ports, anomaly detection
+- **Display Filters**: Filter by protocol, IP, or port (Wireshark-style)
+- **Export Formats**: JSON, Markdown, CSV
+- **AI-Powered Insights**: Threat hunting, pattern analysis, recommendations
+
+### 🌐 Web Security Testing
 - **OWASP Top 10**: SQL injection, XSS, CSRF, SSRF detection
 - **Security Headers**: CSP, HSTS, X-Frame-Options analysis
 - **Cookie Security**: Secure, HttpOnly, SameSite checks
@@ -68,6 +110,23 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 - **Platform-Specific Recommendations**: macOS, Linux, Windows
 - **Compliance Validation**: Security baseline checking
 - **AI-Powered Recommendations**: Prioritized, actionable advice
+
+### 🔧 Professional Security Tools (MCP Integration)
+- **9 Security Tools**: Integrated via Model Context Protocol
+- **Web Security**: Nuclei (5000+ templates), SSLScan, SQLmap, HTTP Headers
+- **Network Security**: Nmap, Masscan, Httpx
+- **Reconnaissance**: Katana (web crawler), Amass (subdomain enum)
+- **Zero Setup**: Tools auto-installed via npx when first used
+- **Enable/Disable**: Simple environment variable configuration
+- **Unified Analysis**: MCP results combined with built-in scanning + AI analysis
+
+### 🔬 Professional Analysis Features
+- **IOC Extraction**: Extract IPs, domains, URLs, emails, hashes, CVEs from pcap files
+- **STIX 2.1 Export**: Share threat intelligence in standard format
+- **MITRE ATT&CK Mapping**: 20+ technique definitions with automatic mapping
+- **Evidence Preservation**: Forensically sound chain of custody
+- **Triple Hash Verification**: MD5/SHA1/SHA256 for integrity
+- **Case Management**: Track analyst, case number, collection method
 
 ### 🤖 Multi-Provider AI Models (NEW!)
 - **9 Models Total**: 6 Claude + 3 Gemini models
@@ -97,7 +156,7 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 ### Prerequisites
 - Node.js 18+
 - npm or yarn
-- Anthropic API key ([Get one here](https://console.anthropic.com/))
+- Anthropic API key ([Get one here](https://console.anthropic.com/)) or Google API key ([Get one here](https://aistudio.google.com/apikey))
 
 ### Installation
 
@@ -111,7 +170,7 @@ npm install
 
 # Configure environment
 cp .env.example .env
-# Edit .env and add your ANTHROPIC_API_KEY
+# Edit .env and add your ANTHROPIC_API_KEY or GOOGLE_API_KEY
 
 # Build the project
 npm run build
@@ -119,6 +178,29 @@ npm run build
 # Run in development mode
 npm run dev
 ```
+
+### MCP Security Tools Setup (Optional)
+
+Enable professional security tools by setting environment variables in `.env`:
+
+```bash
+# Web Security Tools
+MCP_NUCLEI_ENABLED=true           # Vulnerability scanning (5000+ templates)
+MCP_SSLSCAN_ENABLED=true          # SSL/TLS security analysis
+MCP_SQLMAP_ENABLED=true           # SQL injection testing
+MCP_HTTP_HEADERS_ENABLED=true     # HTTP security headers analysis
+
+# Network Security Tools
+MCP_NMAP_ENABLED=true             # Network scanning and service detection
+MCP_MASSCAN_ENABLED=true          # Ultra-fast port scanning
+
+# Reconnaissance Tools
+MCP_HTTPX_ENABLED=true            # HTTP probing and tech detection
+MCP_KATANA_ENABLED=true           # Web crawler with JS parsing
+MCP_AMASS_ENABLED=true            # Subdomain enumeration
+```
+
+**No Installation Required!** MCP tools are automatically installed via `npx` when first used. Just enable them in `.env` and start scanning.
 
 ### Basic Usage
 
@@ -131,6 +213,7 @@ cyber-claude
 > scan                    # Quick security check
 > scan full               # Full system scan
 > webscan https://example.com  # Scan web application
+> pcap capture.pcap       # Analyze network traffic
 > harden                  # Check hardening
 > mode redteam            # Switch to red team mode
 > model                   # Select AI model
@@ -148,6 +231,12 @@ cyber-claude scan --network --model opus-4
 # Web application scanning
 cyber-claude webscan https://example.com
 cyber-claude webscan --full https://myapp.local
+
+# Network traffic analysis
+cyber-claude pcap capture.pcap
+cyber-claude pcap --mode threat-hunt suspicious.pcap
+cyber-claude pcap --filter tcp --port 443 traffic.pcap
+cyber-claude pcap --packets --export-json report.json capture.pcap
 
 # Check system hardening
 cyber-claude harden --model haiku-4
@@ -168,6 +257,7 @@ Start interactive session (NEW!)
 **Session Commands:**
 - `scan` / `scan full` / `scan network` - Desktop security scans
 - `webscan <url>` - Web application vulnerability scan
+- `pcap <file>` - Analyze network capture file
 - `harden` - Hardening check
 - `mode <mode>` - Switch mode
 - `model` - Select AI model
@@ -193,6 +283,10 @@ Scan your system for security issues
 - `-q, --quick` - Quick security check
 - `-f, --full` - Full system scan (default)
 - `-n, --network` - Network connections scan
+- `--nmap` - Use Nmap for professional network scanning (requires MCP_NMAP_ENABLED=true)
+- `--target <target>` - Target IP/hostname/CIDR for Nmap scan
+- `--ports <ports>` - Ports to scan with Nmap (default: top-1000)
+- `--nmap-aggressive` - Enable aggressive Nmap scanning (-A flag)
 - `--model <model>` - AI model to use
 - `--json <file>` - Export results to JSON
 - `--md <file>` - Export results to Markdown
@@ -201,6 +295,8 @@ Scan your system for security issues
 ```bash
 cyber-claude scan --quick
 cyber-claude scan --network
+cyber-claude scan --network --nmap --target 192.168.1.0/24
+cyber-claude scan --network --nmap --target 10.0.0.1 --ports 1-65535 --nmap-aggressive
 cyber-claude scan --json report.json --md report.md
 ```
 
@@ -221,13 +317,17 @@ cyber-claude harden --recommendations
 cyber-claude harden --json hardening-report.json
 ```
 
-### `cyber-claude webscan` (NEW!)
+### `cyber-claude webscan`
 Scan web applications for security vulnerabilities
 
 **Options:**
 - `-q, --quick` - Quick security scan (headers only)
 - `-f, --full` - Full vulnerability scan (CSRF, XSS detection)
 - `--ctf` - CTF challenge mode
+- `--nuclei` - Run Nuclei vulnerability scan with 5000+ templates (requires MCP_NUCLEI_ENABLED=true)
+- `--sslscan` - Run SSL/TLS security analysis (requires MCP_SSLSCAN_ENABLED=true)
+- `--sqlmap` - Test for SQL injection vulnerabilities (requires MCP_SQLMAP_ENABLED=true)
+- `--with-mcp` - Run all available MCP security tools
 - `--model <model>` - AI model to use
 - `--timeout <ms>` - Request timeout in milliseconds
 
@@ -236,10 +336,48 @@ Scan web applications for security vulnerabilities
 cyber-claude webscan https://example.com
 cyber-claude webscan --full https://myapp.local
 cyber-claude webscan --ctf https://ctf.hackthebox.com/challenge
-cyber-claude webscan --model opus-4 https://staging.example.com
+cyber-claude webscan https://example.com --nuclei --sslscan
+cyber-claude webscan https://example.com --with-mcp
+cyber-claude webscan https://staging.myapp.com --full --sqlmap
 ```
 
-**Ethical Requirements:**
+### `cyber-claude pcap` (NEW!)
+Analyze network capture files with AI-powered insights
+
+**Options:**
+- `-m, --mode <mode>` - Analysis mode: quick, full, or threat-hunt (default: quick)
+- `--model <model>` - AI model to use
+- `-f, --filter <protocol>` - Display filter (protocol name, e.g., "tcp", "udp", "dns")
+- `--src <ip>` - Filter by source IP address
+- `--dst <ip>` - Filter by destination IP address
+- `--port <port>` - Filter by port (source or destination)
+- `--sport <port>` - Filter by source port
+- `--dport <port>` - Filter by destination port
+- `--packets` - Display packet list (up to 50 packets)
+- `--max-packets <n>` - Maximum packets to analyze
+- `--stats-only` - Show only statistics without AI analysis
+- `--extract-iocs` - Extract indicators of compromise (IPs, domains, URLs, hashes, CVEs)
+- `--export-iocs <file>` - Export IOCs in STIX 2.1 format
+- `--mitre` - Map findings to MITRE ATT&CK techniques
+- `--preserve-evidence` - Create forensically sound evidence package with chain of custody
+- `--case-number <number>` - Case number for evidence preservation
+- `--analyst <name>` - Analyst name for evidence chain of custody
+- `--export-json <file>` - Export analysis to JSON
+- `--export-md <file>` - Export report to Markdown
+- `--export-csv <file>` - Export packets to CSV
+
+**Examples:**
+```bash
+cyber-claude pcap capture.pcap
+cyber-claude pcap --mode full network-traffic.pcap
+cyber-claude pcap --mode threat-hunt --filter tcp suspicious.pcap
+cyber-claude pcap --port 443 --packets https-traffic.pcap
+cyber-claude pcap --src 192.168.1.100 --export-json report.json capture.pcap
+cyber-claude pcap capture.pcap --extract-iocs --mitre --export-iocs iocs.json
+cyber-claude pcap suspicious.pcap --preserve-evidence --case-number CASE-2024-001 --analyst "John Doe"
+```
+
+### `cyber-claude chat`
 - Authorization required before scanning
 - Domain blocklists prevent scanning sensitive sites
 - Legal warnings displayed

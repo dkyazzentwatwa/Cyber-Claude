@@ -1,0 +1,32 @@
+{
+  "id": "EV-MG62MKUF-EWYOKLJ",
+  "filename": "hao123-com_packet-injection.pcap",
+  "filepath": "/users/cypher/documents/coding/cyber-claude/pcap/hao123-com_packet-injection.pcap",
+  "fileSize": 176614,
+  "collectionDate": "2025-09-30T04:42:17.223Z",
+  "collectionMethod": "Cyber-Claude PCAP Analysis",
+  "collectedBy": "Cyber-Claude",
+  "caseNumber": "CASE-2025-001",
+  "description": "Network traffic capture analysis - quick mode",
+  "hashes": {
+    "md5": "81b98f6524cc1413dbf51d3380537456",
+    "sha1": "62afe30ac380a74f068c4553c68d7f14454633a0",
+    "sha256": "47714f8a876e2d24cf578875b18b870ba32785606b5c028f50c759f5e195df50"
+  },
+  "chainOfCustody": [
+    {
+      "timestamp": "2025-09-30T04:42:17.223Z",
+      "action": "collected",
+      "performedBy": "Cyber-Claude",
+      "notes": "Evidence collected using Cyber-Claude PCAP Analysis",
+      "hashVerified": true
+    },
+    {
+      "action": "analyzed",
+      "performedBy": "Cyber-Claude",
+      "notes": "PCAP analyzed in quick mode - 202 packets",
+      "hashVerified": true,
+      "timestamp": "2025-09-30T04:42:17.223Z"
+    }
+  ]
+}

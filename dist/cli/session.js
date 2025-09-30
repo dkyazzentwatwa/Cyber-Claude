@@ -6,6 +6,8 @@ import { DesktopScanner } from '../agent/tools/scanner.js';
 import { HardeningChecker } from '../agent/tools/hardening.js';
 import { SecurityReporter } from '../agent/tools/reporter.js';
 import { WebScanner } from '../agent/tools/web/WebScanner.js';
+import { PcapAnalyzer } from '../agent/tools/PcapAnalyzer.js';
+import { PcapReporter } from '../agent/tools/PcapReporter.js';
 import { config } from '../utils/config.js';
 import { AVAILABLE_MODELS, getModelByKey } from '../utils/models.js';
 import { promises as fs } from 'fs';
@@ -122,11 +124,15 @@ export class InteractiveSession {
     hardening;
     reporter;
     webScanner;
+    pcapAnalyzer;
+    pcapReporter;
     constructor(initialMode = 'base', model) {
         this.scanner = new DesktopScanner();
         this.hardening = new HardeningChecker();
         this.reporter = new SecurityReporter();
         this.webScanner = new WebScanner();
+        this.pcapAnalyzer = new PcapAnalyzer();
+        this.pcapReporter = new PcapReporter();
         const selectedModel = model || config.model;
         this.state = {
             agent: new CyberAgent({
@@ -213,6 +219,7 @@ export class InteractiveSession {
             `  ${chalk.cyan('scan full')} - Full system scan\n` +
             `  ${chalk.cyan('scan network')} - Network scan\n` +
             `  ${chalk.cyan('webscan <url>')} - Scan web application\n` +
+            `  ${chalk.cyan('pcap <file>')} - Analyze network capture file\n` +
             `  ${chalk.cyan('harden')} - Check hardening\n` +
             `  ${chalk.cyan('mode <mode>')} - Change mode (base, redteam, blueteam, desktopsecurity, webpentest)\n` +
             `  ${chalk.cyan('model')} - Select model\n` +
@@ -258,6 +265,9 @@ export class InteractiveSession {
             case 'webscan':
                 await this.handleWebScan(args);
                 return false;
+            case 'pcap':
+                await this.handlePcap(args);
+                return false;
             case 'harden':
                 await this.handleHarden();
                 return false;
@@ -274,6 +284,7 @@ export class InteractiveSession {
         console.log(`  ${chalk.cyan('scan full')}         Full system scan with AI analysis`);
         console.log(`  ${chalk.cyan('scan network')}      Analyze network connections`);
         console.log(`  ${chalk.cyan('webscan <url>')}     Scan web application for vulnerabilities`);
+        console.log(`  ${chalk.cyan('pcap <file>')}       Analyze network capture file (.pcap)`);
         console.log(`  ${chalk.cyan('harden')}            Check system hardening status`);
         console.log(chalk.bold.cyan('\n⚙️  Session Control:'));
         console.log(`  ${chalk.cyan('mode <mode>')}       Switch agent mode`);
@@ -472,6 +483,78 @@ export class InteractiveSession {
         catch (error) {
             ui.error(`Web scan failed: ${error}`);
         }
+    }
+    async handlePcap(args) {
+        if (args.length === 0) {
+            ui.error('Please provide a pcap file to analyze');
+            ui.info('Usage: pcap <file.pcap>');
+            return;
+        }
+        const filePath = args[0];
+        try {
+            console.log('');
+            ui.section(`📦 Network Traffic Analysis: ${filePath}`);
+            console.log('');
+            const spinner = ui.spinner('Parsing pcap file...');
+            const analysis = await this.pcapAnalyzer.analyze(filePath, {
+                includePackets: false,
+                statisticsOnly: false,
+            });
+            spinner.succeed('Pcap file parsed successfully');
+            console.log('');
+            // Display summary
+            this.pcapReporter.displaySummary(analysis);
+            // AI Analysis
+            if (analysis.packetCount > 0) {
+                const aiSpinner = ui.spinner('🤖 Analyzing network traffic with AI...');
+                // Build analysis prompt
+                let prompt = `Analyze the following network traffic capture:\n\n`;
+                prompt += `File: ${analysis.filename}\n`;
+                prompt += `Packets: ${analysis.packetCount.toLocaleString()}\n`;
+                prompt += `Duration: ${this.formatDuration(analysis.captureDuration)}\n\n`;
+                prompt += `Protocol Distribution:\n`;
+                for (const stat of analysis.protocolStats.slice(0, 10)) {
+                    prompt += `- ${stat.protocol}: ${stat.packets} packets (${stat.percentage.toFixed(1)}%)\n`;
+                }
+                prompt += `\n`;
+                if (analysis.conversations.length > 0) {
+                    prompt += `Top Conversations:\n`;
+                    for (const conv of analysis.conversations.slice(0, 5)) {
+                        prompt += `- ${conv.protocol} ${conv.sourceAddr}:${conv.sourcePort} ↔ `;
+                        prompt += `${conv.destAddr}:${conv.destPort} (${conv.packets} packets)\n`;
+                    }
+                    prompt += `\n`;
+                }
+                if (analysis.alerts.length > 0) {
+                    prompt += `⚠️ Detected Alerts:\n`;
+                    for (const alert of analysis.alerts) {
+                        prompt += `- ${alert}\n`;
+                    }
+                    prompt += `\n`;
+                }
+                prompt += `Provide a security analysis of this network traffic, highlighting:\n`;
+                prompt += `1. Overall traffic patterns and what they indicate\n`;
+                prompt += `2. Any suspicious or unusual activity\n`;
+                prompt += `3. Security concerns and potential threats\n`;
+                prompt += `4. Recommendations for further investigation\n`;
+                const aiResponse = await this.state.agent.analyze(prompt, 'network traffic analysis');
+                aiSpinner.succeed('✓ Analysis complete');
+                console.log('\n' + ui.formatAIResponse(aiResponse) + '\n');
+            }
+            ui.success('✓ Pcap analysis complete!');
+        }
+        catch (error) {
+            ui.error(`Pcap analysis failed: ${error.message}`);
+        }
+    }
+    formatDuration(ms) {
+        if (ms < 1000)
+            return `${ms}ms`;
+        if (ms < 60000)
+            return `${(ms / 1000).toFixed(2)}s`;
+        if (ms < 3600000)
+            return `${(ms / 60000).toFixed(2)}m`;
+        return `${(ms / 3600000).toFixed(2)}h`;
     }
 }
 //# sourceMappingURL=session.js.map
