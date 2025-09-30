@@ -1,8 +1,92 @@
-# 🎯 New Features - Interactive Session & Model Selector
+# 🎯 Features - Interactive Session, Multi-Provider AI & Web Security Testing
+
+## 🌐 Web Security Testing (v0.3.0 - NEW!)
+
+Test web applications for security vulnerabilities with AI-powered analysis!
+
+### Quick Start
+```bash
+# Scan a web application
+cyber-claude webscan https://example.com
+
+# Full vulnerability scan
+cyber-claude webscan --full https://myapp.local
+
+# CTF challenge mode
+cyber-claude webscan --ctf https://ctf.example.com
+
+# In interactive session
+cyber-claude interactive --mode webpentest
+> webscan https://staging.myapp.local
+```
+
+### Web Security Features
+
+**🔍 Vulnerability Detection**
+- OWASP Top 10 vulnerabilities
+- Security header analysis (CSP, HSTS, X-Frame-Options)
+- Cookie security (Secure, HttpOnly, SameSite)
+- CSRF token detection
+- XSS vulnerability patterns
+- Form security analysis
+- Information disclosure checks
+
+**🎯 webpentest Mode**
+- Specialized AI agent for web security
+- Educational CTF challenge support
+- Explains vulnerabilities in depth
+- OWASP standard references
+- Actionable remediation guidance
+
+**🔒 Ethical Framework**
+- Authorization required before every scan
+- Domain blocklists (banks, government, production services)
+- Legal warnings displayed prominently
+- Double confirmation for production sites
+- CTF-specific authorization flow
+- Rate limiting respects target servers
+
+### Web Scanning Workflow
+
+```bash
+$ cyber-claude webscan https://staging.myapp.local
+
+⚠️  AUTHORIZATION REQUIRED
+Target: https://staging.myapp.local
+⚠️  This appears to be a PRODUCTION website
+Ensure you have EXPLICIT WRITTEN PERMISSION
+
+? I have authorization to test this URL: Yes
+Type 'I AUTHORIZE' to confirm: I AUTHORIZE
+
+✔ Authorization confirmed
+🔍 Scanning https://staging.myapp.local...
+✔ Web scan completed
+
+Target: https://staging.myapp.local
+Protocol: HTTPS
+Findings: 5
+
+Findings Summary:
+  🔴 Critical: 0
+  🟠 High: 2
+  🟡 Medium: 2
+  🟢 Low: 1
+
+🟠 HIGH - Missing CSRF Protection
+  Form at /update-profile may lack CSRF protection
+
+🟠 HIGH - Cookie Without HttpOnly Flag
+  Cookie 'session' is accessible via JavaScript
+
+💭 Analyzing findings with AI...
+
+[AI provides detailed analysis, impact assessment, and remediation steps]
+```
 
 ## 🚀 Interactive Session Mode (Like Claude Code!)
 
-The **biggest new feature** - a persistent REPL-style session where you don't need to keep entering commands!
+The **persistent REPL-style session** where you don't need to keep entering commands!
 
 ### Quick Start
 ```bash
@@ -26,14 +110,16 @@ cyber-claude i
 **⚡ Quick Commands**
 ```
 # Inside session, just type:
-scan           → Quick security scan
-scan full      → Full system scan
-scan network   → Network analysis
-harden         → System hardening check
-mode redTeam   → Switch to red team mode
-model          → Select AI model
-status         → Show session info
-help           → Show all commands
+scan                    → Quick security scan
+scan full               → Full system scan
+scan network            → Network analysis
+webscan <url>           → Web application scan (NEW!)
+harden                  → System hardening check
+mode redteam            → Switch to red team mode
+mode webpentest         → Switch to web pentest mode (NEW!)
+model                   → Select AI model
+status                  → Show session info
+help                    → Show all commands
 ```
 
 **💬 Natural Chat**
@@ -46,8 +132,8 @@ Just type naturally - if it's not a built-in command, it goes to the AI agent:
 
 **🎨 Session Features**
 - Command history (use ↑/↓ arrows)
-- Current mode displayed in prompt: `🔒 [desktopSecurity] >`
-- Color-coded by mode (red team = red, blue team = blue, etc.)
+- Current mode displayed in prompt: `🔒 [desktopsecurity] >`
+- Color-coded by mode (redteam = red, blueteam = blue, webpentest = magenta)
 - Easy mode switching without leaving session
 - Model selection on-the-fly
 
@@ -57,31 +143,36 @@ Just type naturally - if it's not a built-in command, it goes to the AI agent:
 $ cyber-claude
 
 # Cyber Claude banner appears...
-Mode: base | Model: Claude Sonnet 4
+Mode: base | Model: Claude Sonnet 4.5
 
-🤖 [base] > mode redTeam
-✔ Switched to redTeam mode
+🤖 [base] > mode redteam
+✔ Switched to redteam mode
 
-⚔️ [redTeam] > scan
+⚔️ [redteam] > scan
 Running quick security check...
 ✔ Quick check completed
 [Results displayed]
 
-⚔️ [redTeam] > What are the key findings I should focus on?
+⚔️ [redteam] > What are the key findings I should focus on?
 💭 Thinking...
 [AI responds with analysis]
 
-⚔️ [redTeam] > model
+⚔️ [redteam] > mode webpentest
+✔ Switched to webpentest mode
+
+🌐 [webpentest] > webscan https://staging.example.com
+[Authorization prompts...]
+✔ Web scan completed
+[Results with AI analysis]
+
+🌐 [webpentest] > model
 ? Select AI model:
-  Claude Sonnet 4 (Recommended)
-> Claude Opus 4
+  Claude Sonnet 4.5 (Recommended)
+> Claude Opus 4.1
 
-✔ Switched to Claude Opus 4
+✔ Switched to Claude Opus 4.1
 
-⚔️ [redTeam] > help
-[Shows all commands]
-
-⚔️ [redTeam] > exit
+🌐 [webpentest] > exit
 Goodbye! 👋
 ```
 

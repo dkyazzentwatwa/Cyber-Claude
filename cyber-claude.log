@@ -38,3 +38,92 @@ Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Yo
 2025-09-29 17:33:08 [INFO]: Sending message to Gemini (gemini-2.5-flash)
 2025-09-29 17:33:20 [INFO]: Received response from Gemini
 2025-09-29 17:33:20 [INFO]: Received response from Gemini (Google)
+2025-09-29 18:00:08 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-09-29 18:00:16 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-09-29 18:00:22 [INFO]: Sending message to Gemini (Google) (mode: base)
+2025-09-29 18:00:22 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-09-29 18:01:14 [INFO]: Received response from Gemini
+2025-09-29 18:01:14 [INFO]: Received response from Gemini (Google)
+2025-09-29 18:44:35 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-09-29 18:44:47 [INFO]: Sending message to Claude (Anthropic) (mode: base)
+2025-09-29 18:44:47 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-09-29 18:44:47 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdjpVBUNNLKkiY3uKrd5"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdjpVBUNNLKkiY3uKrd5"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:313:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:158:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:59:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:45:5)
+2025-09-29 18:44:47 [ERROR]: Error in chat: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdjpVBUNNLKkiY3uKrd5"}
+Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdjpVBUNNLKkiY3uKrd5"}
+    at ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:36:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:313:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:158:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:59:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:45:5)
+2025-09-29 18:44:51 [INFO]: Sending message to Claude (Anthropic) (mode: base)
+2025-09-29 18:44:51 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-09-29 18:44:51 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdjpnsLYYbQfqH6n6Xux"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdjpnsLYYbQfqH6n6Xux"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:313:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:158:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:59:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:45:5)
+2025-09-29 18:44:51 [ERROR]: Error in chat: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdjpnsLYYbQfqH6n6Xux"}
+Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdjpnsLYYbQfqH6n6Xux"}
+    at ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:36:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:313:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:158:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:59:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:45:5)
+2025-09-29 18:44:57 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-09-29 19:09:29 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in webpentest mode
+2025-09-29 19:09:29 [INFO]: Sending message to Claude (Anthropic) (mode: webpentest)
+2025-09-29 19:09:29 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-09-29 19:09:29 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdmhjLJdtRTDZmDZBvon"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdmhjLJdtRTDZmDZBvon"}
+    at Function.generate (/Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:63:14)
+    at Anthropic.makeStatusError (/Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (/Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at async CyberAgent.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/core.ts:66:32)
+    at async Command.<anonymous> (/Users/cypher/Documents/coding/Cyber-Claude/src/cli/commands/webscan.ts:114:28)
+2025-09-29 19:10:01 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in webpentest mode
+2025-09-29 19:10:01 [INFO]: Sending message to Gemini (Google) (mode: webpentest)
+2025-09-29 19:10:01 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-09-29 19:10:19 [INFO]: Received response from Gemini
+2025-09-29 19:10:19 [INFO]: Received response from Gemini (Google)
+2025-09-29 19:10:41 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in webpentest mode
+2025-09-29 19:10:41 [INFO]: Sending message to Gemini (Google) (mode: webpentest)
+2025-09-29 19:10:41 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-09-29 19:11:08 [INFO]: Received response from Gemini
+2025-09-29 19:11:08 [INFO]: Received response from Gemini (Google)
+2025-09-29 19:15:19 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in webpentest mode
+2025-09-29 19:15:19 [INFO]: Sending message to Gemini (Google) (mode: webpentest)
+2025-09-29 19:15:19 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-09-29 19:15:36 [INFO]: Received response from Gemini
+2025-09-29 19:15:36 [INFO]: Received response from Gemini (Google)
+2025-09-29 19:17:42 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in webpentest mode
+2025-09-29 19:17:42 [INFO]: Sending message to Gemini (Google) (mode: webpentest)
+2025-09-29 19:17:42 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-09-29 19:18:10 [INFO]: Received response from Gemini
+2025-09-29 19:18:10 [INFO]: Received response from Gemini (Google)
+2025-09-29 19:18:53 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-09-29 19:18:59 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-09-29 19:19:07 [INFO]: Agent mode changed to webpentest

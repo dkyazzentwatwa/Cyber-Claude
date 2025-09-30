@@ -8,6 +8,7 @@ import { createScanCommand } from './commands/scan.js';
 import { createHardenCommand } from './commands/harden.js';
 import { createChatCommand } from './commands/chat.js';
 import { createInteractiveCommand } from './commands/interactive.js';
+import { createWebScanCommand } from './commands/webscan.js';
 import { InteractiveSession } from './session.js';
 
 const program = new Command();
@@ -15,13 +16,14 @@ const program = new Command();
 program
   .name('cyber-claude')
   .description('🛡️  AI-powered cybersecurity agent for red/blue teaming and desktop security')
-  .version('0.1.0');
+  .version('0.3.0');
 
 // Add commands
 program.addCommand(createInteractiveCommand());
 program.addCommand(createScanCommand());
 program.addCommand(createHardenCommand());
 program.addCommand(createChatCommand());
+program.addCommand(createWebScanCommand());
 
 // Default action - start interactive session
 program
@@ -32,6 +34,7 @@ program
       console.log('\n' + chalk.bold('Quick Commands:'));
       console.log(`  ${chalk.cyan('cyber-claude interactive')} - Start interactive session ${chalk.green('(Recommended)')}`);
       console.log(`  ${chalk.cyan('cyber-claude scan')}        - Scan your system for security issues`);
+      console.log(`  ${chalk.cyan('cyber-claude webscan <url>')} - Scan web applications for vulnerabilities`);
       console.log(`  ${chalk.cyan('cyber-claude harden')}      - Check system hardening status`);
       console.log(`  ${chalk.cyan('cyber-claude chat')}        - One-off chat mode`);
       console.log(`  ${chalk.cyan('cyber-claude --help')}      - Show all commands and options\n`);

@@ -74,7 +74,7 @@ export function createScanCommand(): Command {
 
             // Analyze with AI
             const agent = new CyberAgent({
-              mode: 'desktopSecurity',
+              mode: 'desktopsecurity',
               apiKey: config.anthropicApiKey,
               googleApiKey: config.googleApiKey,
               model: modelId,
@@ -87,7 +87,7 @@ export function createScanCommand(): Command {
             );
             spinner.succeed('Analysis completed');
 
-            console.log('\n' + analysis);
+            console.log('\n' + ui.formatAIResponse(analysis));
           }
         } else {
           // Full system scan
@@ -100,7 +100,7 @@ export function createScanCommand(): Command {
 
             // Analyze with AI
             const agent = new CyberAgent({
-              mode: 'desktopSecurity',
+              mode: 'desktopsecurity',
               apiKey: config.anthropicApiKey,
               googleApiKey: config.googleApiKey,
               model: modelId,
@@ -113,7 +113,7 @@ export function createScanCommand(): Command {
             );
             spinner.succeed('AI analysis completed');
 
-            console.log('\n' + analysis);
+            console.log('\n' + ui.formatAIResponse(analysis));
 
             // Parse findings (if we want structured output)
             // For now, just show the AI response

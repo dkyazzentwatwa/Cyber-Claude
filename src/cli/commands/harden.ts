@@ -74,7 +74,7 @@ export function createHardenCommand(): Command {
 
             // Get AI recommendations
             const agent = new CyberAgent({
-              mode: 'desktopSecurity',
+              mode: 'desktopsecurity',
               apiKey: config.anthropicApiKey,
               googleApiKey: config.googleApiKey,
               model: modelId,
@@ -87,7 +87,7 @@ export function createHardenCommand(): Command {
             );
             aiSpinner.succeed('AI recommendations ready');
 
-            console.log('\n' + analysis);
+            console.log('\n' + ui.formatAIResponse(analysis));
 
             if (options.json) {
               reporter.exportJSON(scanResult, options.json);

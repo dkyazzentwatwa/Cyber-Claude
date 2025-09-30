@@ -1,4 +1,4 @@
-export type AgentMode = 'base' | 'redTeam' | 'blueTeam' | 'desktopSecurity';
+export type AgentMode = 'base' | 'redteam' | 'blueteam' | 'desktopsecurity' | 'webpentest';
 export interface AgentConfig {
     mode: AgentMode;
     apiKey?: string;
@@ -16,6 +16,41 @@ export interface SecurityFinding {
     references?: string[];
     category: string;
     timestamp: Date;
+}
+export type VulnType = 'sqli' | 'xss' | 'csrf' | 'ssrf' | 'idor' | 'path-traversal' | 'command-injection' | 'xxe' | 'auth-bypass' | 'session-fixation' | 'security-misconfiguration' | 'sensitive-data-exposure' | 'missing-security-headers' | 'information-disclosure';
+export interface VulnerabilityFinding extends SecurityFinding {
+    vulnerabilityType: VulnType;
+    endpoint: string;
+    method: string;
+    payload?: string;
+    evidence: {
+        request?: string;
+        response?: string;
+        timing?: number;
+        statusCode?: number;
+    };
+    cwe?: string;
+    owasp?: string;
+}
+export interface WebScanResult extends ScanResult {
+    url: string;
+    target: {
+        url: string;
+        hostname: string;
+        protocol: string;
+        port: number;
+    };
+    technology?: {
+        server?: string;
+        framework?: string;
+        cms?: string;
+        languages?: string[];
+    };
+    endpoints?: string[];
+    forms?: any[];
+    cookies?: any[];
+    headers?: Record<string, string>;
+    vulnerabilities?: VulnerabilityFinding[];
 }
 export interface ScanResult {
     findings: SecurityFinding[];

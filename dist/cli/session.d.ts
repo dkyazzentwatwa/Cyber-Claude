@@ -4,6 +4,7 @@ export declare class InteractiveSession {
     private scanner;
     private hardening;
     private reporter;
+    private webScanner;
     constructor(initialMode?: AgentMode, model?: string);
     /**
      * Start the interactive session
@@ -21,5 +22,6 @@ export declare class InteractiveSession {
     private handleScan;
     private handleHarden;
     private handleChat;
+    private handleWebScan;
 }
 //# sourceMappingURL=session.d.ts.map

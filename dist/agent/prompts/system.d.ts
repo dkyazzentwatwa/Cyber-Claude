@@ -1,7 +1,8 @@
 export declare const SYSTEM_PROMPTS: {
     base: string;
-    redTeam: string;
-    blueTeam: string;
-    desktopSecurity: string;
+    redteam: string;
+    blueteam: string;
+    desktopsecurity: string;
+    webpentest: string;
 };
 //# sourceMappingURL=system.d.ts.map

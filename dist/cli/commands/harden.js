@@ -64,7 +64,7 @@ export function createHardenCommand() {
                     reporter.displayReport(scanResult);
                     // Get AI recommendations
                     const agent = new CyberAgent({
-                        mode: 'desktopSecurity',
+                        mode: 'desktopsecurity',
                         apiKey: config.anthropicApiKey,
                         googleApiKey: config.googleApiKey,
                         model: modelId,
@@ -72,7 +72,7 @@ export function createHardenCommand() {
                     const aiSpinner = ui.spinner('Getting AI recommendations...');
                     const analysis = await agent.analyze('Based on these hardening check findings, provide prioritized, actionable recommendations to improve system security. Focus on the most critical issues first.', result.data.findings);
                     aiSpinner.succeed('AI recommendations ready');
-                    console.log('\n' + analysis);
+                    console.log('\n' + ui.formatAIResponse(analysis));
                     if (options.json) {
                         reporter.exportJSON(scanResult, options.json);
                     }

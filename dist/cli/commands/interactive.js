@@ -8,7 +8,7 @@ export function createInteractiveCommand() {
     command
         .description('Start interactive session (persistent REPL mode)')
         .alias('i')
-        .option('-m, --mode <mode>', 'Initial agent mode: base, redTeam, blueTeam, desktopSecurity', 'base')
+        .option('-m, --mode <mode>', 'Initial agent mode: base, redteam, blueteam, desktopsecurity, webpentest', 'base')
         .option('--model <model>', 'AI model to use: opus-4.1, opus-4, sonnet-4.5, sonnet-4, sonnet-3.7, haiku-3.5', 'sonnet-4.5')
         .action(async (options) => {
         const validation = validateConfig();
@@ -18,7 +18,7 @@ export function createInteractiveCommand() {
             process.exit(1);
         }
         // Validate mode
-        const validModes = ['base', 'redTeam', 'blueTeam', 'desktopSecurity'];
+        const validModes = ['base', 'redteam', 'blueteam', 'desktopsecurity', 'webpentest'];
         if (!validModes.includes(options.mode)) {
             ui.error(`Invalid mode: ${options.mode}`);
             ui.info(`Valid modes: ${validModes.join(', ')}`);

@@ -63,7 +63,7 @@ export function createScanCommand() {
                     ui.info(`Found ${result.data.connections.length} network connections`);
                     // Analyze with AI
                     const agent = new CyberAgent({
-                        mode: 'desktopSecurity',
+                        mode: 'desktopsecurity',
                         apiKey: config.anthropicApiKey,
                         googleApiKey: config.googleApiKey,
                         model: modelId,
@@ -71,7 +71,7 @@ export function createScanCommand() {
                     spinner = ui.spinner('Analyzing network connections with AI...');
                     const analysis = await agent.analyze('Analyze these network connections for security concerns. Identify any suspicious connections, unusual ports, or potential security risks.', result.data);
                     spinner.succeed('Analysis completed');
-                    console.log('\n' + analysis);
+                    console.log('\n' + ui.formatAIResponse(analysis));
                 }
             }
             else {
@@ -83,7 +83,7 @@ export function createScanCommand() {
                     ui.info('Scan data collected. Analyzing with AI...');
                     // Analyze with AI
                     const agent = new CyberAgent({
-                        mode: 'desktopSecurity',
+                        mode: 'desktopsecurity',
                         apiKey: config.anthropicApiKey,
                         googleApiKey: config.googleApiKey,
                         model: modelId,
@@ -91,7 +91,7 @@ export function createScanCommand() {
                     spinner = ui.spinner('AI analyzing system security...');
                     const analysis = await agent.analyze('Perform a comprehensive security analysis of this system. Identify vulnerabilities, security misconfigurations, and potential risks. Provide specific, actionable recommendations.', result.data);
                     spinner.succeed('AI analysis completed');
-                    console.log('\n' + analysis);
+                    console.log('\n' + ui.formatAIResponse(analysis));
                     // Parse findings (if we want structured output)
                     // For now, just show the AI response
                 }

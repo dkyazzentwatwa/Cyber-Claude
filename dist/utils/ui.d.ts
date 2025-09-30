@@ -60,5 +60,10 @@ export declare const ui: {
      * Display welcome message
      */
     welcome(): void;
+    /**
+     * Format AI response text for terminal display
+     * Converts markdown to terminal-friendly formatting
+     */
+    formatAIResponse(text: string): string;
 };
 //# sourceMappingURL=ui.d.ts.map

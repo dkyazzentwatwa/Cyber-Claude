@@ -154,5 +154,34 @@ export const ui = {
             `Type ${chalk.cyan('chat')} for interactive mode\n` +
             `Type ${chalk.cyan('exit')} to quit`, '🚀 Getting Started', 'info');
     },
+    /**
+     * Format AI response text for terminal display
+     * Converts markdown to terminal-friendly formatting
+     */
+    formatAIResponse(text) {
+        let formatted = text;
+        // Replace code blocks with highlighted version
+        formatted = formatted.replace(/```(\w+)?\n([\s\S]*?)```/g, (_, lang, code) => {
+            return '\n' + chalk.bgGray.white(code.trim()) + '\n';
+        });
+        // Replace inline code
+        formatted = formatted.replace(/`([^`]+)`/g, (_, code) => chalk.cyan(code));
+        // Replace bold text
+        formatted = formatted.replace(/\*\*([^*]+)\*\*/g, (_, text) => chalk.bold(text));
+        formatted = formatted.replace(/__([^_]+)__/g, (_, text) => chalk.bold(text));
+        // Replace italic text
+        formatted = formatted.replace(/\*([^*]+)\*/g, (_, text) => chalk.italic(text));
+        formatted = formatted.replace(/_([^_]+)_/g, (_, text) => chalk.italic(text));
+        // Replace headers
+        formatted = formatted.replace(/^### (.+)$/gm, (_, text) => chalk.bold.cyan('▸ ' + text));
+        formatted = formatted.replace(/^## (.+)$/gm, (_, text) => chalk.bold.magenta('━━ ' + text + ' ━━'));
+        formatted = formatted.replace(/^# (.+)$/gm, (_, text) => chalk.bold.green('══ ' + text + ' ══'));
+        // Format bullet points
+        formatted = formatted.replace(/^- (.+)$/gm, (_, text) => chalk.dim('  •') + ' ' + text);
+        formatted = formatted.replace(/^\* (.+)$/gm, (_, text) => chalk.dim('  •') + ' ' + text);
+        // Format numbered lists
+        formatted = formatted.replace(/^(\d+)\. (.+)$/gm, (_, num, text) => chalk.dim('  ' + num + '.') + ' ' + text);
+        return formatted;
+    },
 };
 //# sourceMappingURL=ui.js.map

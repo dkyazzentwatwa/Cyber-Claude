@@ -9,7 +9,7 @@ export function createChatCommand() {
     const command = new Command('chat');
     command
         .description('Interactive chat mode with security agent (one-off)')
-        .option('-m, --mode <mode>', 'Agent mode: base, redTeam, blueTeam, desktopSecurity', 'base')
+        .option('-m, --mode <mode>', 'Agent mode: base, redteam, blueteam, desktopsecurity, webpentest', 'base')
         .option('--model <model>', 'AI model to use: opus-4.1, opus-4, sonnet-4.5, sonnet-4, sonnet-3.7, haiku-3.5')
         .action(async (options) => {
         const validation = validateConfig();
@@ -19,7 +19,7 @@ export function createChatCommand() {
             process.exit(1);
         }
         // Validate mode
-        const validModes = ['base', 'redTeam', 'blueTeam', 'desktopSecurity'];
+        const validModes = ['base', 'redteam', 'blueteam', 'desktopsecurity', 'webpentest'];
         if (!validModes.includes(options.mode)) {
             ui.error(`Invalid mode: ${options.mode}`);
             ui.info(`Valid modes: ${validModes.join(', ')}`);
@@ -40,22 +40,26 @@ export function createChatCommand() {
         ui.banner();
         const modeEmojis = {
             base: '🤖',
-            redTeam: '⚔️',
-            blueTeam: '🛡️',
-            desktopSecurity: '🔒',
+            redteam: '⚔️',
+            blueteam: '🛡️',
+            desktopsecurity: '🔒',
+            webpentest: '🌐',
         };
         const currentMode = options.mode;
         let modeText = `\n${modeEmojis[currentMode]} ${options.mode.toUpperCase()} MODE ACTIVATED\n`;
         // Apply color based on mode
         switch (currentMode) {
-            case 'redTeam':
+            case 'redteam':
                 console.log(chalk.red.bold(modeText));
                 break;
-            case 'blueTeam':
+            case 'blueteam':
                 console.log(chalk.blue.bold(modeText));
                 break;
-            case 'desktopSecurity':
+            case 'desktopsecurity':
                 console.log(chalk.green.bold(modeText));
+                break;
+            case 'webpentest':
+                console.log(chalk.magenta.bold(modeText));
                 break;
             default:
                 console.log(chalk.cyan.bold(modeText));
@@ -100,7 +104,7 @@ export function createChatCommand() {
                     const response = await agent.chat(trimmedMessage);
                     spinner.stop();
                     console.log(chalk.magenta('\nCyber Claude:'));
-                    console.log(response);
+                    console.log(ui.formatAIResponse(response));
                     console.log('');
                 }
                 catch (error) {
@@ -132,11 +136,11 @@ async function handleChatCommand(command, agent) {
         case 'mode':
             if (args.length === 0) {
                 ui.info(`Current mode: ${agent.getMode()}`);
-                ui.info('Available modes: base, redTeam, blueTeam, desktopSecurity');
+                ui.info('Available modes: base, redteam, blueteam, desktopsecurity, webpentest');
             }
             else {
                 const newMode = args[0];
-                const validModes = ['base', 'redTeam', 'blueTeam', 'desktopSecurity'];
+                const validModes = ['base', 'redteam', 'blueteam', 'desktopsecurity', 'webpentest'];
                 if (validModes.includes(newMode)) {
                     agent.setMode(newMode);
                     ui.success(`Switched to ${newMode} mode`);
@@ -149,15 +153,16 @@ async function handleChatCommand(command, agent) {
             break;
         case 'help':
             ui.box(`Chat Commands:\n\n` +
-                `  ${chalk.cyan('/mode <mode>')} - Switch between base, redTeam, blueTeam, desktopSecurity\n` +
+                `  ${chalk.cyan('/mode <mode>')} - Switch between modes\n` +
                 `  ${chalk.cyan('/clear')} - Clear conversation history\n` +
                 `  ${chalk.cyan('/help')} - Show this help message\n` +
                 `  ${chalk.cyan('/exit')} - Exit chat mode\n\n` +
                 `Agent Modes:\n` +
                 `  ${chalk.cyan('base')} - General security assistant\n` +
-                `  ${chalk.red('redTeam')} - Offensive security perspective (defensive only)\n` +
-                `  ${chalk.blue('blueTeam')} - Defensive security focus\n` +
-                `  ${chalk.green('desktopSecurity')} - Personal computer security`, '❓ Help', 'info');
+                `  ${chalk.red('redteam')} - Offensive security perspective (defensive only)\n` +
+                `  ${chalk.blue('blueteam')} - Defensive security focus\n` +
+                `  ${chalk.green('desktopsecurity')} - Personal computer security\n` +
+                `  ${chalk.magenta('webpentest')} - Web application security testing`, '❓ Help', 'info');
             break;
         default:
             ui.error(`Unknown command: ${cmd}`);

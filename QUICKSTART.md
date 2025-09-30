@@ -2,20 +2,20 @@
 
 ## Setup (2 minutes)
 
-### 1. Set up your API key
+### 1. Set up your API keys
 
 ```bash
 # Copy the example environment file
 cp .env.example .env
 
-# Edit .env and add your Anthropic API key
-# Get your key at: https://console.anthropic.com/
+# Edit .env and add your API keys
 nano .env
 ```
 
-In `.env`, set:
+In `.env`, set (at least one required):
 ```
-ANTHROPIC_API_KEY=sk-ant-api03-your-key-here
+ANTHROPIC_API_KEY=sk-ant-api03-your-key-here    # Get at: https://console.anthropic.com/
+GOOGLE_API_KEY=AIza...                          # Get at: https://aistudio.google.com/apikey
 ```
 
 ### 2. Install and Build
@@ -75,6 +75,28 @@ Evaluates your security posture:
 - Running services analysis
 - AI-powered recommendations
 
+### Web Application Security Scan (NEW!)
+```bash
+# Quick web security scan
+npm run dev -- webscan https://example.com
+
+# Full vulnerability scan
+npm run dev -- webscan --full https://myapp.local
+
+# CTF challenge mode
+npm run dev -- webscan --ctf https://ctf.example.com
+```
+
+Tests web applications for:
+- OWASP Top 10 vulnerabilities
+- Security header misconfigurations
+- Cookie security issues
+- CSRF protection
+- Form security
+- Information disclosure
+
+**Note**: Authorization required before scanning. Only test systems you own or have permission to test!
+
 ### Interactive Chat Mode
 ```bash
 npm run dev -- chat
@@ -83,26 +105,30 @@ npm run dev -- chat
 Start chatting with Cyber Claude:
 - Ask security questions
 - Get real-time analysis
-- Switch between modes (red team, blue team, desktop security)
+- Switch between modes (redteam, blueteam, desktopsecurity, webpentest)
 - Learn about security best practices
 
 **Chat Commands:**
-- `/mode redTeam` - Switch to red team perspective
-- `/mode blueTeam` - Switch to defensive operations
-- `/mode desktopSecurity` - Focus on personal security
+- `/mode redteam` - Switch to red team perspective
+- `/mode blueteam` - Switch to defensive operations
+- `/mode desktopsecurity` - Focus on personal security
+- `/mode webpentest` - Web application security testing (NEW!)
 - `/clear` - Clear conversation history
 - `/exit` - Exit chat
 
 ### Try Different Modes
 ```bash
 # Red Team mode (offensive security perspective)
-npm run dev -- chat --mode redTeam
+npm run dev -- chat --mode redteam
 
 # Blue Team mode (defensive operations)
-npm run dev -- chat --mode blueTeam
+npm run dev -- chat --mode blueteam
 
 # Desktop Security mode (personal computer)
-npm run dev -- chat --mode desktopSecurity
+npm run dev -- chat --mode desktopsecurity
+
+# Web Pentest mode (web application security)
+npm run dev -- chat --mode webpentest
 ```
 
 ## Example Interactions
@@ -157,9 +183,11 @@ npm run dev -- scan --json report.json --md report.md
    - ❌ "Check everything" (too broad)
 
 3. **Use the right mode**:
-   - **Red Team**: Finding vulnerabilities, attack surface analysis
-   - **Blue Team**: Threat detection, incident response
-   - **Desktop Security**: Personal computer hardening
+   - **base**: General security assistant
+   - **redteam**: Finding vulnerabilities, attack surface analysis
+   - **blueteam**: Threat detection, incident response
+   - **desktopsecurity**: Personal computer hardening
+   - **webpentest**: Web application security testing (NEW!)
 
 4. **Export findings for tracking**:
    - Keep reports to track improvements over time

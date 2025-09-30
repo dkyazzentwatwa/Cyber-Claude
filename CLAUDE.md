@@ -4,9 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Cyber Claude is an AI-powered cybersecurity agent CLI that supports multiple AI providers (Claude and Gemini). It provides security scanning, system hardening checks, and interactive chat capabilities with persistent REPL-style sessions.
+Cyber Claude is an AI-powered cybersecurity agent CLI that supports multiple AI providers (Claude and Gemini). It provides desktop security scanning, web application vulnerability testing, system hardening checks, and interactive chat capabilities with persistent REPL-style sessions.
 
-**Key Differentiator**: Multi-provider architecture allowing seamless switching between Claude (Anthropic) and Gemini (Google) models during security operations.
+**Key Differentiators**:
+- Multi-provider architecture allowing seamless switching between Claude (Anthropic) and Gemini (Google) models
+- Comprehensive web security testing with OWASP Top 10 coverage
+- Ethical-first design with built-in authorization framework and domain blocklists
 
 ## Build & Development Commands
 
@@ -24,6 +27,7 @@ cyber-claude
 
 # Test CLI in dev mode
 npm run dev -- scan --quick
+npm run dev -- webscan https://example.com
 npm run dev -- interactive
 ```
 
@@ -50,11 +54,14 @@ AIProvider interface (src/agent/providers/base.ts)
 
 ### Agent Modes & System Prompts
 
-Four operational modes defined in `src/agent/prompts/system.ts`:
+Five operational modes defined in `src/agent/prompts/system.ts` (all lowercase):
 - `base` - General security assistant
-- `redTeam` - Offensive security perspective (defensive only)
-- `blueTeam` - Defensive operations focus
-- `desktopSecurity` - Personal computer security
+- `redteam` - Offensive security perspective (defensive only)
+- `blueteam` - Defensive operations focus
+- `desktopsecurity` - Personal computer security
+- `webpentest` - Web application security testing (OWASP Top 10, CTF support)
+
+**Important**: All mode names are lowercase (changed in v0.3.0).
 
 System prompts are composed by combining base prompt + mode-specific prompt in `CyberAgent.getSystemPrompt()`.
 
@@ -62,7 +69,7 @@ System prompts are composed by combining base prompt + mode-specific prompt in `
 
 `InteractiveSession` class (`src/cli/session.ts`) implements persistent REPL:
 - Maintains `SessionState` with agent instance, mode, model, and command history
-- Built-in commands (`scan`, `harden`, `mode`, `model`, `status`, `help`) are parsed in `handleCommand()`
+- Built-in commands (`scan`, `webscan`, `harden`, `mode`, `model`, `status`, `help`) are parsed in `handleCommand()`
 - Non-command input is passed directly to `CyberAgent.chat()`
 - Model switching recreates `CyberAgent` instance with new provider but preserves session context
 
@@ -73,7 +80,8 @@ src/cli/index.ts (entry point)
     ↓
 Commands (Commander.js):
 ├─ interactive (default) - Persistent REPL session
-├─ scan - Security scanning (quick/full/network)
+├─ scan - Desktop security scanning (quick/full/network)
+├─ webscan - Web application vulnerability scanning
 ├─ harden - System hardening checks
 └─ chat - One-off chat mode
 ```
@@ -82,12 +90,27 @@ Default behavior: `cyber-claude` with no args starts interactive session (change
 
 ### Security Tools
 
-Three main tool classes in `src/agent/tools/`:
+**Desktop Security Tools** (`src/agent/tools/`):
 - **DesktopScanner** - Uses `systeminformation` npm package to gather OS, process, network, storage data
 - **HardeningChecker** - Platform-specific checks (macOS FileVault, Linux UFW, Windows Defender) via shell commands
 - **SecurityReporter** - Formats `SecurityFinding[]` into terminal UI and exports to JSON/Markdown
 
+**Web Security Tools** (`src/agent/tools/web/`):
+- **HttpClient** - HTTP operations with cookie management, timeout controls, custom headers
+- **HeaderAnalyzer** - Security header analysis (CSP, HSTS, X-Frame-Options, cookie security)
+- **WebScanner** - Orchestrates quick/full web vulnerability scans
+- **Authorization** - Ethical scanning framework with domain blocklists and user consent workflows
+
 Tools collect data, then `CyberAgent.analyze()` passes data + task description to AI for analysis.
+
+**Web Security Features**:
+- OWASP Top 10 vulnerability detection
+- Security header analysis
+- CSRF token detection
+- Cookie security assessment
+- Form security analysis
+- Information disclosure checks
+- CTF challenge support
 
 ## Environment Configuration
 
@@ -155,8 +178,9 @@ TypeScript compiles `.ts` to `.js` but doesn't change import paths, so `.js` ext
 - `ui.spinner()` - Loading states (returns Ora instance)
 - `ui.finding()` - Security finding with severity colors
 - `ui.success/error/warning/info()` - Status messages
+- `ui.formatAIResponse()` - Converts markdown to terminal-friendly formatting (bold, italic, code blocks, headers, lists)
 
-All CLI output should use `ui` module for consistency, NOT direct `console.log()`.
+All CLI output should use `ui` module for consistency, NOT direct `console.log()`. All AI responses should be passed through `ui.formatAIResponse()` before display.
 
 ## Logging
 
@@ -166,6 +190,19 @@ Winston logger in `src/utils/logger.ts` logs to files:
 
 Logger is used internally for debugging. User-facing output goes through `ui` module.
 
+## Dependencies
+
+**Core Dependencies**:
+- `@anthropic-ai/sdk` - Claude AI integration
+- `@google/generative-ai` - Gemini AI integration
+- `systeminformation` - Desktop system information gathering
+- `axios` - HTTP client for web scanning
+- `cheerio` - HTML parsing for web analysis
+- `validator` - URL and input validation
+- `inquirer` - Interactive CLI prompts
+- `chalk`, `boxen`, `ora` - Terminal UI
+- `uuid` - Unique ID generation
+
 ## Security Constraints
 
 All system prompts enforce defensive-only operations:
@@ -174,4 +211,15 @@ All system prompts enforce defensive-only operations:
 - Simulation and assessment only
 - User consent required for system changes
 
-These constraints are embedded in `SYSTEM_PROMPTS.base` and should be preserved in any prompt modifications.
+**Web Scanning Ethical Framework**:
+- **Authorization required** before every web scan
+- **Domain blocklists** prevent scanning of banks, government, production services
+- **Legal warnings** displayed prominently to users
+- **Double confirmation** required for production websites
+- **CTF mode** with separate authorization flow
+- **Rate limiting** respects target servers
+- **Non-destructive testing** (read-only by default)
+- **Audit logging** tracks all scan authorizations
+
+These constraints are embedded in `SYSTEM_PROMPTS.base` and the `Authorization` class, and should be preserved in any modifications.
+- Always update claude.md and readme.md when you make important updates

@@ -1,8 +1,8 @@
 # 🛡️ Cyber Claude
 
-**AI-Powered Cybersecurity Agent for Red/Blue Teaming and Desktop Security**
+**AI-Powered Cybersecurity Agent for Red/Blue Teaming, Web Security Testing & Desktop Security**
 
-An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview), designed for defensive security operations, system hardening, and security analysis.
+An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview), designed for defensive security operations, web application vulnerability testing, system hardening, and security analysis.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
@@ -10,12 +10,23 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 
 ## 🆕 What's New in v0.3.0
 
-**🎉 Google Gemini Integration + Multi-Provider Support!**
+**🌐 Web Application Security Testing + Multi-Provider Support!**
+
+- **🔍 Web Vulnerability Scanning**: Test web applications for OWASP Top 10 vulnerabilities!
+  ```bash
+  cyber-claude webscan https://example.com
+  cyber-claude webscan --full https://myapp.local
+  > webscan https://ctf.example.com         # CTF mode support!
+  ```
+
+- **🎯 New `webpentest` Mode**: AI agent specialized in web security analysis
+- **🔒 Ethical Framework**: Authorization required, domain blocklists, CTF mode
+- **🛡️ Security Analysis**: Headers, CSRF, XSS detection, cookie security, form analysis
 
 - **🔮 Gemini API Support**: Use Google's Gemini 2.5 models alongside Claude!
   ```bash
-  cyber-claude scan --model gemini-2.5-flash    # Fast & cost-effective
-  cyber-claude scan --model opus-4.1            # Or use Claude
+  cyber-claude webscan --model gemini-2.5-flash https://example.com
+  cyber-claude scan --model opus-4.1
   > model                                        # Switch in session!
   ```
 
@@ -39,9 +50,18 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 
 ### 🔍 Security Scanning
 - **Desktop Security Scan**: Comprehensive system analysis
+- **Web Application Scanning**: OWASP Top 10 vulnerability detection
 - **Quick Check**: Rapid security assessment
 - **Network Analysis**: Connection monitoring and threat detection
 - **Process Monitoring**: Identify suspicious activity
+
+### 🌐 Web Security Testing (NEW!)
+- **OWASP Top 10**: SQL injection, XSS, CSRF, SSRF detection
+- **Security Headers**: CSP, HSTS, X-Frame-Options analysis
+- **Cookie Security**: Secure, HttpOnly, SameSite checks
+- **Form Analysis**: CSRF token detection
+- **CTF Support**: Educational challenge assistance
+- **Ethical Framework**: Authorization required before scanning
 
 ### 🔒 System Hardening
 - **Hardening Checks**: Verify security configurations
@@ -60,10 +80,11 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 ### 💬 Multiple Agent Modes
 - **Switch On-The-Fly**: Change modes without restarting
 - **Modes Available**:
-  - 🤖 **Base Mode**: General security assistant
-  - ⚔️ **Red Team Mode**: Offensive security perspective (defensive only)
-  - 🛡️ **Blue Team Mode**: Defensive operations focus
-  - 🔒 **Desktop Security Mode**: Personal computer security
+  - 🤖 **base**: General security assistant
+  - ⚔️ **redteam**: Offensive security perspective (defensive only)
+  - 🛡️ **blueteam**: Defensive operations focus
+  - 🔒 **desktopsecurity**: Personal computer security
+  - 🌐 **webpentest**: Web application security testing (NEW!)
 
 ### 📊 Reporting
 - **Beautiful Terminal UI**: Gradient colors, ASCII art, formatted tables
@@ -109,8 +130,9 @@ cyber-claude
 # Inside session, just type commands:
 > scan                    # Quick security check
 > scan full               # Full system scan
+> webscan https://example.com  # Scan web application
 > harden                  # Check hardening
-> mode redTeam            # Switch to red team mode
+> mode redteam            # Switch to red team mode
 > model                   # Select AI model
 > What are the top 3 risks on my system?  # Natural chat
 > exit                    # Leave session
@@ -123,11 +145,15 @@ cyber-claude scan
 cyber-claude scan --quick
 cyber-claude scan --network --model opus-4
 
+# Web application scanning
+cyber-claude webscan https://example.com
+cyber-claude webscan --full https://myapp.local
+
 # Check system hardening
 cyber-claude harden --model haiku-4
 
 # One-off chat mode
-cyber-claude chat --mode redTeam
+cyber-claude chat --mode redteam
 ```
 
 ## 📖 Commands
@@ -136,11 +162,12 @@ cyber-claude chat --mode redTeam
 Start interactive session (NEW!)
 
 **Options:**
-- `-m, --mode <mode>` - Initial mode (base, redTeam, blueTeam, desktopSecurity)
+- `-m, --mode <mode>` - Initial mode (base, redteam, blueteam, desktopsecurity, webpentest)
 - `--model <model>` - AI model (sonnet-4, opus-4, haiku-4, sonnet-3.5)
 
 **Session Commands:**
-- `scan` / `scan full` / `scan network` - Security scans
+- `scan` / `scan full` / `scan network` - Desktop security scans
+- `webscan <url>` - Web application vulnerability scan
 - `harden` - Hardening check
 - `mode <mode>` - Switch mode
 - `model` - Select AI model
@@ -154,8 +181,9 @@ Start interactive session (NEW!)
 ```bash
 cyber-claude                              # Start session
 cyber-claude i                            # Short alias
-cyber-claude interactive --mode redTeam   # Start in red team mode
+cyber-claude interactive --mode redteam   # Start in red team mode
 cyber-claude i --model opus-4             # Start with Opus 4
+cyber-claude interactive --mode webpentest # Start in web pentest mode
 ```
 
 ### `cyber-claude scan`
@@ -193,13 +221,37 @@ cyber-claude harden --recommendations
 cyber-claude harden --json hardening-report.json
 ```
 
+### `cyber-claude webscan` (NEW!)
+Scan web applications for security vulnerabilities
+
+**Options:**
+- `-q, --quick` - Quick security scan (headers only)
+- `-f, --full` - Full vulnerability scan (CSRF, XSS detection)
+- `--ctf` - CTF challenge mode
+- `--model <model>` - AI model to use
+- `--timeout <ms>` - Request timeout in milliseconds
+
+**Examples:**
+```bash
+cyber-claude webscan https://example.com
+cyber-claude webscan --full https://myapp.local
+cyber-claude webscan --ctf https://ctf.hackthebox.com/challenge
+cyber-claude webscan --model opus-4 https://staging.example.com
+```
+
+**Ethical Requirements:**
+- Authorization required before scanning
+- Domain blocklists prevent scanning sensitive sites
+- Legal warnings displayed
+- CTF mode has separate authorization flow
+
 ### `cyber-claude chat`
 Interactive chat with security agent (one-off conversation)
 
 **Note:** Consider using `cyber-claude interactive` for a better experience!
 
 **Options:**
-- `-m, --mode <mode>` - Agent mode (base, redTeam, blueTeam, desktopSecurity)
+- `-m, --mode <mode>` - Agent mode (base, redteam, blueteam, desktopsecurity, webpentest)
 - `--model <model>` - AI model to use
 
 **Chat Commands:**
@@ -211,7 +263,8 @@ Interactive chat with security agent (one-off conversation)
 **Examples:**
 ```bash
 cyber-claude chat
-cyber-claude chat --mode blueTeam
+cyber-claude chat --mode blueteam
+cyber-claude chat --mode webpentest
 ```
 
 ## 🎨 Beautiful CLI Interface
@@ -251,20 +304,33 @@ cyber_claude/
 │   │   ├── core.ts              # Main agent with Claude SDK
 │   │   ├── types.ts             # TypeScript types
 │   │   ├── prompts/
-│   │   │   └── system.ts        # Agent system prompts
+│   │   │   └── system.ts        # Agent system prompts (5 modes)
+│   │   ├── providers/
+│   │   │   ├── base.ts          # Provider interface
+│   │   │   ├── claude.ts        # Claude provider
+│   │   │   └── gemini.ts        # Gemini provider
 │   │   └── tools/
 │   │       ├── scanner.ts       # Desktop security scanner
 │   │       ├── hardening.ts     # System hardening checker
-│   │       └── reporter.ts      # Report generation
+│   │       ├── reporter.ts      # Report generation
+│   │       └── web/             # Web security tools (NEW!)
+│   │           ├── HttpClient.ts      # HTTP operations
+│   │           ├── HeaderAnalyzer.ts  # Security headers
+│   │           ├── WebScanner.ts      # Web vulnerability scanner
+│   │           └── Authorization.ts   # Ethical scanning framework
 │   ├── cli/
 │   │   ├── index.ts             # CLI entry point
+│   │   ├── session.ts           # Interactive session handler
 │   │   └── commands/
-│   │       ├── scan.ts          # Scan command
+│   │       ├── interactive.ts   # Interactive command
+│   │       ├── scan.ts          # Desktop scan command
+│   │       ├── webscan.ts       # Web scan command (NEW!)
 │   │       ├── harden.ts        # Harden command
 │   │       └── chat.ts          # Chat command
 │   └── utils/
 │       ├── config.ts            # Configuration
 │       ├── logger.ts            # Logging
+│       ├── models.ts            # AI model definitions
 │       └── ui.ts                # Beautiful UI components
 ├── research/                     # Research documentation
 ├── .env.example                 # Environment template
@@ -290,7 +356,11 @@ cyber_claude/
 - **CLI Table 3** - Formatted tables
 
 ### Security Tools
-- **systeminformation** - System data collection
+- **systeminformation** - Desktop system data collection
+- **axios** - HTTP client for web scanning
+- **cheerio** - HTML parsing and analysis
+- **validator** - URL and input validation
+- **uuid** - Unique identifier generation
 - **Winston** - Logging
 
 ## 🔧 Development
@@ -324,15 +394,26 @@ npm test
 - [x] Desktop security scanner
 - [x] System hardening checker
 - [x] Reporting system
+- [x] Multi-provider support (Claude + Gemini)
+- [x] Interactive session (REPL)
 
-### Phase 2: Enhanced Features
+### Phase 2: Web Security Testing ✅
+- [x] Web application vulnerability scanning
+- [x] OWASP Top 10 detection
+- [x] Security header analysis
+- [x] Ethical scanning framework
+- [x] CTF challenge support
+- [x] Authorization and guardrails
+
+### Phase 3: Enhanced Features
 - [ ] Log file analysis
 - [ ] MITRE ATT&CK mapping
 - [ ] Vulnerability database integration
+- [ ] Advanced web vulnerability detection (SQLi, XSS payloads)
 - [ ] Scheduled scanning (daemon mode)
 - [ ] Security posture dashboard
 
-### Phase 3: Advanced Capabilities
+### Phase 4: Advanced Capabilities
 - [ ] Custom security rules
 - [ ] Integration with security tools (nmap, etc.)
 - [ ] Incident response playbooks
@@ -393,23 +474,53 @@ Goodbye! 👋
 
 ### Red Team Assessment
 ```bash
-$ cyber-claude i --mode redTeam --model opus-4
-Mode: redTeam | Model: Claude Opus 4
+$ cyber-claude i --mode redteam --model opus-4
+Mode: redteam | Model: Claude Opus 4
 
-⚔️ [redTeam] > scan network
+⚔️ [redteam] > scan network
 ✔ Network scan completed
 [47 active connections found]
 
-⚔️ [redTeam] > Analyze these connections from an attacker's perspective
+⚔️ [redteam] > Analyze these connections from an attacker's perspective
 💭 Thinking...
 From a red team perspective, here are the notable findings...
 
-⚔️ [redTeam] > mode blueTeam
-✔ Switched to blueTeam mode
+⚔️ [redteam] > mode blueteam
+✔ Switched to blueteam mode
 
-🛡️ [blueTeam] > How would I detect the issues you just identified?
+🛡️ [blueteam] > How would I detect the issues you just identified?
 💭 Thinking...
 To detect these as a blue team operator...
+```
+
+### Web Security Testing (NEW!)
+```bash
+$ cyber-claude interactive --mode webpentest
+Mode: webpentest | Model: Claude Sonnet 4.5
+
+🌐 [webpentest] > webscan https://staging.myapp.local
+
+⚠️  AUTHORIZATION REQUIRED
+Target: https://staging.myapp.local
+[Authorization prompts...]
+
+✔ Web scan completed
+
+Findings Summary:
+  🔴 Critical: 0
+  🟠 High: 2
+  🟡 Medium: 3
+
+🟠 HIGH - Missing CSRF Protection
+🟠 HIGH - Cookie Without Secure Flag
+🟡 MEDIUM - Missing Content-Security-Policy
+
+💭 Analyzing with AI...
+[Detailed analysis and remediation guidance]
+
+🌐 [webpentest] > How would I implement CSP for this app?
+💭 Thinking...
+To implement Content-Security-Policy...
 ```
 
 ### Quick One-Off Scan
