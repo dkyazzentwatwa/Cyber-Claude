@@ -1,0 +1,50 @@
+{
+  "name": "cyber-claude",
+  "version": "0.3.0",
+  "description": "AI-powered cybersecurity agent with multi-provider support (Claude & Gemini)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "cyber-claude": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "dev": "tsx src/cli/index.ts",
+    "build": "tsc",
+    "start": "node dist/cli/index.js",
+    "test": "vitest"
+  },
+  "keywords": [
+    "cybersecurity",
+    "ai",
+    "agent",
+    "red-team",
+    "blue-team",
+    "security",
+    "claude"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.65.0",
+    "@google/generative-ai": "^0.24.1",
+    "boxen": "^8.0.1",
+    "chalk": "^5.6.2",
+    "cli-table3": "^0.6.5",
+    "commander": "^14.0.1",
+    "dotenv": "^17.2.2",
+    "figlet": "^1.9.3",
+    "gradient-string": "^3.0.0",
+    "inquirer": "^12.9.6",
+    "ora": "^9.0.0",
+    "systeminformation": "^5.27.10",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.7.0",
+    "@types/inquirer": "^9.0.9",
+    "@types/node": "^24.6.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

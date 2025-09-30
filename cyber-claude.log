@@ -1,0 +1,40 @@
+2025-09-29 16:54:08 [INFO]: Starting desktop security scan
+2025-09-29 16:54:08 [INFO]: Desktop security scan completed
+2025-09-29 16:54:08 [INFO]: CyberAgent initialized in desktopSecurity mode
+2025-09-29 16:54:08 [INFO]: Sending message to Claude (mode: desktopSecurity)
+2025-09-29 16:54:09 [ERROR]: Error in chat: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdbP7mEmdFeR3pcEMTeQ"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdbP7mEmdFeR3pcEMTeQ"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/cyber_claude/dist/agent/core.js:35:30)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/cyber_claude/dist/cli/commands/scan.js:75:38)
+2025-09-29 16:56:33 [INFO]: CyberAgent initialized in desktopSecurity mode
+2025-09-29 16:56:33 [INFO]: Sending message to Claude (mode: desktopSecurity)
+2025-09-29 16:56:33 [ERROR]: Error in chat: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdbZmtxFTGdt48F2Jyfo"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdbZmtxFTGdt48F2Jyfo"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/cyber_claude/dist/agent/core.js:35:30)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/cyber_claude/dist/cli/commands/scan.js:57:38)
+2025-09-29 17:11:58 [INFO]: CyberAgent initialized in base mode
+2025-09-29 17:13:25 [INFO]: CyberAgent initialized in base mode
+2025-09-29 17:17:24 [INFO]: CyberAgent initialized in base mode
+2025-09-29 17:17:33 [INFO]: CyberAgent initialized in base mode
+2025-09-29 17:30:37 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-09-29 17:30:51 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-09-29 17:31:33 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-09-29 17:31:39 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-09-29 17:31:58 [INFO]: Sending message to Gemini (Google) (mode: base)
+2025-09-29 17:31:58 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-09-29 17:32:40 [INFO]: Received response from Gemini
+2025-09-29 17:32:40 [INFO]: Received response from Gemini (Google)
+2025-09-29 17:33:08 [INFO]: Starting system hardening check
+2025-09-29 17:33:08 [INFO]: System hardening check completed
+2025-09-29 17:33:08 [INFO]: Sending message to Gemini (Google) (mode: base)
+2025-09-29 17:33:08 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-09-29 17:33:20 [INFO]: Received response from Gemini
+2025-09-29 17:33:20 [INFO]: Received response from Gemini (Google)

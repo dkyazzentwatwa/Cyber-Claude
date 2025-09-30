@@ -1,0 +1,64 @@
+{
+  "name": "gradient-string",
+  "description": "Beautiful color gradients in terminal output",
+  "version": "3.0.0",
+  "author": "Boris K",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "rm -fr dist && tsc && rm -fr dist/*.spec.*",
+    "built-in": "[ ! -f dist/index.js ] && npm run build; node examples/built-in.js",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "demo": "[ ! -f dist/index.js ] && npm run build; node examples/demo.js",
+    "lint": "prettier --check .",
+    "prepare": "husky",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "tinygradient": "^1.1.5"
+  },
+  "devDependencies": {
+    "@bokub/prettier-config": "^2.1.0",
+    "@vitest/coverage-v8": "^2.1.1",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "repository": "bokub/gradient-string",
+  "homepage": "https://github.com/bokub/gradient-string",
+  "bugs": "https://github.com/bokub/gradient-string/issues",
+  "keywords": [
+    "cli",
+    "color",
+    "colors",
+    "colour",
+    "command-line",
+    "console",
+    "formatting",
+    "gradient",
+    "gradients",
+    "log",
+    "logging",
+    "shell",
+    "string",
+    "style",
+    "styles",
+    "terminal"
+  ],
+  "prettier": "@bokub/prettier-config",
+  "lint-staged": {
+    "*": "prettier --write --ignore-unknown"
+  }
+}

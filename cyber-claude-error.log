@@ -1,0 +1,16 @@
+2025-09-29 16:54:09 [ERROR]: Error in chat: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdbP7mEmdFeR3pcEMTeQ"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdbP7mEmdFeR3pcEMTeQ"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/cyber_claude/dist/agent/core.js:35:30)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/cyber_claude/dist/cli/commands/scan.js:75:38)
+2025-09-29 16:56:33 [ERROR]: Error in chat: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdbZmtxFTGdt48F2Jyfo"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTdbZmtxFTGdt48F2Jyfo"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/cyber_claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/cyber_claude/dist/agent/core.js:35:30)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/cyber_claude/dist/cli/commands/scan.js:57:38)
