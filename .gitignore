@@ -27,3 +27,6 @@ Thumbs.db
 
 # Scan results
 scans/
+
+# Archived planning documents
+EXPLOITATION_PLAN.md

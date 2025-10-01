@@ -20,12 +20,21 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 
 ## 📖 Documentation
 
+### User Guides
 - **[Complete Workflows & Playbook Guide](docs/WORKFLOWS.md)** - Comprehensive guide to getting the most out of Cyber Claude
-- **[Technical Documentation](docs/CLAUDE.md)** - Architecture, development, and implementation details
 - **[Agent Modes Guide](docs/AGENT_MODES.md)** - Detailed guide to using different agent modes effectively
-- **[Contributing Guide](docs/CONTRIBUTING.md)** - How to contribute to the project
+- **[Quick Start Guide](docs/QUICKSTART.md)** - Fast track to getting started
 - **[Security Policy](docs/SECURITY.md)** - Security reporting and best practices
+
+### Technical Documentation
+- **[Technical Architecture](docs/CLAUDE.md)** - Architecture, development, and implementation details
+- **[Project Structure](docs/PROJECT_STRUCTURE.md)** - Codebase organization and file structure
+- **[Professional Enhancements](docs/PROFESSIONAL_ENHANCEMENTS.md)** - IOC extraction, MITRE ATT&CK mapping, evidence preservation
+- **[Project Assessment](docs/PROJECT_AUDIT.md)** - Independent security audit and assessment
+
+### Version History
 - **[Changelog](docs/CHANGELOG.md)** - Version history and release notes
+- **[Capabilities Overview](docs/CAPABILITIES.md)** - Complete feature list and capabilities matrix
 
 ---
 
@@ -549,6 +558,14 @@ Cyber Claude features a gorgeous terminal UI with:
 - **User Consent**: Required for system changes
 - **Transparency**: Explains all actions
 - **Ethical Boundaries**: Follows responsible disclosure
+- **Authorization Framework**: Domain blocklists, user consent, legal warnings
+
+### Alignment with Anthropic's AI Safety Standards
+Cyber Claude is built following [Anthropic's guidelines for AI in cybersecurity](https://red.anthropic.com/2025/ai-for-cyber-defenders/):
+- ✅ **Focus on defensive tasks**: Finding vulnerabilities, patching, testing security infrastructure
+- ✅ **Avoid offensive operations**: No exploitation capabilities or attack automation
+- ✅ **Empower defenders**: AI-powered analysis helps security teams protect systems
+- ✅ **Responsible AI**: Ethical guardrails and transparency in all operations
 
 ## 📁 Project Structure
 
@@ -684,14 +701,22 @@ npm test
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](docs/CONTRIBUTING.md) and [Code of Conduct](docs/CODE_OF_CONDUCT.md) before submitting a pull request.
+Contributions are welcome! Please read our [Code of Conduct](docs/CODE_OF_CONDUCT.md) before submitting a pull request.
 
-Quick steps:
+**Quick steps:**
 1. Fork the repository
-2. Create a feature branch
-3. Follow the code style
-4. Add tests if applicable
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Follow the code style and run tests (`npm test`)
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+**Contribution Guidelines:**
+- All contributions must maintain defensive-only security operations
+- No exploitation, credential harvesting, or malicious capabilities
+- Follow existing code patterns and documentation standards
+- Add tests for new features
+- Update documentation as needed
 
 ## 📄 License
 
@@ -699,7 +724,13 @@ Apache 2.0 License - see [LICENSE](LICENSE) for details
 
 ## ⚠️ Disclaimer
 
-This tool is for defensive security purposes only. Users are responsible for ensuring they have proper authorization before scanning systems. The authors are not responsible for misuse of this tool.
+**Defensive Security Only**: This tool is designed exclusively for defensive security operations. It does not and will not include exploitation capabilities, credential harvesting, or any features that could be used for unauthorized system access.
+
+**Authorization Required**: Users are responsible for ensuring they have proper written authorization before scanning any systems. Unauthorized security testing is illegal in most jurisdictions.
+
+**No Warranty**: The authors are not responsible for misuse of this tool. Use at your own risk and in compliance with all applicable laws and regulations.
+
+**Educational Purpose**: This tool is intended for security professionals, researchers, and educators to improve defensive security posture.
 
 ---
 

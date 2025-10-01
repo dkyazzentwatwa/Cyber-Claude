@@ -456,3 +456,28 @@ Error: 401 {"type":"error","error":{"type":"authentication_error","message":"inv
 2025-09-30 21:30:32 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
 2025-09-30 21:31:10 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
 2025-09-30 21:31:22 [INFO]: Agent mode changed to redteam
+2025-10-01 10:47:07 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-01 10:47:16 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-10-01 10:47:20 [INFO]: Agent mode changed to webpentest
+2025-10-01 10:47:38 [INFO]: Sending message to Gemini (Google) (mode: webpentest)
+2025-10-01 10:47:38 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-01 10:48:06 [INFO]: Received response from Gemini
+2025-10-01 10:48:06 [INFO]: Received response from Gemini (Google)
+2025-10-01 10:48:31 [INFO]: Sending message to Gemini (Google) (mode: webpentest)
+2025-10-01 10:48:31 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-01 10:48:33 [INFO]: Received response from Gemini
+2025-10-01 10:48:33 [INFO]: Received response from Gemini (Google)
+2025-10-01 10:48:48 [INFO]: Agent mode changed to base
+2025-10-01 10:50:13 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-01 10:50:30 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-10-01 10:50:47 [INFO]: Agent mode changed to webpentest
+2025-10-01 10:51:06 [INFO]: Sending message to Gemini (Google) (mode: webpentest)
+2025-10-01 10:51:06 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-01 10:51:44 [INFO]: Received response from Gemini
+2025-10-01 10:51:44 [INFO]: Received response from Gemini (Google)
+2025-10-01 10:52:07 [INFO]: Agent mode changed to redteam
+2025-10-01 10:52:17 [INFO]: Sending message to Gemini (Google) (mode: redteam)
+2025-10-01 10:52:17 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-01 10:52:44 [INFO]: Received response from Gemini
+2025-10-01 10:52:44 [INFO]: Received response from Gemini (Google)
+2025-10-01 10:53:09 [INFO]: Agent mode changed to base
