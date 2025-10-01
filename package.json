@@ -1,7 +1,7 @@
 {
   "name": "cyber-claude",
-  "version": "0.3.0",
-  "description": "AI-powered cybersecurity agent with multi-provider support (Claude & Gemini)",
+  "version": "0.5.1",
+  "description": "AI-powered defensive cybersecurity agent with guided workflows, OSINT reconnaissance, and multi-provider support (Claude & Gemini)",
   "type": "module",
   "main": "dist/index.js",
   "bin": {

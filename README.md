@@ -1,12 +1,18 @@
 # 🛡️ Cyber Claude
 
-**AI-Powered Cybersecurity Agent for Red/Blue Teaming, Web Security Testing, OSINT Reconnaissance, Network Traffic Analysis & Desktop Security**
+**AI-Powered Defensive Cybersecurity Agent with Guided Workflows**
 
 <p align="center">
   <img src="docs/images/cyber-claude-demo.png" alt="Cyber Claude Interactive Session" width="800">
 </p>
 
-An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview), designed for defensive security operations, web application vulnerability testing, OSINT reconnaissance, network traffic analysis (pcap), system hardening, and security analysis.
+**Perfect for Beginners & Security Professionals**
+
+An AI-powered cybersecurity agent built with the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview), designed exclusively for **defensive security operations**. Features 10 pre-configured workflows for guided security tasks, web application vulnerability testing, OSINT reconnaissance, network traffic analysis (pcap), system hardening, and AI-powered security analysis.
+
+**🎯 NEW: Guided Workflows** - Step-by-step security tasks perfect for learning and fast execution!
+**🔒 Defensive-Only** - No exploitation, credential harvesting, or offensive capabilities
+**🤖 AI-Powered** - Uses Claude and Gemini models for intelligent security analysis
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
@@ -14,7 +20,31 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 ![Tests](https://img.shields.io/badge/tests-157%20passed-brightgreen)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-excellent-brightgreen)
-![Version](https://img.shields.io/badge/version-0.3.0-blue)
+![Version](https://img.shields.io/badge/version-0.5.1-blue)
+
+---
+
+## 🚀 Getting Started (60 seconds!)
+
+```bash
+# 1. Install
+npm install
+
+# 2. Configure (add your API key)
+cp .env.example .env
+# Edit .env and add ANTHROPIC_API_KEY or GOOGLE_API_KEY
+
+# 3. Build
+npm run build
+
+# 4. Start with guided workflows!
+cyber-claude flows
+
+# Choose "Quick Security Health Check" (2-3 min)
+# AI will scan your system and give you recommendations
+```
+
+**First time?** Try the **"Quick Security Health Check"** workflow - it's the fastest way to see what Cyber Claude can do!
 
 ---
 
@@ -38,9 +68,41 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 
 ---
 
-## 🆕 What's New in v0.5.0
+## 🆕 What's New
 
-**🔍 OSINT Reconnaissance Suite - NO API KEYS REQUIRED!**
+### v0.5.1 - Workflows & Enhanced User Experience
+
+**🎯 NEW: Pre-Configured Workflows - Perfect for Beginners!**
+
+The new `flows` command provides guided, step-by-step workflows for common security tasks:
+
+```bash
+cyber-claude flows                        # Interactive menu
+cyber-claude flows --category security    # Show security workflows
+cyber-claude flows --difficulty beginner  # Beginner-friendly workflows
+```
+
+**10 Pre-Built Workflows:**
+- 🛡️  **Quick Security Health Check** (2-3 min, beginner) - Desktop security scan
+- 🌐 **Website Security Audit** (3-5 min, beginner) - OWASP Top 10 assessment
+- 🔍 **Domain Intelligence Gathering** (3-5 min, beginner) - Full OSINT scan
+- 🚨 **Incident Response Triage** (5-7 min, intermediate) - Security incident analysis
+- 📡 **Network Traffic Threat Hunting** (4-6 min, intermediate) - PCAP analysis
+- 🕵️  **Full OSINT Investigation** (5-10 min, intermediate) - Deep reconnaissance
+- 🔒 **System Hardening Guide** (10-15 min, intermediate) - Security improvements
+- 🎯 **Red Team Reconnaissance** (10-15 min, advanced) - External recon
+- 🚩 **CTF Web Challenge Solver** (10-20 min, advanced) - CTF assistance
+- 📚 **Learn OSINT Basics** (15-20 min, beginner) - Interactive tutorial
+
+**Why Workflows?**
+- 🎓 **Beginner-Friendly**: Guided step-by-step experiences
+- ⚡ **Fast**: Pre-configured for common tasks
+- 📖 **Educational**: Learn security concepts while using them
+- 🎯 **Goal-Oriented**: Each workflow solves a specific problem
+
+### v0.5.0 - OSINT Reconnaissance Suite
+
+**🔍 NO API KEYS REQUIRED!**
 
 - **📡 10 Comprehensive OSINT Tools**: All free, no API keys needed!
   ```bash
@@ -141,7 +203,17 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 
 ## ✨ Features
 
-### 🔄 Interactive Session (NEW!)
+### 🎯 Pre-Configured Workflows (NEW!)
+**Perfect for beginners and fast task execution!**
+- **10 Guided Workflows**: Step-by-step security tasks with AI assistance
+- **5 Categories**: Security, Reconnaissance, Analysis, CTF, Learning
+- **3 Difficulty Levels**: Beginner, Intermediate, Advanced
+- **Time Estimates**: 2-20 minutes depending on workflow
+- **Educational**: Learn while doing with interactive tutorials
+- **Examples**: Quick security check, website audit, OSINT investigation, threat hunting
+- **Easy Access**: `cyber-claude flows` or just `flows` in interactive mode
+
+### 🔄 Interactive Session
 - **Persistent REPL Interface**: Like Claude Code - single session, no re-typing
 - **Natural Commands**: Just type `scan`, `harden`, `mode redTeam`, etc.
 - **Command History**: Use ↑/↓ arrows to navigate
@@ -291,12 +363,29 @@ MCP_AMASS_ENABLED=true            # Subdomain enumeration
 
 ### Basic Usage
 
-**🌟 NEW: Interactive Session (Recommended!)**
+**🎯 FASTEST START: Pre-Configured Workflows (Perfect for Beginners!)**
 ```bash
-# Start interactive session (now the default!)
+# Start with guided workflows - best way to get started!
+cyber-claude flows
+
+# Try a beginner workflow
+cyber-claude flows --difficulty beginner
+
+# Quick security check (takes 2-3 minutes)
+# The flow will guide you through:
+# 1. Select "Quick Security Health Check"
+# 2. AI scans your system automatically
+# 3. Get clear security recommendations
+# 4. Done!
+```
+
+**🌟 Interactive Session (Recommended for Power Users)**
+```bash
+# Start interactive session (default command)
 cyber-claude
 
 # Inside session, just type commands:
+> flows                   # Browse workflows (easiest!)
 > scan                    # Quick security check
 > scan full               # Full system scan
 > webscan https://example.com  # Scan web application
@@ -308,7 +397,7 @@ cyber-claude
 > exit                    # Leave session
 ```
 
-**📋 One-Off Commands (Still Available)**
+**📋 One-Off Commands (For Scripts & Automation)**
 ```bash
 # Perform security scan
 cyber-claude scan
@@ -318,6 +407,11 @@ cyber-claude scan --network --model opus-4
 # Web application scanning
 cyber-claude webscan https://example.com
 cyber-claude webscan --full https://myapp.local
+
+# OSINT reconnaissance
+cyber-claude recon example.com --full
+cyber-claude recon username john_doe
+cyber-claude recon breach user@example.com
 
 # Network traffic analysis
 cyber-claude pcap capture.pcap
@@ -677,27 +771,35 @@ npm test
 - [x] CTF challenge support
 - [x] Authorization and guardrails
 
-### Phase 3: Enhanced Features
+### Phase 3: Enhanced Features ✅
+- [x] MITRE ATT&CK mapping (20+ techniques)
+- [x] MCP integration with 9 professional security tools
+- [x] IOC extraction and STIX 2.1 export
+- [x] Evidence preservation with chain of custody
+- [x] OSINT reconnaissance suite (10 tools)
+- [x] PCAP network traffic analysis
+- [x] Pre-configured workflows (10 guided tasks)
 - [ ] Log file analysis
-- [ ] MITRE ATT&CK mapping
 - [ ] Vulnerability database integration
 - [ ] Advanced web vulnerability detection (SQLi, XSS payloads)
 - [ ] Scheduled scanning (daemon mode)
 - [ ] Security posture dashboard
 
-### Phase 4: Advanced Capabilities
-- [ ] Custom security rules
-- [ ] Integration with security tools (nmap, etc.)
+### Phase 4: Advanced Capabilities (In Progress)
+- [ ] Custom security rules engine
 - [ ] Incident response playbooks
-- [ ] Threat intelligence feeds
-- [ ] Compliance frameworks (CIS, NIST)
+- [ ] Threat intelligence feeds integration
+- [ ] Compliance frameworks (CIS, NIST, SOC 2)
+- [ ] Automated remediation suggestions
+- [ ] Team collaboration features
 
-### Phase 4: Agent Enhancements
+### Phase 5: Agent Enhancements (Future)
 - [ ] Subagents for parallel analysis
-- [ ] Memory and context management
-- [ ] Custom tool creation
-- [ ] MCP integrations
-- [ ] Multi-language support
+- [ ] Long-term memory and context management
+- [ ] Custom tool creation framework
+- [ ] Plugin system for community extensions
+- [ ] Multi-language support (Python, Go, Rust)
+- [ ] API for programmatic access
 
 ## 🤝 Contributing
 
