@@ -11,6 +11,7 @@ import { createInteractiveCommand } from './commands/interactive.js';
 import { createWebScanCommand } from './commands/webscan.js';
 import { createPcapCommand } from './commands/pcap.js';
 import { createReconCommand } from './commands/recon.js';
+import { createFlowsCommand } from './commands/flows.js';
 import { InteractiveSession } from './session.js';
 
 const program = new Command();
@@ -22,6 +23,7 @@ program
 
 // Add commands
 program.addCommand(createInteractiveCommand());
+program.addCommand(createFlowsCommand());
 program.addCommand(createScanCommand());
 program.addCommand(createHardenCommand());
 program.addCommand(createChatCommand());
@@ -37,6 +39,7 @@ program
       ui.welcome();
       console.log('\n' + chalk.bold('Quick Commands:'));
       console.log(`  ${chalk.cyan('cyber-claude interactive')} - Start interactive session ${chalk.green('(Recommended)')}`);
+      console.log(`  ${chalk.cyan('cyber-claude flows')}       - Pre-configured workflows ${chalk.green('(Beginner-friendly)')}`);
       console.log(`  ${chalk.cyan('cyber-claude scan')}        - Scan your system for security issues`);
       console.log(`  ${chalk.cyan('cyber-claude webscan <url>')} - Scan web applications for vulnerabilities`);
       console.log(`  ${chalk.cyan('cyber-claude recon <target>')} - OSINT reconnaissance on domains/usernames`);

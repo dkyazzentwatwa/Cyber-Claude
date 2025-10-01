@@ -1,4 +1,4 @@
-export type AgentMode = 'base' | 'redteam' | 'blueteam' | 'desktopsecurity' | 'webpentest';
+export type AgentMode = 'base' | 'redteam' | 'blueteam' | 'desktopsecurity' | 'webpentest' | 'osint';
 export interface AgentConfig {
     mode: AgentMode;
     apiKey?: string;

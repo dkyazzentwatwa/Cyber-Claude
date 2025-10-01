@@ -8,6 +8,8 @@ import { SecurityReporter } from '../agent/tools/reporter.js';
 import { WebScanner } from '../agent/tools/web/WebScanner.js';
 import { PcapAnalyzer } from '../agent/tools/PcapAnalyzer.js';
 import { PcapReporter } from '../agent/tools/PcapReporter.js';
+import { OSINTOrchestrator, OSINTReporter } from '../agent/tools/osint/index.js';
+import { WORKFLOWS } from './commands/flows.js';
 import { config } from '../utils/config.js';
 import { AgentMode, WebScanResult } from '../agent/types.js';
 import { AVAILABLE_MODELS, ModelKey, getModelByKey } from '../utils/models.js';
@@ -149,6 +151,8 @@ export class InteractiveSession {
   private webScanner: WebScanner;
   private pcapAnalyzer: PcapAnalyzer;
   private pcapReporter: PcapReporter;
+  private osintOrchestrator: OSINTOrchestrator;
+  private osintReporter: OSINTReporter;
 
   constructor(initialMode: AgentMode = 'base', model?: string) {
     this.scanner = new DesktopScanner();
@@ -157,6 +161,8 @@ export class InteractiveSession {
     this.webScanner = new WebScanner();
     this.pcapAnalyzer = new PcapAnalyzer();
     this.pcapReporter = new PcapReporter();
+    this.osintOrchestrator = new OSINTOrchestrator();
+    this.osintReporter = new OSINTReporter();
 
     const selectedModel = model || config.model;
 
@@ -221,6 +227,7 @@ export class InteractiveSession {
       blueteam: '🛡️',
       desktopsecurity: '🔒',
       webpentest: '🌐',
+      osint: '🔍',
     };
 
     const icon = modeIcons[this.state.mode];
@@ -236,6 +243,8 @@ export class InteractiveSession {
         return chalk.green(text);
       case 'webpentest':
         return chalk.magenta(text);
+      case 'osint':
+        return chalk.yellow(text);
       default:
         return chalk.cyan(text);
     }
@@ -251,21 +260,22 @@ export class InteractiveSession {
   private showWelcome(): void {
     ui.box(
       `Welcome to ${chalk.bold('Cyber Claude Interactive Session')}!\n\n` +
-      `${chalk.bold('Commands:')}\n` +
-      `  ${chalk.cyan('scan')} - Quick security scan\n` +
-      `  ${chalk.cyan('scan full')} - Full system scan\n` +
-      `  ${chalk.cyan('scan network')} - Network scan\n` +
-      `  ${chalk.cyan('webscan <url>')} - Scan web application\n` +
-      `  ${chalk.cyan('pcap <file>')} - Analyze network capture file\n` +
-      `  ${chalk.cyan('harden')} - Check hardening\n` +
-      `  ${chalk.cyan('mode <mode>')} - Change mode (base, redteam, blueteam, desktopsecurity, webpentest)\n` +
-      `  ${chalk.cyan('model')} - Select model\n` +
-      `  ${chalk.cyan('status')} - Show session status\n` +
-      `  ${chalk.cyan('clear')} - Clear conversation history\n` +
-      `  ${chalk.cyan('history')} - Show command history\n` +
-      `  ${chalk.cyan('help')} - Show help\n` +
-      `  ${chalk.cyan('exit')} / ${chalk.cyan('quit')} - Exit session\n\n` +
-      `${chalk.dim('Or just type naturally to chat with the agent...')}`,
+      `${chalk.bold('🚀 Quick Start Guide:')}\n\n` +
+      `${chalk.bold('1. Scan Your System:')}\n` +
+      `   ${chalk.cyan('scan')} ${chalk.dim('- Quick security check')}\n` +
+      `   ${chalk.cyan('scan full')} ${chalk.dim('- Comprehensive scan with AI analysis')}\n\n` +
+      `${chalk.bold('2. Test Websites:')}\n` +
+      `   ${chalk.cyan('webscan https://example.com')} ${chalk.dim('- Find vulnerabilities')}\n\n` +
+      `${chalk.bold('3. Gather Intel:')}\n` +
+      `   ${chalk.cyan('recon example.com')} ${chalk.dim('- OSINT reconnaissance')}\n\n` +
+      `${chalk.bold('4. Analyze Network Traffic:')}\n` +
+      `   ${chalk.cyan('pcap capture.pcap')} ${chalk.dim('- Parse .pcap files')}\n\n` +
+      `${chalk.bold('5. Get Help:')}\n` +
+      `   ${chalk.cyan('help')} ${chalk.dim('- Show detailed command guide with examples')}\n\n` +
+      `${chalk.bold('6. Chat Naturally:')}\n` +
+      `   ${chalk.dim('Just type: ')}${chalk.cyan('How do I secure SSH?')}${chalk.dim(' or ')}${chalk.cyan('Explain XSS attacks')}\n\n` +
+      `${chalk.dim('💡 Tip: Type ')}${chalk.cyan('help')}${chalk.dim(' for detailed examples of every command')}\n` +
+      `${chalk.dim('💡 Tip: Change modes with ')}${chalk.cyan('mode <name>')}${chalk.dim(' (base, redteam, blueteam, osint, etc.)')}`,
       '🚀 Interactive Session',
       'info'
     );
@@ -320,8 +330,16 @@ export class InteractiveSession {
         await this.handlePcap(args);
         return false;
 
+      case 'recon':
+        await this.handleRecon(args);
+        return false;
+
       case 'harden':
         await this.handleHarden();
+        return false;
+
+      case 'flows':
+        await this.handleFlows();
         return false;
 
       default:
@@ -332,35 +350,119 @@ export class InteractiveSession {
   }
 
   private showHelp(): void {
-    ui.section('Available Commands');
+    console.log('\n' + chalk.bold.cyan('═'.repeat(80)));
+    console.log(chalk.bold.cyan('                           CYBER CLAUDE - HELP GUIDE'));
+    console.log(chalk.bold.cyan('═'.repeat(80)) + '\n');
 
-    console.log(chalk.bold.cyan('\n📊 Scanning & Analysis:'));
-    console.log(`  ${chalk.cyan('scan')}              Quick security check`);
-    console.log(`  ${chalk.cyan('scan full')}         Full system scan with AI analysis`);
-    console.log(`  ${chalk.cyan('scan network')}      Analyze network connections`);
-    console.log(`  ${chalk.cyan('webscan <url>')}     Scan web application for vulnerabilities`);
-    console.log(`  ${chalk.cyan('pcap <file>')}       Analyze network capture file (.pcap)`);
-    console.log(`  ${chalk.cyan('harden')}            Check system hardening status`);
+    // SCANNING COMMANDS
+    console.log(chalk.bold.cyan('📊 SCANNING & ANALYSIS COMMANDS\n'));
 
-    console.log(chalk.bold.cyan('\n⚙️  Session Control:'));
-    console.log(`  ${chalk.cyan('mode <mode>')}       Switch agent mode`);
-    console.log(`  ${chalk.cyan('model')}             Select AI model`);
-    console.log(`  ${chalk.cyan('status')}            Show current session status`);
-    console.log(`  ${chalk.cyan('clear')}             Clear conversation history`);
-    console.log(`  ${chalk.cyan('history')}           Show command history`);
+    console.log(chalk.bold('  scan') + chalk.dim(' - Quick security check of your system'));
+    console.log(chalk.dim('    Checks: OS info, running processes, open ports, disk usage'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('scan') + '\n');
 
-    console.log(chalk.bold.cyan('\n💬 Chat:'));
-    console.log(`  ${chalk.dim('Just type naturally to chat with the agent')}`);
+    console.log(chalk.bold('  scan full') + chalk.dim(' - Comprehensive system security scan with AI analysis'));
+    console.log(chalk.dim('    Analyzes: Everything in quick scan + detailed vulnerability assessment'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('scan full') + '\n');
 
-    console.log(chalk.bold.cyan('\n🚪 Exit:'));
-    console.log(`  ${chalk.cyan('exit')} / ${chalk.cyan('quit')}     Exit session\n`);
+    console.log(chalk.bold('  scan network') + chalk.dim(' - Analyze active network connections'));
+    console.log(chalk.dim('    Shows: Active connections, listening ports, suspicious traffic'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('scan network') + '\n');
 
-    console.log(chalk.bold('Agent Modes:'));
-    console.log(`  ${chalk.cyan('base')}              General security assistant`);
-    console.log(`  ${chalk.red('redteam')}           Offensive security perspective`);
-    console.log(`  ${chalk.blue('blueteam')}          Defensive security focus`);
-    console.log(`  ${chalk.green('desktopsecurity')}   Personal computer security`);
-    console.log(`  ${chalk.magenta('webpentest')}        Web application security testing\n`);
+    console.log(chalk.bold('  webscan <url>') + chalk.dim(' - Test web application security'));
+    console.log(chalk.dim('    Tests: Headers, CSRF, cookies, OWASP Top 10 vulnerabilities'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('webscan https://example.com'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('webscan http://localhost:3000') + '\n');
+
+    console.log(chalk.bold('  recon <target>') + chalk.dim(' - OSINT reconnaissance (passive intelligence gathering)'));
+    console.log(chalk.dim('    Gathers: DNS, WHOIS, subdomains, emails, breaches, social media'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('recon example.com') + chalk.dim(' (domain scan)'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('recon johndoe') + chalk.dim(' (username search)'));
+    console.log(chalk.yellow('    Options: ') + chalk.dim('--quick (fast), --full (comprehensive), --domain, --person') + '\n');
+
+    console.log(chalk.bold('  pcap <file>') + chalk.dim(' - Analyze network capture files (Wireshark format)'));
+    console.log(chalk.dim('    Analyzes: Packets, protocols, conversations, DNS, HTTP, anomalies'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('pcap capture.pcap'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('pcap /path/to/traffic.pcapng') + '\n');
+
+    console.log(chalk.bold('  harden') + chalk.dim(' - Check system hardening and security posture'));
+    console.log(chalk.dim('    Checks: Firewall, disk encryption, antivirus, security settings'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('harden') + '\n');
+
+    console.log(chalk.bold('  flows') + chalk.dim(' - Pre-configured workflows for common tasks') + chalk.green(' (Beginner-friendly)'));
+    console.log(chalk.dim('    Includes: Quick security check, web audits, OSINT, incident response, CTF, tutorials'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('flows'));
+    console.log(chalk.dim('    Checks: Firewall, encryption, updates, security settings'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('harden') + '\n');
+
+    // SESSION CONTROL
+    console.log(chalk.bold.cyan('⚙️  SESSION CONTROL\n'));
+
+    console.log(chalk.bold('  mode <mode>') + chalk.dim(' - Switch the AI agent\'s focus and expertise'));
+    console.log(chalk.dim('    Available modes (see Agent Modes below for details)'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('mode webpentest'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('mode osint') + '\n');
+
+    console.log(chalk.bold('  model') + chalk.dim(' - Select which AI model to use (Claude or Gemini)'));
+    console.log(chalk.dim('    Opens interactive menu to choose from available models'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('model') + '\n');
+
+    console.log(chalk.bold('  status') + chalk.dim(' - Show current session information'));
+    console.log(chalk.dim('    Shows: Current mode, model, command count, conversation length'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('status') + '\n');
+
+    console.log(chalk.bold('  clear') + chalk.dim(' - Clear conversation history (fresh start)'));
+    console.log(chalk.dim('    Resets the AI\'s memory of previous messages in this session'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('clear') + '\n');
+
+    console.log(chalk.bold('  history') + chalk.dim(' - Show recent commands you\'ve run'));
+    console.log(chalk.dim('    Displays last 10 commands from this session'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('history') + '\n');
+
+    // CHAT
+    console.log(chalk.bold.cyan('💬 CONVERSATIONAL CHAT\n'));
+    console.log(chalk.dim('  Just type naturally to ask questions or get advice:'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('How do I secure my SSH server?'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('Explain what a SQL injection is'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('What ports should I close on my firewall?') + '\n');
+
+    // EXIT
+    console.log(chalk.bold.cyan('🚪 EXIT SESSION\n'));
+    console.log(chalk.bold('  exit') + chalk.dim(' or ') + chalk.bold('quit') + chalk.dim(' - Close the interactive session'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('exit') + '\n');
+
+    // AGENT MODES
+    console.log(chalk.bold.cyan('═'.repeat(80)));
+    console.log(chalk.bold.cyan('🎭 AGENT MODES - Each mode changes how the AI thinks and responds\n'));
+
+    console.log(chalk.cyan('  base ') + chalk.bold('🤖') + chalk.dim(' - General-purpose security assistant'));
+    console.log(chalk.dim('    Use for: General questions, learning, mixed tasks'));
+    console.log(chalk.dim('    Best for: Beginners, broad security topics\n'));
+
+    console.log(chalk.red('  redteam ') + chalk.bold('⚔️') + chalk.dim(' - Offensive security mindset (attacker perspective)'));
+    console.log(chalk.dim('    Use for: Finding vulnerabilities, attack surface analysis'));
+    console.log(chalk.dim('    Best for: Penetration testing, security assessments\n'));
+
+    console.log(chalk.blue('  blueteam ') + chalk.bold('🛡️') + chalk.dim(' - Defensive security focus (defender perspective)'));
+    console.log(chalk.dim('    Use for: Threat detection, incident response, monitoring'));
+    console.log(chalk.dim('    Best for: SOC analysts, defense strategies\n'));
+
+    console.log(chalk.green('  desktopsecurity ') + chalk.bold('🔒') + chalk.dim(' - Personal computer security'));
+    console.log(chalk.dim('    Use for: Protecting your laptop/desktop, privacy, malware'));
+    console.log(chalk.dim('    Best for: Personal device security, home users\n'));
+
+    console.log(chalk.magenta('  webpentest ') + chalk.bold('🌐') + chalk.dim(' - Web application security testing'));
+    console.log(chalk.dim('    Use for: Testing websites, finding web vulnerabilities, CTFs'));
+    console.log(chalk.dim('    Best for: Web developers, bug bounty hunters\n'));
+
+    console.log(chalk.yellow('  osint ') + chalk.bold('🔍') + chalk.dim(' - Open Source Intelligence gathering'));
+    console.log(chalk.dim('    Use for: Passive reconnaissance, footprinting, information gathering'));
+    console.log(chalk.dim('    Best for: Investigating domains, usernames, digital footprints\n'));
+
+    console.log(chalk.bold.cyan('═'.repeat(80)));
+    console.log(chalk.dim('💡 Tip: Use ') + chalk.cyan('mode <name>') + chalk.dim(' to switch modes based on your task'));
+    console.log(chalk.dim('💡 Tip: Commands can be combined with chat - try ') + chalk.cyan('scan') + chalk.dim(' then ask about results'));
+    console.log(chalk.bold.cyan('═'.repeat(80)) + '\n');
   }
 
   private showStatus(): void {
@@ -393,12 +495,12 @@ export class InteractiveSession {
   private async handleModeChange(args: string[]): Promise<void> {
     if (args.length === 0) {
       ui.info(`Current mode: ${this.state.mode}`);
-      ui.info('Available modes: base, redteam, blueteam, desktopsecurity, webpentest');
+      ui.info('Available modes: base, redteam, blueteam, desktopsecurity, webpentest, osint');
       return;
     }
 
     const newMode = args[0] as AgentMode;
-    const validModes = ['base', 'redteam', 'blueteam', 'desktopsecurity', 'webpentest'];
+    const validModes = ['base', 'redteam', 'blueteam', 'desktopsecurity', 'webpentest', 'osint'];
 
     if (validModes.includes(newMode)) {
       this.state.mode = newMode;
@@ -510,6 +612,253 @@ export class InteractiveSession {
     } catch (error) {
       ui.error(`Hardening check failed: ${error}`);
     }
+  }
+
+  private async handleFlows(): Promise<void> {
+    ui.section('Pre-configured Workflows');
+    console.log(chalk.gray('Choose a workflow to get started quickly\n'));
+
+    // Group flows by category
+    const grouped = WORKFLOWS.reduce((acc, flow) => {
+      if (!acc[flow.category]) acc[flow.category] = [];
+      acc[flow.category].push(flow);
+      return acc;
+    }, {} as Record<string, typeof WORKFLOWS>);
+
+    const choices = [];
+
+    // Create categorized choices
+    for (const [category, flows] of Object.entries(grouped)) {
+      choices.push(new inquirer.Separator(chalk.bold.cyan(`\n${category.toUpperCase()}:`)));
+      flows.forEach(flow => {
+        const difficultyEmoji = {
+          beginner: '🟢',
+          intermediate: '🟡',
+          advanced: '🔴',
+        }[flow.difficulty];
+
+        choices.push({
+          name: `  ${flow.name} ${difficultyEmoji} ${chalk.gray(`(${flow.estimatedTime})`)}`,
+          value: flow.id,
+          short: flow.name,
+        });
+      });
+    }
+
+    const { selectedFlowId } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'selectedFlowId',
+        message: 'Select a workflow:',
+        choices,
+        pageSize: 20,
+      },
+    ]);
+
+    const selectedFlow = WORKFLOWS.find(f => f.id === selectedFlowId);
+    if (!selectedFlow) {
+      ui.error('Flow not found');
+      return;
+    }
+
+    // Show flow details
+    ui.section(selectedFlow.name);
+    console.log(chalk.gray(selectedFlow.description));
+    console.log(chalk.gray(`\nDifficulty: ${selectedFlow.difficulty} | Estimated time: ${selectedFlow.estimatedTime}\n`));
+
+    console.log(chalk.bold('Steps:'));
+    selectedFlow.steps.forEach((step, i) => {
+      console.log(chalk.gray(`  ${i + 1}. ${step}`));
+    });
+    console.log('');
+
+    // Confirm execution
+    const { confirm } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'confirm',
+        message: 'Ready to start this workflow?',
+        default: true,
+      },
+    ]);
+
+    if (!confirm) {
+      console.log(chalk.yellow('Workflow cancelled.\n'));
+      return;
+    }
+
+    // Execute the workflow
+    try {
+      await this.executeWorkflow(selectedFlow);
+    } catch (error: any) {
+      ui.error(`Workflow execution failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Execute a workflow based on its ID
+   */
+  private async executeWorkflow(flow: typeof WORKFLOWS[0]): Promise<void> {
+    switch (flow.id) {
+      case 'quick-security-check':
+        await this.executeQuickSecurityCheck(flow);
+        break;
+      case 'website-security-audit':
+        await this.executeWebsiteAudit(flow);
+        break;
+      case 'domain-intel-gathering':
+        await this.executeDomainIntel(flow);
+        break;
+      case 'incident-response-triage':
+        await this.executeIncidentTriage(flow);
+        break;
+      case 'harden-system':
+        await this.executeSystemHardening(flow);
+        break;
+      default:
+        console.log(chalk.yellow(`\nWorkflow "${flow.id}" implementation coming soon!`));
+        console.log(chalk.gray('Use the standalone command for guided execution:'));
+        console.log(chalk.cyan(`  cyber-claude flows\n`));
+    }
+  }
+
+  /**
+   * Quick Security Check Workflow
+   */
+  private async executeQuickSecurityCheck(flow: typeof WORKFLOWS[0]): Promise<void> {
+    const spinner = ui.spinner('Scanning system security...').start();
+
+    const scanResultRaw = await this.scanner.quickCheck();
+    spinner.succeed('System scan complete');
+
+    const hardeningSpinner = ui.spinner('Checking security settings...').start();
+    const hardeningResultRaw = await this.hardening.checkHardening();
+    hardeningSpinner.succeed('Security settings analyzed');
+
+    const allFindings = [
+      ...(scanResultRaw.success && scanResultRaw.data?.findings ? scanResultRaw.data.findings : []),
+      ...(hardeningResultRaw.success && hardeningResultRaw.data?.findings ? hardeningResultRaw.data.findings : [])
+    ];
+
+    const scanResult = this.reporter.createScanResult(allFindings, new Date());
+    this.reporter.displayReport(scanResult);
+
+    const aiSpinner = ui.spinner('Getting AI security recommendations...').start();
+    const analysis = await this.state.agent.analyze(
+      'Analyze this security scan and provide actionable recommendations for improving system security. Focus on the most critical issues first.',
+      allFindings
+    );
+    aiSpinner.succeed('AI analysis complete');
+
+    console.log('');
+    ui.section('🤖 AI Security Recommendations');
+    console.log(ui.formatAIResponse(analysis) + '\n');
+  }
+
+  /**
+   * Website Security Audit Workflow
+   */
+  private async executeWebsiteAudit(flow: typeof WORKFLOWS[0]): Promise<void> {
+    const { url } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'url',
+        message: 'Enter website URL to audit:',
+        validate: (input) => input.startsWith('http') || 'Please enter a valid URL (http:// or https://)',
+      },
+    ]);
+
+    console.log(chalk.yellow('\n⚠️  Make sure you have permission to scan this website!'));
+    const { authorized } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'authorized',
+        message: 'Do you have authorization to scan this website?',
+        default: false,
+      },
+    ]);
+
+    if (!authorized) {
+      console.log(chalk.red('❌ Authorization required. Scan cancelled.\n'));
+      return;
+    }
+
+    // Use the existing webscan handler
+    await this.handleWebScan([url]);
+  }
+
+  /**
+   * Domain Intelligence Gathering Workflow
+   */
+  private async executeDomainIntel(flow: typeof WORKFLOWS[0]): Promise<void> {
+    const { domain } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'domain',
+        message: 'Enter domain to investigate:',
+        validate: (input) => input.length > 0 || 'Domain is required',
+      },
+    ]);
+
+    // Use the existing recon handler with --domain flag
+    await this.handleRecon([domain, '--domain']);
+  }
+
+  /**
+   * Incident Response Triage Workflow
+   */
+  private async executeIncidentTriage(flow: typeof WORKFLOWS[0]): Promise<void> {
+    const spinner = ui.spinner('Performing incident triage scan...').start();
+
+    const scanResultRaw = await this.scanner.scanSystem();
+    spinner.succeed('Full system scan complete');
+
+    const findings = scanResultRaw.success && scanResultRaw.data?.findings ? scanResultRaw.data.findings : [];
+    const scanResult = this.reporter.createScanResult(findings, new Date());
+    this.reporter.displayReport(scanResult);
+
+    const aiSpinner = ui.spinner('Analyzing for incident indicators...').start();
+    const analysis = await this.state.agent.analyze(
+      `Perform incident response triage on this system scan. Look for:
+- Suspicious processes or services
+- Unusual network connections
+- Potential compromise indicators
+- Security misconfigurations
+- Recommended immediate actions
+
+Provide prioritized findings and actionable next steps.`,
+      findings
+    );
+    aiSpinner.succeed('Incident analysis complete');
+
+    console.log('');
+    ui.section('🚨 Incident Triage Report');
+    console.log(ui.formatAIResponse(analysis) + '\n');
+  }
+
+  /**
+   * System Hardening Workflow
+   */
+  private async executeSystemHardening(flow: typeof WORKFLOWS[0]): Promise<void> {
+    const spinner = ui.spinner('Auditing security configuration...').start();
+
+    const resultsRaw = await this.hardening.checkHardening();
+    spinner.succeed('Security audit complete');
+
+    const findings = resultsRaw.success && resultsRaw.data?.findings ? resultsRaw.data.findings : [];
+    const scanResult = this.reporter.createScanResult(findings, new Date());
+    this.reporter.displayReport(scanResult);
+
+    const aiSpinner = ui.spinner('Generating hardening recommendations...').start();
+    const analysis = await this.state.agent.analyze(
+      'Based on this security audit, provide step-by-step hardening recommendations. Prioritize by impact and include specific commands or settings to change where applicable.',
+      findings
+    );
+    aiSpinner.succeed('Hardening guide generated');
+
+    console.log('');
+    ui.section('🔒 System Hardening Guide');
+    console.log(ui.formatAIResponse(analysis) + '\n');
   }
 
   private async handleChat(message: string): Promise<void> {
@@ -658,6 +1007,115 @@ export class InteractiveSession {
       ui.success('✓ Pcap analysis complete!');
     } catch (error: any) {
       ui.error(`Pcap analysis failed: ${error.message}`);
+    }
+  }
+
+  private async handleRecon(args: string[]): Promise<void> {
+    if (args.length === 0) {
+      ui.error('Please provide a target to investigate');
+      ui.info('Usage: recon <domain|username|ip>');
+      ui.info('Options: --quick, --full, --domain, --person');
+      return;
+    }
+
+    const target = args[0];
+
+    // Parse options
+    let scanType: 'quick' | 'full' | 'domain' | 'person' = 'quick';
+    if (args.includes('--full')) scanType = 'full';
+    else if (args.includes('--domain')) scanType = 'domain';
+    else if (args.includes('--person')) scanType = 'person';
+
+    try {
+      console.log('');
+      ui.section(`🔍 OSINT Reconnaissance: ${target}`);
+      console.log(`Scan Type: ${scanType.toUpperCase()}`);
+      console.log('');
+
+      const spinner = ui.spinner('Starting reconnaissance...');
+
+      let result;
+      try {
+        switch (scanType) {
+          case 'quick':
+            result = await this.osintOrchestrator.quickScan(target);
+            break;
+          case 'full':
+            result = await this.osintOrchestrator.fullScan(target);
+            break;
+          case 'domain':
+            result = await this.osintOrchestrator.domainScan(target);
+            break;
+          case 'person':
+            result = await this.osintOrchestrator.personScan(target);
+            break;
+        }
+        spinner.succeed('Reconnaissance completed');
+      } catch (error) {
+        spinner.fail('Reconnaissance failed');
+        throw error;
+      }
+
+      console.log('');
+
+      // Display results
+      this.osintReporter.displayResults(result);
+
+      // AI Analysis
+      if (result.summary.totalFindings > 0) {
+        const aiSpinner = ui.spinner('🤖 Analyzing OSINT findings with AI...');
+
+        // Build analysis prompt
+        let prompt = `Analyze the following OSINT reconnaissance results:\n\n`;
+        prompt += `Target: ${result.target}\n`;
+        prompt += `Findings: ${result.summary.totalFindings}\n`;
+        prompt += `Risk Score: ${result.summary.riskScore}/100\n\n`;
+
+        // Add key findings
+        if (result.results.dns) {
+          prompt += `DNS Records Found: ${Object.keys(result.results.dns.records).length} types\n`;
+        }
+        if (result.results.whois) {
+          prompt += `WHOIS: ${result.results.whois.registrar || 'Unknown registrar'}\n`;
+        }
+        if (result.results.subdomains && result.results.subdomains.total > 0) {
+          prompt += `Subdomains: ${result.results.subdomains.total} discovered\n`;
+        }
+        if (result.results.emails && result.results.emails.total > 0) {
+          prompt += `Emails: ${result.results.emails.total} addresses found\n`;
+        }
+        if (result.results.usernames && result.results.usernames.totalFound > 0) {
+          prompt += `Social Media: ${result.results.usernames.totalFound} profiles found\n`;
+        }
+        if (result.results.breaches && result.results.breaches.length > 0) {
+          prompt += `⚠️ Data Breaches: ${result.results.breaches.length} breach(es) found\n`;
+        }
+
+        prompt += `\nProvide:\n`;
+        prompt += `1. Security posture assessment\n`;
+        prompt += `2. Attack surface analysis\n`;
+        prompt += `3. Privacy and exposure concerns\n`;
+        prompt += `4. Recommendations for hardening\n`;
+
+        const aiResponse = await this.state.agent.analyze(
+          prompt,
+          result
+        );
+        aiSpinner.succeed('✓ Analysis complete');
+        console.log('\n' + ui.formatAIResponse(aiResponse) + '\n');
+      }
+
+      // Summary
+      const riskLevel =
+        result.summary.riskScore > 70
+          ? 'HIGH'
+          : result.summary.riskScore > 40
+            ? 'MEDIUM'
+            : 'LOW';
+
+      ui.info(`Scan completed: ${result.summary.totalFindings} findings | Risk: ${riskLevel}`);
+    } catch (error: any) {
+      ui.error(`Reconnaissance failed: ${error.message || error}`);
     }
   }
 

@@ -8,6 +8,16 @@ An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
 ![Claude](https://img.shields.io/badge/Claude-Sonnet%204-purple)
 
+---
+
+## 📖 Documentation
+
+- **[Complete Workflows & Playbook Guide](WORKFLOWS.md)** - Comprehensive guide to getting the most out of Cyber Claude
+- **[Technical Documentation](CLAUDE.md)** - Architecture, development, and implementation details
+- **[Agent Modes Guide](docs/AGENT_MODES.md)** - Detailed guide to using different agent modes effectively
+
+---
+
 ## 🆕 What's New in v0.5.0
 
 **🔍 OSINT Reconnaissance Suite - NO API KEYS REQUIRED!**
@@ -332,6 +342,45 @@ cyber-claude interactive --mode redteam   # Start in red team mode
 cyber-claude i --model opus-4             # Start with Opus 4
 cyber-claude interactive --mode webpentest # Start in web pentest mode
 ```
+
+### `cyber-claude flows` 🆕 **BEGINNER-FRIENDLY!**
+Pre-configured workflows for common cybersecurity tasks - perfect for getting started!
+
+**Categories:**
+- 🛡️  **Security**: Quick health checks, system hardening, security audits
+- 🔍 **Reconnaissance**: Domain intelligence, OSINT investigations
+- 📊 **Analysis**: Network traffic analysis, incident response triage
+- 🚩 **CTF**: Capture The Flag challenge solving workflows
+- 📚 **Learning**: Interactive tutorials and guided learning paths
+
+**Available Workflows:**
+1. **Quick Security Health Check** (2-3 min, beginner) - Scan your computer for common security issues
+2. **Website Security Audit** (3-5 min, beginner) - Comprehensive OWASP Top 10 assessment
+3. **Domain Intelligence Gathering** (3-5 min, beginner) - Full OSINT on a domain
+4. **Incident Response Triage** (5-7 min, intermediate) - Quick security incident assessment
+5. **Network Traffic Threat Hunting** (4-6 min, intermediate) - Analyze PCAP files for threats
+6. **Full OSINT Investigation** (5-10 min, intermediate) - Deep-dive reconnaissance
+7. **System Hardening Guide** (10-15 min, intermediate) - Step-by-step security improvements
+8. **Red Team Reconnaissance** (10-15 min, advanced) - Professional external reconnaissance
+9. **CTF Web Challenge Solver** (10-20 min, advanced) - Systematic CTF solving approach
+10. **Learn OSINT Basics** (15-20 min, beginner) - Interactive OSINT tutorial
+
+**Options:**
+- `-l, --list` - List all available workflows
+- `-c, --category <category>` - Filter by category (security, recon, analysis, incident, ctf, learning)
+- `-d, --difficulty <level>` - Filter by difficulty (beginner, intermediate, advanced)
+- `-m, --model <model>` - AI model to use for analysis
+
+**Examples:**
+```bash
+cyber-claude flows                        # Interactive menu
+cyber-claude flows --list                 # See all workflows
+cyber-claude flows --category security    # Show security workflows
+cyber-claude flows --difficulty beginner  # Show beginner-friendly workflows
+flows                                     # Works in interactive session too!
+```
+
+💡 **Pro tip:** Start with "Quick Security Health Check" or "Website Security Audit" to see what Cyber Claude can do!
 
 ### `cyber-claude scan`
 Scan your system for security issues

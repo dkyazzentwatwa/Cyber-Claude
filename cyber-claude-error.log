@@ -74,3 +74,145 @@ Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Yo
     at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
     at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
     at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/pcap.js:120:34)
+2025-09-30 12:19:39 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTf8FyBDn3Znm4yxND2J1"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTf8FyBDn3Znm4yxND2J1"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:432:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:276:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:173:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:51:5)
+2025-09-30 12:19:39 [ERROR]: Error in chat: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTf8FyBDn3Znm4yxND2J1"}
+Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTf8FyBDn3Znm4yxND2J1"}
+    at ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:36:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:432:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:276:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:173:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:51:5)
+2025-09-30 12:24:02 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTf8bQ9Rd38HbLjruBNG2"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTf8bQ9Rd38HbLjruBNG2"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleRecon (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:643:36)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:281:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:178:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:51:5)
+2025-09-30 12:24:02 [ERROR]: Error in chat: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTf8bQ9Rd38HbLjruBNG2"}
+Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTf8bQ9Rd38HbLjruBNG2"}
+    at ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:36:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleRecon (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:643:36)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:281:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:178:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:51:5)
+2025-09-30 17:46:11 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTfZAAwtkXYP8M7SoCx64"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTfZAAwtkXYP8M7SoCx64"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-09-30 17:46:11 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-09-30 17:47:12 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-09-30 17:47:12 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTfZEhNqS1PxmVzQ2FeZg"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTfZEhNqS1PxmVzQ2FeZg"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-09-30 17:47:43 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-09-30 17:47:43 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTfZGzWH6NDU9B9LW4QB3"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTfZGzWH6NDU9B9LW4QB3"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-09-30 19:20:48 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTfgNf9S5XVzkWcAGJFBs"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTfgNf9S5XVzkWcAGJFBs"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleWebScan (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:756:28)
+    at async InteractiveSession.executeWebsiteAudit (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:655:9)
+    at async InteractiveSession.executeWorkflow (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:589:17)
+    at async InteractiveSession.handleFlows (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:574:13)
+2025-09-30 19:20:48 [ERROR]: Error in chat: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTfgNf9S5XVzkWcAGJFBs"}
+Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTfgNf9S5XVzkWcAGJFBs"}
+    at ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:36:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleWebScan (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:756:28)
+    at async InteractiveSession.executeWebsiteAudit (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:655:9)
+    at async InteractiveSession.executeWorkflow (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:589:17)
+    at async InteractiveSession.handleFlows (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:574:13)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:288:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:179:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:54:5)
+2025-09-30 19:46:58 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-09-30 19:46:58 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTfiNQ44V4joHPUN9Ss9P"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTfiNQ44V4joHPUN9Ss9P"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20

@@ -51,6 +51,7 @@ export function createChatCommand(): Command {
         blueteam: '🛡️',
         desktopsecurity: '🔒',
         webpentest: '🌐',
+        osint: '🔍',
       };
 
       const currentMode = options.mode as AgentMode;

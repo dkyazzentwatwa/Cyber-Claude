@@ -7,6 +7,8 @@ export declare class InteractiveSession {
     private webScanner;
     private pcapAnalyzer;
     private pcapReporter;
+    private osintOrchestrator;
+    private osintReporter;
     constructor(initialMode?: AgentMode, model?: string);
     /**
      * Start the interactive session
@@ -23,9 +25,35 @@ export declare class InteractiveSession {
     private handleModelSelect;
     private handleScan;
     private handleHarden;
+    private handleFlows;
+    /**
+     * Execute a workflow based on its ID
+     */
+    private executeWorkflow;
+    /**
+     * Quick Security Check Workflow
+     */
+    private executeQuickSecurityCheck;
+    /**
+     * Website Security Audit Workflow
+     */
+    private executeWebsiteAudit;
+    /**
+     * Domain Intelligence Gathering Workflow
+     */
+    private executeDomainIntel;
+    /**
+     * Incident Response Triage Workflow
+     */
+    private executeIncidentTriage;
+    /**
+     * System Hardening Workflow
+     */
+    private executeSystemHardening;
     private handleChat;
     private handleWebScan;
     private handlePcap;
+    private handleRecon;
     private formatDuration;
 }
 //# sourceMappingURL=session.d.ts.map

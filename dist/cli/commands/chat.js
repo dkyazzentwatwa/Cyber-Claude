@@ -44,6 +44,7 @@ export function createChatCommand() {
             blueteam: '🛡️',
             desktopsecurity: '🔒',
             webpentest: '🌐',
+            osint: '🔍',
         };
         const currentMode = options.mode;
         let modeText = `\n${modeEmojis[currentMode]} ${options.mode.toUpperCase()} MODE ACTIVATED\n`;

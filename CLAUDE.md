@@ -85,6 +85,7 @@ src/cli/index.ts (entry point)
     ↓
 Commands (Commander.js):
 ├─ interactive (default) - Persistent REPL session
+├─ flows - Pre-configured workflows for common tasks (NEW! v0.3.1)
 ├─ scan - Desktop security scanning (quick/full/network)
 ├─ webscan - Web application vulnerability scanning
 ├─ recon - OSINT reconnaissance (quick/full/domain/person)
@@ -94,6 +95,8 @@ Commands (Commander.js):
 ```
 
 Default behavior: `cyber-claude` with no args starts interactive session (changed in v0.2.0).
+
+**New in v0.3.1 - Flows Command**: The `flows` command provides beginner-friendly, pre-configured workflows that combine multiple tools and steps into guided experiences. Perfect for learning or quickly executing common security tasks. See `src/cli/commands/flows.ts` for workflow definitions.
 
 ### Security Tools
 
