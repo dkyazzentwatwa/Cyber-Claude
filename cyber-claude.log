@@ -453,3 +453,6 @@ Error: 401 {"type":"error","error":{"type":"authentication_error","message":"inv
     at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
     at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
     at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-09-30 21:30:32 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-09-30 21:31:10 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-09-30 21:31:22 [INFO]: Agent mode changed to redteam

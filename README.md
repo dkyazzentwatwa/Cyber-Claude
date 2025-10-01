@@ -2,19 +2,30 @@
 
 **AI-Powered Cybersecurity Agent for Red/Blue Teaming, Web Security Testing, OSINT Reconnaissance, Network Traffic Analysis & Desktop Security**
 
+<p align="center">
+  <img src="docs/images/cyber-claude-demo.png" alt="Cyber Claude Interactive Session" width="800">
+</p>
+
 An MVP cybersecurity agent built with the [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview), designed for defensive security operations, web application vulnerability testing, OSINT reconnaissance, network traffic analysis (pcap), system hardening, and security analysis.
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
 ![Claude](https://img.shields.io/badge/Claude-Sonnet%204-purple)
+![Tests](https://img.shields.io/badge/tests-157%20passed-brightgreen)
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-excellent-brightgreen)
+![Version](https://img.shields.io/badge/version-0.3.0-blue)
 
 ---
 
 ## 📖 Documentation
 
-- **[Complete Workflows & Playbook Guide](WORKFLOWS.md)** - Comprehensive guide to getting the most out of Cyber Claude
-- **[Technical Documentation](CLAUDE.md)** - Architecture, development, and implementation details
+- **[Complete Workflows & Playbook Guide](docs/WORKFLOWS.md)** - Comprehensive guide to getting the most out of Cyber Claude
+- **[Technical Documentation](docs/CLAUDE.md)** - Architecture, development, and implementation details
 - **[Agent Modes Guide](docs/AGENT_MODES.md)** - Detailed guide to using different agent modes effectively
+- **[Contributing Guide](docs/CONTRIBUTING.md)** - How to contribute to the project
+- **[Security Policy](docs/SECURITY.md)** - Security reporting and best practices
+- **[Changelog](docs/CHANGELOG.md)** - Version history and release notes
 
 ---
 
@@ -673,7 +684,9 @@ npm test
 
 ## 🤝 Contributing
 
-This is an MVP project. Contributions are welcome! Please:
+Contributions are welcome! Please read our [Contributing Guide](docs/CONTRIBUTING.md) and [Code of Conduct](docs/CODE_OF_CONDUCT.md) before submitting a pull request.
+
+Quick steps:
 1. Fork the repository
 2. Create a feature branch
 3. Follow the code style
@@ -682,7 +695,7 @@ This is an MVP project. Contributions are welcome! Please:
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) for details
+Apache 2.0 License - see [LICENSE](LICENSE) for details
 
 ## ⚠️ Disclaimer
 
