@@ -481,3 +481,47 @@ Error: 401 {"type":"error","error":{"type":"authentication_error","message":"inv
 2025-10-01 10:52:44 [INFO]: Received response from Gemini
 2025-10-01 10:52:44 [INFO]: Received response from Gemini (Google)
 2025-10-01 10:53:09 [INFO]: Agent mode changed to base
+2025-10-01 18:07:26 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-01 18:12:27 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-10-01 18:12:59 [INFO]: Sending message to Gemini (Google) (mode: base)
+2025-10-01 18:12:59 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-01 18:13:23 [INFO]: Received response from Gemini
+2025-10-01 18:13:23 [INFO]: Received response from Gemini (Google)
+2025-10-01 18:14:04 [INFO]: Agent mode changed to redteam
+2025-10-01 18:14:09 [INFO]: Sending message to Gemini (Google) (mode: redteam)
+2025-10-01 18:14:09 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-01 18:14:33 [INFO]: Received response from Gemini
+2025-10-01 18:14:33 [INFO]: Received response from Gemini (Google)
+2025-10-01 18:31:39 [INFO]: Sending message to Gemini (Google) (mode: redteam)
+2025-10-01 18:31:39 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-01 18:32:05 [INFO]: Received response from Gemini
+2025-10-01 18:32:05 [INFO]: Received response from Gemini (Google)
+2025-10-01 18:37:01 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in osint mode
+2025-10-01 18:37:01 [INFO]: Sending message to Claude (Anthropic) (mode: osint)
+2025-10-01 18:37:01 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-10-01 18:37:01 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async executeOsintTutorial (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:422:22)
+    at async executeFlow (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:232:17)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:492:9)
+2025-10-01 18:37:01 [ERROR]: Error in chat: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+    at ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:36:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async executeOsintTutorial (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:422:22)
+    at async executeFlow (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:232:17)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:492:9)
+2025-10-01 18:37:01 [ERROR]: Flow execution error: Failed to communicate with agent: Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+Error: Failed to communicate with agent: Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+    at CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:64:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async executeOsintTutorial (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:422:22)
+    at async executeFlow (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:232:17)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:492:9)

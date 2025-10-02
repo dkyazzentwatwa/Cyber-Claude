@@ -216,3 +216,29 @@ Error: 401 {"type":"error","error":{"type":"authentication_error","message":"inv
     at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
     at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
     at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-01 18:37:01 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async executeOsintTutorial (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:422:22)
+    at async executeFlow (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:232:17)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:492:9)
+2025-10-01 18:37:01 [ERROR]: Error in chat: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+    at ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:36:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async executeOsintTutorial (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:422:22)
+    at async executeFlow (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:232:17)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:492:9)
+2025-10-01 18:37:01 [ERROR]: Flow execution error: Failed to communicate with agent: Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+Error: Failed to communicate with agent: Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThWqxX3nvjR3514uJ6CH"}
+    at CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:64:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async executeOsintTutorial (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:422:22)
+    at async executeFlow (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:232:17)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:492:9)
