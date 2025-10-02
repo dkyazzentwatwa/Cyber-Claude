@@ -38,7 +38,7 @@ cp .env.example .env
 npm run build
 
 # 4. Start with guided workflows!
-cyber-claude flows
+cyber-claude
 
 # Choose "Quick Security Health Check" (2-3 min)
 # AI will scan your system and give you recommendations
