@@ -525,3 +525,4 @@ Error: Failed to communicate with agent: Error: Claude API error: Error: 400 {"t
     at async executeOsintTutorial (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:422:22)
     at async executeFlow (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:232:17)
     at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:492:9)
+2025-10-01 19:41:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode

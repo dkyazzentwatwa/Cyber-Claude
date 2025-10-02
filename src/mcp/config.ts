@@ -80,6 +80,46 @@ export const MCP_SERVERS: Record<string, MCPServerConfig> = {
     args: ['-y', '@cyproxio/mcp-masscan'],
     description: 'Ultra-fast port scanning',
   },
+
+  ffuf: {
+    name: 'ffuf',
+    enabled: process.env.MCP_FFUF_ENABLED === 'true',
+    command: 'npx',
+    args: ['-y', '@cyproxio/mcp-ffuf'],
+    description: 'Fast web fuzzer for content discovery',
+  },
+
+  mobsf: {
+    name: 'mobsf',
+    enabled: process.env.MCP_MOBSF_ENABLED === 'true',
+    command: 'npx',
+    args: ['-y', '@cyproxio/mcp-mobsf'],
+    description: 'Mobile Security Framework for Android/iOS analysis',
+  },
+
+  gowitness: {
+    name: 'gowitness',
+    enabled: process.env.MCP_GOWITNESS_ENABLED === 'true',
+    command: 'npx',
+    args: ['-y', '@cyproxio/mcp-gowitness'],
+    description: 'Web screenshot and visual reconnaissance',
+  },
+
+  wpscan: {
+    name: 'wpscan',
+    enabled: process.env.MCP_WPSCAN_ENABLED === 'true',
+    command: 'npx',
+    args: ['-y', '@cyproxio/mcp-wpscan'],
+    description: 'WordPress vulnerability scanner',
+  },
+
+  cero: {
+    name: 'cero',
+    enabled: process.env.MCP_CERO_ENABLED === 'true',
+    command: 'npx',
+    args: ['-y', '@cyproxio/mcp-cero'],
+    description: 'Certificate transparency domain enumeration',
+  },
 };
 
 /**
@@ -115,10 +155,10 @@ export interface MCPCapabilities {
 }
 
 export const MCP_CAPABILITIES: MCPCapabilities = {
-  webSecurity: ['nuclei', 'sslscan', 'http-headers', 'sqlmap', 'httpx', 'katana'],
+  webSecurity: ['nuclei', 'sslscan', 'http-headers', 'sqlmap', 'httpx', 'katana', 'ffuf', 'wpscan'],
   networkSecurity: ['nmap', 'masscan'],
-  reconnaissance: ['amass', 'katana', 'httpx'],
-  vulnerability: ['nuclei', 'sqlmap', 'sslscan'],
+  reconnaissance: ['amass', 'katana', 'httpx', 'gowitness', 'cero'],
+  vulnerability: ['nuclei', 'sqlmap', 'sslscan', 'wpscan', 'mobsf'],
 };
 
 /**

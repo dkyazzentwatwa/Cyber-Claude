@@ -82,7 +82,7 @@ Every mode inherits these ethical constraints:
 
 ---
 
-## 🎨 The Five Modes
+## 🎨 The Six Modes
 
 ### Quick Reference
 
@@ -93,6 +93,7 @@ Every mode inherits these ethical constraints:
 | **blueteam** | 🛡️ | Defensive operations | Threat hunting, incident response, monitoring |
 | **desktopsecurity** | 🔒 | Personal computer security | Home computers, laptops, privacy checks |
 | **webpentest** | 🌐 | Web application security | Web vulnerability scanning, CTF challenges |
+| **osint** | 🕵️ | Open source intelligence | Information gathering, passive reconnaissance |
 
 ---
 
@@ -851,6 +852,293 @@ Web pentest mode includes built-in ethical controls:
 
 ---
 
+## 6. 🕵️ osint - Open Source Intelligence Reconnaissance
+
+### Overview
+**Purpose:** Passive information gathering and reconnaissance
+**Personality:** OSINT specialist, privacy-aware, passive techniques only
+**Best For:** Information gathering, passive reconnaissance, digital footprint analysis, OSINT investigations
+
+### Focus Areas
+- Domain intelligence gathering
+- Social media intelligence
+- Breach data analysis
+- Digital footprint mapping
+- Passive reconnaissance techniques
+- Infrastructure enumeration
+
+### Prompt Definition
+**Location:** `src/agent/prompts/system.ts`
+
+```
+You are operating in OSINT mode - Open Source Intelligence Reconnaissance.
+
+Focus on:
+- Passive information gathering from public sources
+- Domain and subdomain enumeration
+- Social media intelligence (username searches across platforms)
+- Breach data lookup and analysis
+- Technology stack detection
+- Infrastructure mapping (DNS, WHOIS, IP analysis)
+- Historical data (Wayback Machine)
+- Email harvesting from public sources
+- Privacy-respecting techniques only
+
+Remember:
+- PASSIVE RECONNAISSANCE ONLY - No active scanning or probing
+- PUBLIC SOURCES - Only information already publicly available
+- PRIVACY AWARE - Respect individual privacy, focus on organizational infrastructure
+- NO API KEYS REQUIRED - All tools work without authentication
+- EDUCATIONAL PURPOSE - Teach OSINT methodology and techniques
+- ETHICAL BOUNDARIES - No stalking, harassment, or privacy violations
+- DEFENSIVE USE - Understand your own exposure, not to attack others
+
+When performing OSINT:
+- Explain where information comes from
+- Assess reliability and freshness of data
+- Identify data exposure risks
+- Provide context for findings
+- Suggest privacy improvements
+- Map attack surface from attacker's view
+```
+
+### Example Conversation
+
+```bash
+$ cyber-claude interactive --mode osint
+Mode: osint | Model: Claude Sonnet 4.5
+
+🕵️ [osint] > recon example.com --full
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔍 OSINT Reconnaissance: example.com
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Running 10 passive reconnaissance tools...
+
+✓ DNS Reconnaissance
+✓ WHOIS Lookup
+✓ Subdomain Enumeration (certificate transparency)
+✓ Email Harvesting
+✓ Technology Detection
+✓ Wayback Machine Historical Data
+✓ IP Geolocation
+✓ Reverse IP Lookup
+✓ Username Enumeration: N/A (domain target)
+✓ Breach Data Check: N/A (domain target)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 OSINT Summary
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Domain Information:**
+- Registered: 1995-08-14 (28.5 years old)
+- Expires: 2025-08-13 (in 316 days)
+- Registrar: MarkMonitor Inc.
+- DNSSEC: Enabled ✓
+
+**Infrastructure:**
+- IPv4: 93.184.216.34
+- IPv6: 2606:2800:220:1:248:1893:25c8:1946
+- Location: United States (Verizon Digital Media Services)
+- Mail Server: mx1.example.com
+
+**Subdomains Found (12):**
+- www.example.com
+- mail.example.com
+- ftp.example.com
+[... and 9 more]
+
+**Email Addresses (8):**
+- info@example.com
+- contact@example.com
+- support@example.com
+[... and 5 more]
+
+**Technology Stack:**
+- Server: Apache/2.4.50
+- CDN: Cloudflare
+- SSL: Let's Encrypt
+
+**Historical Data:**
+- First archived: 1996-12-03
+- Last archived: 3 days ago
+- Total snapshots: 15,847
+
+🕵️ [osint] > Analyze the attack surface
+💭 **Attack Surface Analysis from OSINT Data:**
+
+**🎯 External Attack Vectors Identified:**
+
+**1. Subdomain Takeover Risk (MEDIUM)**
+- Found 3 subdomains with CNAME records pointing to external services:
+  ➜ blog.example.com → example.ghost.io (Ghost.io)
+  ➜ help.example.com → example.zendesk.com (Zendesk)
+  ➜ docs.example.com → example-docs.s3.amazonaws.com (AWS S3)
+- Risk: If these third-party accounts are closed or DNS misconfigured,
+  attacker could claim the subdomain
+- Verify: Check if third-party accounts still exist and are owned by you
+
+**2. Information Disclosure (MEDIUM)**
+- 8 email addresses exposed publicly:
+  ➜ Enables targeted phishing campaigns
+  ➜ Username enumeration for authentication attacks
+  ➜ Social engineering data gathering
+- Detected email patterns: firstname.lastname@example.com
+  ➜ Attacker can guess additional valid emails
+
+**3. Legacy Infrastructure (LOW-MEDIUM)**
+- FTP subdomain still exists (ftp.example.com)
+  ➜ FTP is insecure by default (no encryption)
+  ➜ Investigate if still in use or can be decommissioned
+- Apache version disclosed in headers: 2.4.50
+  ➜ Check for CVEs against this specific version
+  ➜ Consider hiding version in server headers
+
+**4. Third-Party Dependencies (MEDIUM)**
+- Reliance on external CDN (Cloudflare)
+  ➜ Single point of failure
+  ➜ If Cloudflare account compromised, entire site at risk
+- Ghost.io blog hosting
+  ➜ Blog content could be modified if Ghost account compromised
+
+**5. Historical Exposure (INFO)**
+- 28 years of Wayback Machine snapshots
+  ➜ May contain leaked credentials, API keys in old source code
+  ➜ Shows evolution of infrastructure (useful for attacker reconnaissance)
+  ➜ Recommended: Review old snapshots for sensitive data leaks
+
+**🛡️ Defensive Recommendations:**
+
+1. **Subdomain Monitoring**
+   - Implement continuous subdomain monitoring
+   - Verify CNAME targets are still controlled by your organization
+   - Consider wildcard DNS records with catchall pages
+
+2. **Email Protection**
+   - Use email obfuscation on public pages
+   - Implement DMARC/SPF/DKIM to prevent email spoofing
+   - Train employees on phishing (emails are now public)
+
+3. **Legacy Cleanup**
+   - Audit all subdomains for active use
+   - Decommission unused services (especially FTP)
+   - Remove version disclosure from HTTP headers
+
+4. **Third-Party Risk**
+   - Document all third-party dependencies
+   - Enable 2FA on all third-party accounts
+   - Regular access reviews for external services
+
+5. **Historical Data**
+   - Request removal of sensitive snapshots from Wayback Machine
+   - Scan old snapshots for exposed credentials/API keys
+   - Add robots.txt rules to prevent future archiving if needed
+
+🕵️ [osint] > Check if our admin emails have been in breaches
+💭 Checking breach data for the 8 identified email addresses...
+
+✓ Checked against Have I Been Pwned database
+
+**📧 Breach Results:**
+
+**BREACHED (3 emails):**
+1. **admin@example.com**
+   - Breaches: LinkedIn (2012), Adobe (2013), Dropbox (2016)
+   - Exposed data: Emails, Passwords (hashed), Names
+   - Severity: HIGH
+   - Action: Force password reset immediately
+   - Pastes: 2 (found in paste dumps)
+
+2. **marketing@example.com**
+   - Breaches: Collection #1 (2019)
+   - Exposed data: Emails, Passwords (plaintext!)
+   - Severity: CRITICAL
+   - Action: Urgent password reset + check for credential reuse
+
+3. **support@example.com**
+   - Breaches: Canva (2019)
+   - Exposed data: Emails, Names, Usernames
+   - Severity: MEDIUM
+   - Action: Monitor for phishing attempts
+
+**CLEAN (5 emails):**
+- info@example.com ✓
+- contact@example.com ✓
+- sales@example.com ✓
+[... and 2 more]
+
+**🚨 Immediate Actions Required:**
+
+1. **Password Reset Campaign:**
+   - Force reset for admin@example.com (highest priority)
+   - Check if credentials are reused on other services
+   - Implement password manager across organization
+
+2. **2FA Enforcement:**
+   - Enable 2FA on all administrative accounts
+   - Especially critical for accounts in breaches
+
+3. **Monitoring:**
+   - Watch for login attempts using breached credentials
+   - Enable account lockout policies
+   - Alert on unusual login locations
+
+4. **User Training:**
+   - Educate about password reuse dangers
+   - Phishing awareness (breached emails are targets)
+
+🕵️ [osint] > mode blueteam
+✓ Switched to blueteam mode
+
+🛡️ [blueteam] > Create SIEM alerts for these breach-related threats
+💭 Based on the OSINT findings, here are detection rules...
+[Defensive strategies follow with specific SIEM queries]
+```
+
+### Use Cases
+- ✅ Digital footprint assessment
+- ✅ Attack surface mapping
+- ✅ Pre-engagement reconnaissance (authorized targets)
+- ✅ Threat intelligence gathering
+- ✅ Competitor analysis (public info only)
+- ✅ Personal privacy audits
+- ✅ Security awareness training
+- ✅ Understanding organizational exposure
+
+### OSINT Tools Integration
+OSINT mode works seamlessly with 10 free reconnaissance tools (NO API keys required):
+
+1. **DNS Reconnaissance** - Full DNS record analysis
+2. **WHOIS Lookup** - Domain registration intelligence
+3. **Subdomain Enumeration** - Certificate transparency + DNS brute force
+4. **Email Harvesting** - Website scraping + common patterns
+5. **Username Enumeration** - 35+ social media platforms
+6. **Breach Data Lookup** - Have I Been Pwned integration
+7. **Technology Detection** - Web stack fingerprinting
+8. **Wayback Machine** - Historical snapshot analysis
+9. **IP Geolocation** - Geographic and ISP intelligence
+10. **Reverse IP Lookup** - Shared hosting discovery
+
+### Privacy & Ethics
+OSINT mode emphasizes ethical reconnaissance:
+- **Passive only** - No active scanning or probing
+- **Public sources** - Information already available online
+- **Privacy-aware** - Respects individual privacy
+- **Defensive purpose** - Understand exposure to improve security
+- **Transparency** - Explains data sources and collection methods
+- **Legal compliance** - No violations of CFAA, GDPR, or other laws
+
+### Methodology Teaching
+OSINT mode excels at teaching methodology:
+- **Framework-based** - Follows OSINT frameworks (Maltego, OSINT Framework)
+- **Tool selection** - Explains which tools to use when
+- **Data validation** - Teaches how to verify information
+- **Correlation** - Shows how to connect disparate data points
+- **Reporting** - Generates professional OSINT reports
+
+---
+
 ## 🔄 Mode Switching
 
 ### How to Switch Modes
@@ -861,7 +1149,7 @@ Web pentest mode includes built-in ethical controls:
 # View current mode
 > mode
 Current mode: base
-Available modes: base, redteam, blueteam, desktopsecurity, webpentest
+Available modes: base, redteam, blueteam, desktopsecurity, webpentest, osint
 
 # Switch to a different mode
 > mode redteam
@@ -1128,6 +1416,7 @@ redteam       # Attack perspective
 blueteam      # Defense operations
 desktopsecurity  # Personal computers
 webpentest    # Web applications
+osint         # OSINT reconnaissance
 ```
 
 ---
@@ -1152,7 +1441,7 @@ src/cli/
 **Location:** `src/agent/types.ts`
 
 ```typescript
-export type AgentMode = 'base' | 'redteam' | 'blueteam' | 'desktopsecurity' | 'webpentest';
+export type AgentMode = 'base' | 'redteam' | 'blueteam' | 'desktopsecurity' | 'webpentest' | 'osint';
 
 export interface AgentConfig {
   mode: AgentMode;
@@ -1204,7 +1493,8 @@ const validModes: AgentMode[] = [
   'redteam',
   'blueteam',
   'desktopsecurity',
-  'webpentest'
+  'webpentest',
+  'osint'
 ];
 
 function isValidMode(mode: string): mode is AgentMode {
@@ -1218,18 +1508,18 @@ function isValidMode(mode: string): mode is AgentMode {
 
 ### Mode Comparison Table
 
-| Aspect | base | redteam | blueteam | desktopsecurity | webpentest |
-|--------|------|---------|----------|-----------------|------------|
-| **Icon** | 🤖 | ⚔️ | 🛡️ | 🔒 | 🌐 |
-| **Perspective** | Neutral | Attacker | Defender | User | Tester |
-| **Complexity** | Medium | High | High | Low | High |
-| **Technical Depth** | Medium | High | High | Low-Medium | High |
-| **Audience** | General | Security pros | Security pros | End users | Web devs/pentesters |
-| **Output Style** | Balanced | Offensive-focused | Defensive-focused | User-friendly | Vulnerability-focused |
-| **MITRE Mapping** | ✓ | ✓✓ | ✓✓ | - | ✓ |
-| **IOC Focus** | ✓ | ✓ | ✓✓ | - | ✓ |
-| **Remediation** | ✓ | ✓ | ✓✓ | ✓✓ | ✓✓ |
-| **Education** | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ |
+| Aspect | base | redteam | blueteam | desktopsecurity | webpentest | osint |
+|--------|------|---------|----------|-----------------|------------|-------|
+| **Icon** | 🤖 | ⚔️ | 🛡️ | 🔒 | 🌐 | 🕵️ |
+| **Perspective** | Neutral | Attacker | Defender | User | Tester | Investigator |
+| **Complexity** | Medium | High | High | Low | High | Medium |
+| **Technical Depth** | Medium | High | High | Low-Medium | High | Medium-High |
+| **Audience** | General | Security pros | Security pros | End users | Web devs/pentesters | OSINT analysts |
+| **Output Style** | Balanced | Offensive-focused | Defensive-focused | User-friendly | Vulnerability-focused | Intelligence-focused |
+| **MITRE Mapping** | ✓ | ✓✓ | ✓✓ | - | ✓ | ✓ |
+| **IOC Focus** | ✓ | ✓ | ✓✓ | - | ✓ | ✓✓ |
+| **Remediation** | ✓ | ✓ | ✓✓ | ✓✓ | ✓✓ | ✓ |
+| **Education** | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓✓ |
 
 ### Command Quick Reference
 
@@ -1295,7 +1585,7 @@ export const SYSTEM_PROMPTS = {
 
 3. **Update validation** (`src/cli/session.ts`):
 ```typescript
-const validModes = ['base', 'redteam', 'blueteam', 'desktopsecurity', 'webpentest', 'yourmode'];
+const validModes = ['base', 'redteam', 'blueteam', 'desktopsecurity', 'webpentest', 'osint', 'yourmode'];
 ```
 
 4. **Add to documentation**:

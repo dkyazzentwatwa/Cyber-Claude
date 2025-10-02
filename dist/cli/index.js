@@ -11,6 +11,7 @@ import { createWebScanCommand } from './commands/webscan.js';
 import { createPcapCommand } from './commands/pcap.js';
 import { createReconCommand } from './commands/recon.js';
 import { createFlowsCommand } from './commands/flows.js';
+import { createMobileScanCommand } from './commands/mobilescan.js';
 import { InteractiveSession } from './session.js';
 const program = new Command();
 program
@@ -24,6 +25,7 @@ program.addCommand(createScanCommand());
 program.addCommand(createHardenCommand());
 program.addCommand(createChatCommand());
 program.addCommand(createWebScanCommand());
+program.addCommand(createMobileScanCommand());
 program.addCommand(createPcapCommand());
 program.addCommand(createReconCommand());
 // Default action - start interactive session
@@ -37,6 +39,7 @@ program
         console.log(`  ${chalk.cyan('cyber-claude flows')}       - Pre-configured workflows ${chalk.green('(Beginner-friendly)')}`);
         console.log(`  ${chalk.cyan('cyber-claude scan')}        - Scan your system for security issues`);
         console.log(`  ${chalk.cyan('cyber-claude webscan <url>')} - Scan web applications for vulnerabilities`);
+        console.log(`  ${chalk.cyan('cyber-claude mobilescan <file>')} - Scan mobile apps (APK/IPA) for vulnerabilities`);
         console.log(`  ${chalk.cyan('cyber-claude recon <target>')} - OSINT reconnaissance on domains/usernames`);
         console.log(`  ${chalk.cyan('cyber-claude pcap <file>')}   - Analyze network capture files`);
         console.log(`  ${chalk.cyan('cyber-claude harden')}      - Check system hardening status`);
