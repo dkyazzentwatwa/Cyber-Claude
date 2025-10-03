@@ -452,3 +452,49 @@ Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguag
     at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
 2025-10-02 11:45:45 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
 2025-10-02 11:45:45 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:28:10 [ERROR]: Error in step abd617bb-519d-418e-a7b2-de63038df36c: Connection timeout
+2025-10-03 22:28:10 [ERROR]: Task failed: Test failure
+2025-10-03 22:28:11 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:28:11 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:28:12 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTm44h18djR4FLg2D9uHP"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTm44h18djR4FLg2D9uHP"}
+    at Function.generate (file:///app/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///app/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///app/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/app/src/agent/providers/claude.ts:26:24)
+    at /app/test/agent/providers/claude.test.ts:45:9
+    at file:///app/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:28:12 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///app/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///app/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///app/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///app/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/app/src/agent/providers/gemini.ts:41:22)
+    at /app/test/agent/providers/gemini.test.ts:40:9
+    at file:///app/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:29:17 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///app/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///app/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///app/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///app/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/app/src/agent/providers/gemini.ts:41:22)
+    at /app/test/agent/providers/gemini.test.ts:40:9
+    at file:///app/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:29:17 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTm49V79vqDYWKiDeFj8Y"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTm49V79vqDYWKiDeFj8Y"}
+    at Function.generate (file:///app/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///app/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///app/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/app/src/agent/providers/claude.ts:26:24)
+    at /app/test/agent/providers/claude.test.ts:45:9
+    at file:///app/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:29:18 [ERROR]: Error in step 582eb162-4820-49e0-8629-34ae8112a953: Connection timeout
+2025-10-03 22:29:18 [ERROR]: Task failed: Test failure
+2025-10-03 22:29:19 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:29:19 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
