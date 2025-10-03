@@ -13,6 +13,7 @@ import { createPcapCommand } from './commands/pcap.js';
 import { createReconCommand } from './commands/recon.js';
 import { createFlowsCommand } from './commands/flows.js';
 import { createMobileScanCommand } from './commands/mobilescan.js';
+import { createAutoCommand } from './commands/auto.js';
 import { InteractiveSession } from './session.js';
 
 const program = new Command();
@@ -24,6 +25,7 @@ program
 
 // Add commands
 program.addCommand(createInteractiveCommand());
+program.addCommand(createAutoCommand());
 program.addCommand(createFlowsCommand());
 program.addCommand(createScanCommand());
 program.addCommand(createHardenCommand());

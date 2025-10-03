@@ -50,6 +50,10 @@ export declare class InteractiveSession {
      * System Hardening Workflow
      */
     private executeSystemHardening;
+    /**
+     * Handle autonomous task execution
+     */
+    private handleAuto;
     private handleChat;
     private handleWebScan;
     private handlePcap;
