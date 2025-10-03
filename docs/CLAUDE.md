@@ -292,6 +292,93 @@ Model object structure:
 
 Model selection throughout codebase uses `--model <key>` flag (e.g., `--model gemini-2.5-flash`), where `<key>` is the object key in `AVAILABLE_MODELS`, NOT the `id` field.
 
+### Agentic Autonomous System
+
+**NEW in v0.5.1**: True autonomous agent with planning, execution, and self-correction capabilities.
+
+**Architecture** (`src/agent/core/`):
+- **AgenticCore** (`agentic.ts`) - Main orchestration engine with autonomous execution loop
+- **TaskPlanner** (`planner.ts`) - AI-powered planning that breaks tasks into executable steps
+- **ReflectionEngine** (`reflection.ts`) - Analyzes results and determines adaptive actions
+- **ContextManager** (`context.ts`) - State management with event emission and progress tracking
+
+**Tool System** (`src/agent/tools/`):
+- **Tool Registry** (`registry.ts`) - Metadata for 15 tools (6 built-in + 9 MCP)
+- **ToolExecutor** (`executor.ts`) - Unified execution with timeouts, retries, parallel/sequential execution
+
+**CLI Integration** (`src/cli/commands/auto.ts`):
+```bash
+cyber-claude auto "scan example.com for vulnerabilities"
+cyber-claude auto "gather intel on target-company.com" --mode osint --verbose
+```
+
+**Execution Flow**:
+1. **Planning Phase**: AI converts natural language task → structured execution plan with steps
+2. **Execution Loop**: Runs tools with dependencies, parallelization, and timeout enforcement
+3. **Reflection Phase**: AI analyzes each step result and decides next action (continue/retry/adjust/complete/abort)
+4. **Adaptation**: Plan modified based on discoveries (e.g., WordPress detected → add wpscan step)
+5. **Self-Correction**: Automatic retry with exponential backoff for transient failures
+
+**Key Features**:
+- Multi-step planning with dependency management
+- Parallel step execution when possible
+- Adaptive plan modification based on findings
+- Approval gates for high-risk operations
+- Real-time progress monitoring with event emission
+- Context export/import for persistence
+- Works with both Claude and Gemini models
+- Support for extended thinking on complex tasks
+
+**Safety Controls**:
+- Risk level assessment per step (low/medium/high)
+- User approval required for high-risk operations (unless --auto-approve)
+- Maximum steps constraint (default: 20)
+- Timeout enforcement (default: 10 minutes)
+- Tool validation before execution
+
+**Prompts** (`src/agent/prompts/agentic.ts`):
+- Planning prompt with tool registry injection
+- Reflection prompt with success criteria evaluation
+- Tool selection prompt for adaptive planning
+- Synthesis prompt for result aggregation
+
+**Types** (`src/agent/types.ts`):
+```typescript
+Task          // User's high-level task description
+Plan          // AI-generated execution plan with steps
+Step          // Single operation with tool + parameters
+StepResult    // Execution outcome with duration + output
+Reflection    // AI's analysis with next action decision
+AgenticContext // Complete execution state
+ToolDefinition // Tool metadata for registry
+ProgressUpdate // Real-time progress events
+```
+
+**Example Usage**:
+```typescript
+import { AgenticCore } from './agent/core/agentic.js';
+
+const agent = new AgenticCore({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+  model: 'claude-sonnet-4-5',
+  mode: 'webpentest',
+  maxSteps: 20,
+  autoApprove: false,
+  verbose: true,
+});
+
+const result = await agent.executeTask('scan https://example.com for vulnerabilities');
+console.log(`Completed ${result.context.completedSteps.length} steps`);
+console.log(`Found ${result.context.findings.length} security issues`);
+```
+
+**See Also**:
+- [Agentic Architecture Documentation](./AGENTIC_ARCHITECTURE.md) - Complete technical guide
+- [Agentic Roadmap](./AGENTIC_ROADMAP.md) - Planned enhancements
+- [CLI Commands Reference](./CLI_COMMANDS.md) - `auto` command options
+
+---
+
 ## Important Patterns
 
 ### Adding a New AI Provider

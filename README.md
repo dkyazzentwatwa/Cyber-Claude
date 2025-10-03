@@ -100,6 +100,38 @@ cyber-claude flows --difficulty beginner  # Beginner-friendly workflows
 - 📖 **Educational**: Learn security concepts while using them
 - 🎯 **Goal-Oriented**: Each workflow solves a specific problem
 
+**🤖 NEW: Autonomous Agent Mode**
+
+The `auto` command provides true autonomous operation with AI-powered planning, execution, and self-correction:
+
+```bash
+# Simple autonomous task
+cyber-claude auto "scan example.com for vulnerabilities"
+
+# Complex multi-step task
+cyber-claude auto "perform comprehensive security assessment of myapp.com"
+
+# Mode-specific operation
+cyber-claude auto "gather intelligence on target-company.com" --mode osint
+
+# With extended thinking for complex tasks
+cyber-claude auto "find and analyze attack surface" --thinking --verbose
+
+# Export full execution context
+cyber-claude auto "audit production servers" --export results.json
+```
+
+**How It Works:**
+1. **🧠 Planning**: AI breaks down your task into executable steps
+2. **🔄 Execution**: Tools run automatically with proper sequencing
+3. **💭 Reflection**: AI analyzes results and adapts the plan
+4. **🔧 Adaptation**: Discoveries trigger new steps (e.g., WordPress found → run wpscan)
+5. **✅ Self-Correction**: Retries failed steps and handles errors intelligently
+
+**Available Modes:** `base`, `redteam`, `blueteam`, `desktopsecurity`, `webpentest`, `osint`
+
+See [Agentic Architecture Documentation](docs/AGENTIC_ARCHITECTURE.md) for technical details.
+
 ### v0.5.0 - OSINT Reconnaissance Suite
 
 **🔍 NO API KEYS REQUIRED!**

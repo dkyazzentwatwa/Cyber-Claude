@@ -452,3 +452,55 @@ Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguag
     at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
 2025-10-02 11:45:45 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
 2025-10-02 11:45:45 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:49:56 [ERROR]: Reflection failed: Reflection has 1 criteria evaluations, expected 2
+2025-10-03 08:49:56 [ERROR]: Reflection failed: Cannot read properties of undefined (reading 'content')
+2025-10-03 08:49:56 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:49:56 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:49:56 [ERROR]: Reflection failed: Cannot read properties of undefined (reading 'content')
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 147a9128-549d-4c52-9e60-b8a34e3ce4e3: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 147a9128-549d-4c52-9e60-b8a34e3ce4e3: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 147a9128-549d-4c52-9e60-b8a34e3ce4e3: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 147a9128-549d-4c52-9e60-b8a34e3ce4e3: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 147a9128-549d-4c52-9e60-b8a34e3ce4e3: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Task failed: Max iterations reached: 5
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 3014caf5-a754-4d10-b1cd-1c96b8d273bc: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 3014caf5-a754-4d10-b1cd-1c96b8d273bc: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 3014caf5-a754-4d10-b1cd-1c96b8d273bc: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 3014caf5-a754-4d10-b1cd-1c96b8d273bc: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 3014caf5-a754-4d10-b1cd-1c96b8d273bc: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Task failed: Max iterations reached: 5
+2025-10-03 08:50:57 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:50:57 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 708221d5-370e-4850-b067-87a09c7ba201: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 708221d5-370e-4850-b067-87a09c7ba201: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 708221d5-370e-4850-b067-87a09c7ba201: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 708221d5-370e-4850-b067-87a09c7ba201: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 708221d5-370e-4850-b067-87a09c7ba201: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Task failed: Max iterations reached: 5
+2025-10-03 08:51:24 [ERROR]: Error in step 7eac90bf-413d-4eb8-a8c9-271f77ad59fb: Tool 'nonexistent-tool' not found in registry
+2025-10-03 08:51:24 [ERROR]: 🛑 Aborting: Tool does not exist in registry, aborting
+2025-10-03 08:51:24 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:51:24 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:51:24 [ERROR]: Error in step fe34d2fb-a4b6-4cf7-8105-590f9af87aae: Tool 'this-tool-does-not-exist' not found in registry
+2025-10-03 08:51:24 [ERROR]: 🛑 Aborting: Tool validation failed during execution
+2025-10-03 08:52:00 [ERROR]: Error in step a93c8ade-3cdb-4ce1-ac3b-6353f691dfb8: Tool 'nonexistent-tool' not found in registry
+2025-10-03 08:52:00 [ERROR]: 🛑 Aborting: Tool does not exist in registry, aborting
+2025-10-03 08:52:00 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:52:00 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:52:00 [ERROR]: Error in step 09a6d0f6-19d7-4718-8b77-64fbdfb33eb4: Tool 'this-tool-does-not-exist' not found in registry
+2025-10-03 08:52:00 [ERROR]: 🛑 Aborting: Tool validation failed during execution

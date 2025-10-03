@@ -1175,3 +1175,331 @@ Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguag
 2025-10-02 11:45:45 [INFO]: Creating execution plan for task: Task with many steps
 2025-10-02 11:45:45 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
 2025-10-02 11:45:45 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:49:56 [INFO]: 🤖 Starting autonomous task: Analyze a test PCAP file
+2025-10-03 08:49:56 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:49:56 [INFO]: Creating execution plan for task: Analyze a test PCAP file
+2025-10-03 08:49:56 [INFO]: Plan created with 2 steps
+2025-10-03 08:49:56 [INFO]: 🔄 Phase 2: Execution (2 steps planned)
+2025-10-03 08:49:56 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:49:56 [INFO]: Reflecting on step 1: Analyze PCAP file for network traffic
+2025-10-03 08:49:56 [INFO]: Reflection complete: continue (confidence: 0.9)
+2025-10-03 08:49:56 [INFO]: ✓ Step 1 successful, continuing
+2025-10-03 08:49:56 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:49:56 [INFO]: Reflecting on step 1: Analyze PCAP file for network traffic
+2025-10-03 08:49:56 [ERROR]: Reflection failed: Reflection has 1 criteria evaluations, expected 2
+2025-10-03 08:49:56 [WARN]: Creating fallback reflection due to AI failure
+2025-10-03 08:49:56 [INFO]: ✓ Step 1 successful, continuing
+2025-10-03 08:49:56 [INFO]: ✅ Task completed: 2/2 steps
+2025-10-03 08:49:56 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:49:56 [INFO]: 🔍 Findings: 0
+2025-10-03 08:49:56 [INFO]: 🤖 Starting autonomous task: Try an invalid task
+2025-10-03 08:49:56 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:49:56 [INFO]: Creating execution plan for task: Try an invalid task
+2025-10-03 08:49:56 [INFO]: Plan created with 1 steps
+2025-10-03 08:49:56 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:49:56 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:49:56 [INFO]: Reflecting on step 1: Invalid operation
+2025-10-03 08:49:56 [ERROR]: Reflection failed: Cannot read properties of undefined (reading 'content')
+2025-10-03 08:49:56 [WARN]: Creating fallback reflection due to AI failure
+2025-10-03 08:49:56 [INFO]: ✓ Step 1 successful, continuing
+2025-10-03 08:49:56 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:49:56 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:49:56 [INFO]: 🔍 Findings: 0
+2025-10-03 08:49:56 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 08:49:56 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:49:56 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 08:49:56 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:49:56 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:49:56 [INFO]: 🤖 Starting autonomous task: Task with invalid tool
+2025-10-03 08:49:56 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:49:56 [INFO]: Creating execution plan for task: Task with invalid tool
+2025-10-03 08:49:56 [INFO]: Plan created with 1 steps
+2025-10-03 08:49:56 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:49:56 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:49:56 [INFO]: Reflecting on step 1: Use invalid tool
+2025-10-03 08:49:56 [ERROR]: Reflection failed: Cannot read properties of undefined (reading 'content')
+2025-10-03 08:49:56 [WARN]: Creating fallback reflection due to AI failure
+2025-10-03 08:49:56 [INFO]: ✓ Step 1 successful, continuing
+2025-10-03 08:49:56 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:49:56 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:49:56 [INFO]: 🔍 Findings: 0
+2025-10-03 08:50:57 [INFO]: 🤖 Starting autonomous task: Analyze a test PCAP file
+2025-10-03 08:50:57 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:50:57 [INFO]: Creating execution plan for task: Analyze a test PCAP file
+2025-10-03 08:50:57 [INFO]: Plan created with 2 steps
+2025-10-03 08:50:57 [INFO]: 🔄 Phase 2: Execution (2 steps planned)
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 147a9128-549d-4c52-9e60-b8a34e3ce4e3: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 147a9128-549d-4c52-9e60-b8a34e3ce4e3: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 147a9128-549d-4c52-9e60-b8a34e3ce4e3: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 147a9128-549d-4c52-9e60-b8a34e3ce4e3: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 147a9128-549d-4c52-9e60-b8a34e3ce4e3: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Task failed: Max iterations reached: 5
+2025-10-03 08:50:57 [INFO]: ✅ Task completed: 0/2 steps
+2025-10-03 08:50:57 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:50:57 [INFO]: 🔍 Findings: 0
+2025-10-03 08:50:57 [INFO]: 🤖 Starting autonomous task: Try an invalid task
+2025-10-03 08:50:57 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:50:57 [INFO]: Creating execution plan for task: Try an invalid task
+2025-10-03 08:50:57 [INFO]: Plan created with 1 steps
+2025-10-03 08:50:57 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 3014caf5-a754-4d10-b1cd-1c96b8d273bc: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 3014caf5-a754-4d10-b1cd-1c96b8d273bc: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 3014caf5-a754-4d10-b1cd-1c96b8d273bc: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 3014caf5-a754-4d10-b1cd-1c96b8d273bc: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 3014caf5-a754-4d10-b1cd-1c96b8d273bc: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Task failed: Max iterations reached: 5
+2025-10-03 08:50:57 [INFO]: ✅ Task completed: 0/1 steps
+2025-10-03 08:50:57 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:50:57 [INFO]: 🔍 Findings: 0
+2025-10-03 08:50:57 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 08:50:57 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:50:57 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 08:50:57 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:50:57 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:50:57 [INFO]: 🤖 Starting autonomous task: Task with invalid tool
+2025-10-03 08:50:57 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:50:57 [INFO]: Creating execution plan for task: Task with invalid tool
+2025-10-03 08:50:57 [INFO]: Plan created with 1 steps
+2025-10-03 08:50:57 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 708221d5-370e-4850-b067-87a09c7ba201: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 708221d5-370e-4850-b067-87a09c7ba201: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 708221d5-370e-4850-b067-87a09c7ba201: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 708221d5-370e-4850-b067-87a09c7ba201: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Step execution failed: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Error in step 708221d5-370e-4850-b067-87a09c7ba201: getTool is not a function
+2025-10-03 08:50:57 [ERROR]: Task failed: Max iterations reached: 5
+2025-10-03 08:50:57 [INFO]: ✅ Task completed: 0/1 steps
+2025-10-03 08:50:57 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:50:57 [INFO]: 🔍 Findings: 0
+2025-10-03 08:51:24 [INFO]: 🤖 Starting autonomous task: Analyze a test PCAP file
+2025-10-03 08:51:24 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:51:24 [INFO]: Creating execution plan for task: Analyze a test PCAP file
+2025-10-03 08:51:24 [INFO]: Plan created with 2 steps
+2025-10-03 08:51:24 [INFO]: 🔄 Phase 2: Execution (2 steps planned)
+2025-10-03 08:51:24 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:51:24 [INFO]: Reflecting on step 1: Analyze PCAP file for network traffic
+2025-10-03 08:51:24 [INFO]: Reflection complete: continue (confidence: 0.9)
+2025-10-03 08:51:24 [INFO]: ✓ Step 1 successful, continuing
+2025-10-03 08:51:24 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:51:24 [INFO]: Reflecting on step 2: Perform reconnaissance on discovered domain
+2025-10-03 08:51:24 [INFO]: Reflection complete: complete (confidence: 0.95)
+2025-10-03 08:51:24 [INFO]: ✅ Task completed by reflection
+2025-10-03 08:51:24 [INFO]: Task marked as completed
+2025-10-03 08:51:24 [INFO]: ✅ Task completed: 2/2 steps
+2025-10-03 08:51:24 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:51:24 [INFO]: 🔍 Findings: 0
+2025-10-03 08:51:24 [INFO]: 🤖 Starting autonomous task: Try an invalid task
+2025-10-03 08:51:24 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:51:24 [INFO]: Creating execution plan for task: Try an invalid task
+2025-10-03 08:51:24 [INFO]: Plan created with 1 steps
+2025-10-03 08:51:24 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:51:24 [INFO]: Step completed: FAILED (100ms)
+2025-10-03 08:51:24 [ERROR]: Error in step 7eac90bf-413d-4eb8-a8c9-271f77ad59fb: Tool 'nonexistent-tool' not found in registry
+2025-10-03 08:51:24 [INFO]: Reflecting on step 1: Invalid operation
+2025-10-03 08:51:24 [INFO]: Reflection complete: abort (confidence: 1)
+2025-10-03 08:51:24 [ERROR]: 🛑 Aborting: Tool does not exist in registry, aborting
+2025-10-03 08:51:24 [WARN]: Task aborted: Tool does not exist in registry, aborting
+2025-10-03 08:51:24 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:51:24 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:51:24 [INFO]: 🔍 Findings: 0
+2025-10-03 08:51:24 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 08:51:24 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:51:24 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 08:51:24 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:51:24 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:51:24 [INFO]: 🤖 Starting autonomous task: Task with invalid tool
+2025-10-03 08:51:24 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:51:24 [INFO]: Creating execution plan for task: Task with invalid tool
+2025-10-03 08:51:24 [INFO]: Plan created with 1 steps
+2025-10-03 08:51:24 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:51:24 [INFO]: Step completed: FAILED (100ms)
+2025-10-03 08:51:24 [ERROR]: Error in step fe34d2fb-a4b6-4cf7-8105-590f9af87aae: Tool 'this-tool-does-not-exist' not found in registry
+2025-10-03 08:51:24 [INFO]: Reflecting on step 1: Use invalid tool
+2025-10-03 08:51:24 [INFO]: Reflection complete: abort (confidence: 1)
+2025-10-03 08:51:24 [ERROR]: 🛑 Aborting: Tool validation failed during execution
+2025-10-03 08:51:24 [WARN]: Task aborted: Tool validation failed during execution
+2025-10-03 08:51:24 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:51:24 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:51:24 [INFO]: 🔍 Findings: 0
+2025-10-03 08:52:00 [INFO]: 🤖 Starting autonomous task: Analyze a test PCAP file
+2025-10-03 08:52:00 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:52:00 [INFO]: Creating execution plan for task: Analyze a test PCAP file
+2025-10-03 08:52:00 [INFO]: Plan created with 2 steps
+2025-10-03 08:52:00 [INFO]: 🔄 Phase 2: Execution (2 steps planned)
+2025-10-03 08:52:00 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:52:00 [INFO]: Reflecting on step 1: Analyze PCAP file for network traffic
+2025-10-03 08:52:00 [INFO]: Reflection complete: continue (confidence: 0.9)
+2025-10-03 08:52:00 [INFO]: ✓ Step 1 successful, continuing
+2025-10-03 08:52:00 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:52:00 [INFO]: Reflecting on step 2: Perform reconnaissance on discovered domain
+2025-10-03 08:52:00 [INFO]: Reflection complete: complete (confidence: 0.95)
+2025-10-03 08:52:00 [INFO]: ✅ Task completed by reflection
+2025-10-03 08:52:00 [INFO]: Task marked as completed
+2025-10-03 08:52:00 [INFO]: ✅ Task completed: 2/2 steps
+2025-10-03 08:52:00 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:52:00 [INFO]: 🔍 Findings: 0
+2025-10-03 08:52:00 [INFO]: 🤖 Starting autonomous task: Try an invalid task
+2025-10-03 08:52:00 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:52:00 [INFO]: Creating execution plan for task: Try an invalid task
+2025-10-03 08:52:00 [INFO]: Plan created with 1 steps
+2025-10-03 08:52:00 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:52:00 [INFO]: Step completed: FAILED (100ms)
+2025-10-03 08:52:00 [ERROR]: Error in step a93c8ade-3cdb-4ce1-ac3b-6353f691dfb8: Tool 'nonexistent-tool' not found in registry
+2025-10-03 08:52:00 [INFO]: Reflecting on step 1: Invalid operation
+2025-10-03 08:52:00 [INFO]: Reflection complete: abort (confidence: 1)
+2025-10-03 08:52:00 [ERROR]: 🛑 Aborting: Tool does not exist in registry, aborting
+2025-10-03 08:52:00 [WARN]: Task aborted: Tool does not exist in registry, aborting
+2025-10-03 08:52:00 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:52:00 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:52:00 [INFO]: 🔍 Findings: 0
+2025-10-03 08:52:00 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 08:52:00 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:52:00 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 08:52:00 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:52:00 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 08:52:00 [INFO]: 🤖 Starting autonomous task: Task with invalid tool
+2025-10-03 08:52:00 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:52:00 [INFO]: Creating execution plan for task: Task with invalid tool
+2025-10-03 08:52:00 [INFO]: Plan created with 1 steps
+2025-10-03 08:52:00 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:52:00 [INFO]: Step completed: FAILED (100ms)
+2025-10-03 08:52:00 [ERROR]: Error in step 09a6d0f6-19d7-4718-8b77-64fbdfb33eb4: Tool 'this-tool-does-not-exist' not found in registry
+2025-10-03 08:52:00 [INFO]: Reflecting on step 1: Use invalid tool
+2025-10-03 08:52:00 [INFO]: Reflection complete: abort (confidence: 1)
+2025-10-03 08:52:00 [ERROR]: 🛑 Aborting: Tool validation failed during execution
+2025-10-03 08:52:00 [WARN]: Task aborted: Tool validation failed during execution
+2025-10-03 08:52:00 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:52:00 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:52:00 [INFO]: 🔍 Findings: 0
+2025-10-03 08:53:03 [INFO]: 🤖 Starting autonomous task: Test timeout handling
+2025-10-03 08:53:03 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:53:03 [INFO]: Creating execution plan for task: Test timeout handling
+2025-10-03 08:53:03 [INFO]: Plan created with 1 steps
+2025-10-03 08:53:03 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:53:03 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:53:03 [INFO]: Reflecting on step 1: Step that will timeout
+2025-10-03 08:53:03 [INFO]: Reflection complete: complete (confidence: 0.9)
+2025-10-03 08:53:03 [INFO]: ✅ Task completed by reflection
+2025-10-03 08:53:03 [INFO]: Task marked as completed
+2025-10-03 08:53:03 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:53:03 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:53:03 [INFO]: 🔍 Findings: 0
+2025-10-03 08:53:03 [INFO]: 🤖 Starting autonomous task: Test parallel execution
+2025-10-03 08:53:03 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:53:03 [INFO]: Creating execution plan for task: Test parallel execution
+2025-10-03 08:53:03 [INFO]: Plan created with 2 steps
+2025-10-03 08:53:03 [INFO]: 🔄 Phase 2: Execution (2 steps planned)
+2025-10-03 08:53:03 [INFO]: Executing 2 steps in parallel
+2025-10-03 08:53:03 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:53:03 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:53:03 [INFO]: Reflecting on step 1: Parallel step 1
+2025-10-03 08:53:03 [INFO]: Reflection complete: complete (confidence: 0.95)
+2025-10-03 08:53:03 [INFO]: ✅ Task completed by reflection
+2025-10-03 08:53:03 [INFO]: Task marked as completed
+2025-10-03 08:53:03 [INFO]: Reflecting on step 2: Parallel step 2
+2025-10-03 08:53:03 [INFO]: Reflection complete: complete (confidence: 0.95)
+2025-10-03 08:53:03 [INFO]: ✅ Task completed by reflection
+2025-10-03 08:53:03 [INFO]: Task marked as completed
+2025-10-03 08:53:03 [INFO]: ✅ Task completed: 2/2 steps
+2025-10-03 08:53:03 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:53:03 [INFO]: 🔍 Findings: 0
+2025-10-03 08:53:03 [INFO]: 🤖 Starting autonomous task: Adaptive planning test
+2025-10-03 08:53:03 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:53:03 [INFO]: Creating execution plan for task: Adaptive planning test
+2025-10-03 08:53:03 [INFO]: Plan created with 1 steps
+2025-10-03 08:53:03 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:53:03 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:53:03 [INFO]: Reflecting on step 1: Initial reconnaissance
+2025-10-03 08:53:03 [INFO]: Reflection complete: adjust (confidence: 0.95)
+2025-10-03 08:53:03 [INFO]: 🔧 Adjusting plan based on findings
+2025-10-03 08:53:03 [INFO]: Adjusting plan: Found WordPress, adding wpscan step
+2025-10-03 08:53:03 [INFO]: Updating execution plan
+2025-10-03 08:53:03 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:53:03 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:53:03 [INFO]: 🔍 Findings: 0
+2025-10-03 08:53:03 [INFO]: 🤖 Starting autonomous task: Context tracking test
+2025-10-03 08:53:03 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:53:03 [INFO]: Creating execution plan for task: Context tracking test
+2025-10-03 08:53:03 [INFO]: Plan created with 1 steps
+2025-10-03 08:53:03 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:53:03 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:53:03 [INFO]: Reflecting on step 1: First step
+2025-10-03 08:53:03 [INFO]: Reflection complete: complete (confidence: 0.9)
+2025-10-03 08:53:03 [INFO]: ✅ Task completed by reflection
+2025-10-03 08:53:03 [INFO]: Task marked as completed
+2025-10-03 08:53:03 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:53:03 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:53:03 [INFO]: 🔍 Findings: 0
+2025-10-03 08:53:23 [INFO]: 🤖 Starting autonomous task: Test timeout handling
+2025-10-03 08:53:23 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:53:23 [INFO]: Creating execution plan for task: Test timeout handling
+2025-10-03 08:53:23 [INFO]: Plan created with 1 steps
+2025-10-03 08:53:23 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:53:23 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:53:23 [INFO]: Reflecting on step 1: Step that will timeout
+2025-10-03 08:53:23 [INFO]: Reflection complete: complete (confidence: 0.9)
+2025-10-03 08:53:23 [INFO]: ✅ Task completed by reflection
+2025-10-03 08:53:23 [INFO]: Task marked as completed
+2025-10-03 08:53:23 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:53:23 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:53:23 [INFO]: 🔍 Findings: 0
+2025-10-03 08:53:23 [INFO]: 🤖 Starting autonomous task: Test parallel execution
+2025-10-03 08:53:23 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:53:23 [INFO]: Creating execution plan for task: Test parallel execution
+2025-10-03 08:53:23 [INFO]: Plan created with 2 steps
+2025-10-03 08:53:23 [INFO]: 🔄 Phase 2: Execution (2 steps planned)
+2025-10-03 08:53:23 [INFO]: Executing 2 steps in parallel
+2025-10-03 08:53:23 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:53:23 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:53:23 [INFO]: Reflecting on step 1: Parallel step 1
+2025-10-03 08:53:23 [INFO]: Reflection complete: complete (confidence: 0.95)
+2025-10-03 08:53:23 [INFO]: ✅ Task completed by reflection
+2025-10-03 08:53:23 [INFO]: Task marked as completed
+2025-10-03 08:53:23 [INFO]: Reflecting on step 2: Parallel step 2
+2025-10-03 08:53:23 [INFO]: Reflection complete: complete (confidence: 0.95)
+2025-10-03 08:53:23 [INFO]: ✅ Task completed by reflection
+2025-10-03 08:53:23 [INFO]: Task marked as completed
+2025-10-03 08:53:23 [INFO]: ✅ Task completed: 2/2 steps
+2025-10-03 08:53:23 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:53:23 [INFO]: 🔍 Findings: 0
+2025-10-03 08:53:23 [INFO]: 🤖 Starting autonomous task: Adaptive planning test
+2025-10-03 08:53:23 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:53:23 [INFO]: Creating execution plan for task: Adaptive planning test
+2025-10-03 08:53:23 [INFO]: Plan created with 1 steps
+2025-10-03 08:53:23 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:53:23 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:53:23 [INFO]: Reflecting on step 1: Initial reconnaissance
+2025-10-03 08:53:23 [INFO]: Reflection complete: adjust (confidence: 0.95)
+2025-10-03 08:53:23 [INFO]: 🔧 Adjusting plan based on findings
+2025-10-03 08:53:23 [INFO]: Adjusting plan: Found WordPress, adding wpscan step
+2025-10-03 08:53:23 [INFO]: Updating execution plan
+2025-10-03 08:53:23 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:53:23 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:53:23 [INFO]: 🔍 Findings: 0
+2025-10-03 08:53:23 [INFO]: 🤖 Starting autonomous task: Context tracking test
+2025-10-03 08:53:23 [INFO]: 📋 Phase 1: Planning
+2025-10-03 08:53:23 [INFO]: Creating execution plan for task: Context tracking test
+2025-10-03 08:53:23 [INFO]: Plan created with 1 steps
+2025-10-03 08:53:23 [INFO]: 🔄 Phase 2: Execution (1 steps planned)
+2025-10-03 08:53:23 [INFO]: Step completed: SUCCESS (100ms)
+2025-10-03 08:53:23 [INFO]: Reflecting on step 1: First step
+2025-10-03 08:53:23 [INFO]: Reflection complete: complete (confidence: 0.9)
+2025-10-03 08:53:23 [INFO]: ✅ Task completed by reflection
+2025-10-03 08:53:23 [INFO]: Task marked as completed
+2025-10-03 08:53:23 [INFO]: ✅ Task completed: 1/1 steps
+2025-10-03 08:53:23 [INFO]: ⏱️  Duration: 0.0s
+2025-10-03 08:53:23 [INFO]: 🔍 Findings: 0
