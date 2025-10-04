@@ -13,6 +13,10 @@ import { createReconCommand } from './commands/recon.js';
 import { createFlowsCommand } from './commands/flows.js';
 import { createMobileScanCommand } from './commands/mobilescan.js';
 import { createAutoCommand } from './commands/auto.js';
+import { createDepsCommand } from './commands/deps.js';
+import { createSSLCommand } from './commands/ssl.js';
+import { createScreenshotCommand } from './commands/screenshot.js';
+import { createToolsCommand } from './commands/tools.js';
 import { InteractiveSession } from './session.js';
 const program = new Command();
 program
@@ -23,7 +27,6 @@ program
 program.addCommand(createInteractiveCommand());
 program.addCommand(createAutoCommand());
 program.addCommand(createFlowsCommand());
-program.addCommand(createAutoCommand());
 program.addCommand(createScanCommand());
 program.addCommand(createHardenCommand());
 program.addCommand(createChatCommand());
@@ -31,6 +34,10 @@ program.addCommand(createWebScanCommand());
 program.addCommand(createMobileScanCommand());
 program.addCommand(createPcapCommand());
 program.addCommand(createReconCommand());
+program.addCommand(createDepsCommand());
+program.addCommand(createSSLCommand());
+program.addCommand(createScreenshotCommand());
+program.addCommand(createToolsCommand());
 // Default action - start interactive session
 program
     .action(async () => {
@@ -46,6 +53,10 @@ program
         console.log(`  ${chalk.cyan('cyber-claude mobilescan <file>')} - Scan mobile apps (APK/IPA) for vulnerabilities`);
         console.log(`  ${chalk.cyan('cyber-claude recon <target>')} - OSINT reconnaissance on domains/usernames`);
         console.log(`  ${chalk.cyan('cyber-claude pcap <file>')}   - Analyze network capture files`);
+        console.log(`  ${chalk.cyan('cyber-claude deps [path]')}   - Scan JavaScript dependencies for vulnerabilities`);
+        console.log(`  ${chalk.cyan('cyber-claude ssl <host>')}    - Analyze SSL/TLS certificates`);
+        console.log(`  ${chalk.cyan('cyber-claude screenshot <url>')} - Capture website screenshots`);
+        console.log(`  ${chalk.cyan('cyber-claude tools')}        - Manage external security tools`);
         console.log(`  ${chalk.cyan('cyber-claude harden')}      - Check system hardening status`);
         console.log(`  ${chalk.cyan('cyber-claude chat')}        - One-off chat mode`);
         console.log(`  ${chalk.cyan('cyber-claude --help')}      - Show all commands and options\n`);

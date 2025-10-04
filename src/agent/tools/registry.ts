@@ -246,6 +246,160 @@ export const BUILTIN_TOOLS: ToolDefinition[] = [
       },
     ],
   },
+  {
+    name: 'depscan',
+    description: 'JavaScript dependency vulnerability scanner using retire.js',
+    category: 'scanning',
+    parameters: [
+      {
+        name: 'path',
+        type: 'string',
+        description: 'Path to project directory to scan',
+        required: false,
+        default: '.',
+      },
+    ],
+    capabilities: [
+      'CVE detection in JavaScript dependencies',
+      'vulnerability severity classification',
+      'npm package vulnerability scanning',
+      'dependency security assessment',
+    ],
+    requiresApproval: false,
+    estimatedDuration: 15000,
+    riskLevel: 'low',
+    examples: [
+      {
+        description: 'Scan current project for vulnerable dependencies',
+        parameters: { path: '.' },
+      },
+      {
+        description: 'Scan specific project directory',
+        parameters: { path: '/path/to/project' },
+      },
+    ],
+  },
+  {
+    name: 'sslcheck',
+    description: 'SSL/TLS certificate analysis and security validation',
+    category: 'scanning',
+    parameters: [
+      {
+        name: 'host',
+        type: 'string',
+        description: 'Hostname to analyze',
+        required: true,
+      },
+      {
+        name: 'port',
+        type: 'number',
+        description: 'Port number',
+        required: false,
+        default: 443,
+      },
+    ],
+    capabilities: [
+      'certificate validation',
+      'expiration monitoring',
+      'SSL/TLS security analysis',
+      'certificate chain verification',
+      'security risk scoring',
+    ],
+    requiresApproval: false,
+    estimatedDuration: 10000,
+    riskLevel: 'low',
+    examples: [
+      {
+        description: 'Check SSL certificate for a domain',
+        parameters: { host: 'example.com', port: 443 },
+      },
+      {
+        description: 'Analyze custom port SSL',
+        parameters: { host: 'mail.example.com', port: 465 },
+      },
+    ],
+  },
+  {
+    name: 'screenshot',
+    description: 'Capture website screenshots and detect technologies',
+    category: 'reconnaissance',
+    parameters: [
+      {
+        name: 'url',
+        type: 'string',
+        description: 'Website URL to capture',
+        required: true,
+      },
+      {
+        name: 'fullPage',
+        type: 'boolean',
+        description: 'Capture full page or viewport only',
+        required: false,
+        default: true,
+      },
+      {
+        name: 'detectTech',
+        type: 'boolean',
+        description: 'Detect technologies used',
+        required: false,
+        default: true,
+      },
+    ],
+    capabilities: [
+      'website screenshot capture',
+      'visual reconnaissance',
+      'technology stack detection',
+      'framework identification',
+      'CMS detection',
+    ],
+    requiresApproval: false,
+    estimatedDuration: 20000,
+    riskLevel: 'low',
+    examples: [
+      {
+        description: 'Capture full-page screenshot',
+        parameters: { url: 'https://example.com', fullPage: true, detectTech: true },
+      },
+      {
+        description: 'Quick viewport screenshot',
+        parameters: { url: 'https://example.com', fullPage: false, detectTech: false },
+      },
+    ],
+  },
+  {
+    name: 'toolcheck',
+    description: 'Detect and manage external CLI security tools',
+    category: 'utility',
+    parameters: [
+      {
+        name: 'action',
+        type: 'string',
+        description: 'Action: scan, status, list, check',
+        required: false,
+        default: 'status',
+      },
+    ],
+    capabilities: [
+      'external tool detection',
+      'version checking',
+      'availability status',
+      'installation guidance',
+      'tool execution wrapper',
+    ],
+    requiresApproval: false,
+    estimatedDuration: 5000,
+    riskLevel: 'low',
+    examples: [
+      {
+        description: 'Check status of external security tools',
+        parameters: { action: 'status' },
+      },
+      {
+        description: 'List all available external tools',
+        parameters: { action: 'list' },
+      },
+    ],
+  },
 ];
 
 /**

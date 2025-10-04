@@ -91,6 +91,36 @@ cyber-claude auto "gather OSINT on target.com" --thinking --max-steps 15
 
 **NOTE:** MCP (Model Context Protocol) security tools have been removed. Built-in tools provide comprehensive coverage for all scanning needs.
 
+**🔧 NEW: Enhanced Security Toolkit**
+
+Four new npm-based security tools have been integrated to replace the non-functional MCP tools:
+
+**1. DependencyScanner (retire.js)**
+- 📦 Scans JavaScript dependencies for known vulnerabilities
+- 🔍 CVE detection and severity classification
+- 📊 Comprehensive vulnerability reporting
+- ⚡ No API keys required
+
+**2. SSLAnalyzer (ssl-checker)**
+- 🔒 SSL/TLS certificate analysis
+- ⏰ Expiration monitoring and alerts
+- 🎯 Risk scoring and security recommendations
+- ✅ Certificate chain validation
+
+**3. ScreenshotTool (Puppeteer)**
+- 📸 Automated website screenshots
+- 🔍 Technology detection (React, Vue, WordPress, etc.)
+- 🌐 Full-page or viewport captures
+- 🎨 Visual reconnaissance capabilities
+
+**4. ExternalToolManager**
+- 🛠️ Auto-detects 12 external CLI security tools (nmap, nuclei, ffuf, sqlmap, etc.)
+- 📊 Version checking and availability status
+- 📚 Installation guides for missing tools
+- 🔄 Tool execution wrapper
+
+All tools work out-of-the-box with zero configuration!
+
 ### v0.5.1 - Workflows & Enhanced User Experience
 
 **🎯 Pre-Configured Workflows - Perfect for Beginners!**
@@ -272,6 +302,10 @@ cyber-claude flows --difficulty beginner  # Beginner-friendly workflows
 - **OSINT Reconnaissance**: 10 comprehensive tools (DNS, WHOIS, subdomains, emails, usernames, breaches, tech detection, Wayback, IP lookup)
 - **Network Traffic Analysis**: PCAP parsing, protocol dissection, conversation tracking
 - **Hardening Validation**: Platform-specific security checks (macOS FileVault, Linux UFW, Windows Defender)
+- **Dependency Scanning**: JavaScript vulnerability detection with retire.js (CVE identification, severity classification)
+- **SSL/TLS Analysis**: Certificate validation, expiration monitoring, risk scoring
+- **Visual Reconnaissance**: Automated screenshots with Puppeteer, technology detection
+- **External Tool Integration**: Auto-detection of 12 CLI security tools (nmap, nuclei, ffuf, sqlmap, wpscan, testssl, gobuster, amass, masscan, subfinder, httpx, katana)
 - **AI-Powered Analysis**: All results analyzed by Claude/Gemini models for actionable insights
 
 ### 🔬 Professional Analysis Features
@@ -714,7 +748,13 @@ cyber_claude/
 - **cheerio** - HTML parsing and analysis
 - **validator** - URL and input validation
 - **uuid** - Unique identifier generation
-- **Winston** - Logging
+- **winston** - Logging
+- **retire** - JavaScript dependency vulnerability scanner (CVE detection)
+- **ssl-checker** - SSL/TLS certificate analysis and validation
+- **puppeteer** - Headless browser automation for screenshots and web analysis
+- **subquest** - Subdomain enumeration tool
+- **pcap-parser** - Network traffic analysis from PCAP files
+- **whois-json** - WHOIS lookup functionality
 
 ## 🔧 Development
 

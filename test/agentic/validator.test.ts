@@ -94,10 +94,10 @@ describe('SafetyValidator', () => {
       const step: Step = {
         id: uuidv4(),
         stepNumber: 1,
-        description: 'Scan for SSL/TLS issues',
-        tool: 'sslscan',
+        description: 'Gather OSINT data',
+        tool: 'recon',
         parameters: { target: 'example.com' },
-        successCriteria: ['SSL analysis complete'],
+        successCriteria: ['OSINT data collected'],
         riskLevel: 'low',
       };
 
@@ -128,17 +128,17 @@ describe('SafetyValidator', () => {
 
     it('should enforce tool whitelist', () => {
       const validator = new SafetyValidator({
-        allowedTools: ['nmap', 'nuclei'],
+        allowedTools: ['scan', 'recon'],
       });
 
       const step: Step = {
         id: uuidv4(),
         stepNumber: 1,
-        description: 'Scan with sslscan',
-        tool: 'sslscan',
-        parameters: { host: 'example.com' },
+        description: 'Web scan with webscan',
+        tool: 'webscan',
+        parameters: { url: 'https://example.com' },
         successCriteria: ['Scan complete'],
-        riskLevel: 'low',
+        riskLevel: 'high',
       };
 
       const result = validator.validateStep(step);
@@ -149,15 +149,15 @@ describe('SafetyValidator', () => {
 
     it('should enforce tool blacklist', () => {
       const validator = new SafetyValidator({
-        blockedTools: ['sqlmap'],
+        blockedTools: ['webscan'],
       });
 
       const step: Step = {
         id: uuidv4(),
         stepNumber: 1,
-        description: 'SQL injection test',
-        tool: 'sqlmap',
-        parameters: { url: 'https://example.com/page?id=1' },
+        description: 'Web vulnerability test',
+        tool: 'webscan',
+        parameters: { url: 'https://example.com' },
         successCriteria: ['Scan complete'],
         riskLevel: 'high',
       };
@@ -176,9 +176,9 @@ describe('SafetyValidator', () => {
       const step: Step = {
         id: uuidv4(),
         stepNumber: 1,
-        description: 'Aggressive scan',
-        tool: 'sqlmap',
-        parameters: { url: 'https://example.com/page?id=1' },
+        description: 'Aggressive web scan',
+        tool: 'webscan',
+        parameters: { url: 'https://example.com' },
         successCriteria: ['Complete'],
         riskLevel: 'high',
       };
@@ -194,8 +194,8 @@ describe('SafetyValidator', () => {
       const step: Step = {
         id: uuidv4(),
         stepNumber: 1,
-        description: 'Nmap scan without target',
-        tool: 'nmap',
+        description: 'Security scan without target',
+        tool: 'scan',
         parameters: {}, // Missing required 'target' parameter
         successCriteria: ['Complete'],
         riskLevel: 'medium',
@@ -213,10 +213,10 @@ describe('SafetyValidator', () => {
         id: uuidv4(),
         stepNumber: 1,
         description: 'Scan localhost',
-        tool: 'nmap',
+        tool: 'scan',
         parameters: { target: 'localhost' },
         successCriteria: ['Complete'],
-        riskLevel: 'low',
+        riskLevel: 'medium',
       };
 
       const result = validator.validateStep(step);
@@ -234,23 +234,23 @@ describe('SafetyValidator', () => {
           {
             id: uuidv4(),
             stepNumber: 1,
-            description: 'Scan SSL/TLS configuration',
-            tool: 'sslscan',
+            description: 'Run security scan',
+            tool: 'scan',
             parameters: { target: 'example.com' },
-            successCriteria: ['SSL configuration retrieved'],
-            riskLevel: 'low',
+            successCriteria: ['Security scan complete'],
+            riskLevel: 'medium',
           },
           {
             id: uuidv4(),
             stepNumber: 2,
-            description: 'Screenshot website',
-            tool: 'gowitness',
-            parameters: { url: 'https://example.com' },
-            successCriteria: ['Screenshot captured'],
+            description: 'Gather reconnaissance data',
+            tool: 'recon',
+            parameters: { target: 'example.com' },
+            successCriteria: ['OSINT data collected'],
             riskLevel: 'low',
           },
         ],
-        riskLevel: 'low',
+        riskLevel: 'medium',
         createdAt: new Date(),
       };
 
@@ -284,7 +284,7 @@ describe('SafetyValidator', () => {
           id: uuidv4(),
           stepNumber: i + 1,
           description: `Step ${i + 1}`,
-          tool: 'httpx',
+          tool: 'recon',
           parameters: { target: 'example.com' },
           successCriteria: ['Complete'],
           riskLevel: 'low',
@@ -317,7 +317,7 @@ describe('SafetyValidator', () => {
             id: step1Id,
             stepNumber: 1,
             description: 'Step 1',
-            tool: 'httpx',
+            tool: 'recon',
             parameters: { target: 'example.com' },
             successCriteria: ['Complete'],
             dependencies: [step2Id], // Depends on step 2
@@ -327,8 +327,8 @@ describe('SafetyValidator', () => {
             id: step2Id,
             stepNumber: 2,
             description: 'Step 2',
-            tool: 'httpx',
-            parameters: { target: 'example.com' },
+            tool: 'pcap',
+            parameters: { file: '/tmp/capture.pcap' },
             successCriteria: ['Complete'],
             dependencies: [step1Id], // Depends on step 1 - circular!
             riskLevel: 'low',
@@ -354,7 +354,7 @@ describe('SafetyValidator', () => {
             id: uuidv4(),
             stepNumber: 1,
             description: 'Low risk step',
-            tool: 'httpx',
+            tool: 'recon',
             parameters: { target: 'example.com' },
             successCriteria: ['Complete'],
             riskLevel: 'low',
@@ -363,8 +363,8 @@ describe('SafetyValidator', () => {
             id: uuidv4(),
             stepNumber: 2,
             description: 'High risk step',
-            tool: 'sqlmap',
-            parameters: { url: 'https://example.com/page?id=1' },
+            tool: 'webscan',
+            parameters: { url: 'https://example.com' },
             successCriteria: ['Complete'],
             riskLevel: 'high',
             requiresApproval: true,
@@ -391,20 +391,20 @@ describe('SafetyValidator', () => {
         id: uuidv4(),
         stepNumber: 1,
         description: 'Allowed target',
-        tool: 'nmap',
+        tool: 'scan',
         parameters: { target: 'example.com' },
         successCriteria: ['Complete'],
-        riskLevel: 'low',
+        riskLevel: 'medium',
       };
 
       const step2: Step = {
         id: uuidv4(),
         stepNumber: 2,
         description: 'Blocked target',
-        tool: 'nmap',
+        tool: 'scan',
         parameters: { target: 'blocked.com' },
         successCriteria: ['Complete'],
-        riskLevel: 'low',
+        riskLevel: 'medium',
       };
 
       const result1 = validator.validateStep(step1);
@@ -424,10 +424,10 @@ describe('SafetyValidator', () => {
         id: uuidv4(),
         stepNumber: 1,
         description: 'Scan government site',
-        tool: 'nmap',
+        tool: 'scan',
         parameters: { target: 'example.gov' },
         successCriteria: ['Complete'],
-        riskLevel: 'low',
+        riskLevel: 'medium',
       };
 
       const result = validator.validateStep(step);

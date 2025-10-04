@@ -1447,3 +1447,476 @@ Error: MCP connection failed for sslscan: MCP error -32000: Connection closed
 2025-10-03 15:49:01 [ERROR]: Error in step parallel: RangeError: Invalid count value: -5
 2025-10-03 15:49:01 [ERROR]: ❌ Task failed: Invalid count value: -5
 >>>>>>> Stashed changes
+2025-10-03 18:46:57 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-03 18:46:57 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-10-03 18:46:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 18:46:57 [INFO]: Step completed: FAILED (5000ms)
+2025-10-03 18:46:57 [ERROR]: Error in step 528e9919-6b17-4260-96da-55f5a6acbd15: Connection timeout
+2025-10-03 18:46:57 [INFO]: New finding: [high] SQL Injection
+2025-10-03 18:46:57 [INFO]: New finding: [high] Finding 1
+2025-10-03 18:46:57 [INFO]: New finding: [medium] Finding 2
+2025-10-03 18:46:57 [INFO]: New finding: [critical] Critical
+2025-10-03 18:46:57 [INFO]: New finding: [high] High
+2025-10-03 18:46:57 [INFO]: New finding: [medium] Medium
+2025-10-03 18:46:57 [INFO]: Updating execution plan
+2025-10-03 18:46:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 18:46:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 18:46:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 18:46:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 18:46:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 18:46:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 18:46:57 [INFO]: Task marked as completed
+2025-10-03 18:46:57 [ERROR]: Task failed: Test failure
+2025-10-03 18:46:57 [WARN]: Task aborted: User aborted
+2025-10-03 18:46:57 [INFO]: New finding: [high] Test
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in redteam mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in blueteam mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in desktopsecurity mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in webpentest mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in osint mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 18:46:57 [INFO]: Agent mode changed to blueteam
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 18:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 18:46:57 [INFO]: Conversation history cleared
+2025-10-03 18:46:57 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 18:46:57 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmKDiCZqfDHQ4zSsTnFT"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmKDiCZqfDHQ4zSsTnFT"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 18:46:57 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 18:46:57 [INFO]: 📋 Phase 1: Planning
+2025-10-03 18:46:57 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 18:46:57 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 18:46:57 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:18:34 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-03 22:18:34 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-10-03 22:18:34 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:34 [INFO]: Step completed: FAILED (5000ms)
+2025-10-03 22:18:34 [ERROR]: Error in step 8cebafbb-5fe7-4f67-920c-4fd0c8551a70: Connection timeout
+2025-10-03 22:18:34 [INFO]: New finding: [high] SQL Injection
+2025-10-03 22:18:34 [INFO]: New finding: [high] Finding 1
+2025-10-03 22:18:34 [INFO]: New finding: [medium] Finding 2
+2025-10-03 22:18:34 [INFO]: New finding: [critical] Critical
+2025-10-03 22:18:34 [INFO]: New finding: [high] High
+2025-10-03 22:18:34 [INFO]: New finding: [medium] Medium
+2025-10-03 22:18:34 [INFO]: Updating execution plan
+2025-10-03 22:18:34 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:34 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:34 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:34 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:34 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:34 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:34 [INFO]: Task marked as completed
+2025-10-03 22:18:34 [ERROR]: Task failed: Test failure
+2025-10-03 22:18:34 [WARN]: Task aborted: User aborted
+2025-10-03 22:18:34 [INFO]: New finding: [high] Test
+2025-10-03 22:18:34 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:18:57 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-03 22:18:57 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-10-03 22:18:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:18:57 [INFO]: Step completed: FAILED (5000ms)
+2025-10-03 22:18:57 [ERROR]: Error in step 6343e7df-125a-4615-ab1c-73c14933568c: Connection timeout
+2025-10-03 22:18:57 [INFO]: New finding: [high] SQL Injection
+2025-10-03 22:18:57 [INFO]: New finding: [high] Finding 1
+2025-10-03 22:18:57 [INFO]: New finding: [medium] Finding 2
+2025-10-03 22:18:57 [INFO]: New finding: [critical] Critical
+2025-10-03 22:18:57 [INFO]: New finding: [high] High
+2025-10-03 22:18:57 [INFO]: New finding: [medium] Medium
+2025-10-03 22:18:57 [INFO]: Updating execution plan
+2025-10-03 22:18:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:57 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:18:57 [INFO]: Task marked as completed
+2025-10-03 22:18:57 [ERROR]: Task failed: Test failure
+2025-10-03 22:18:57 [WARN]: Task aborted: User aborted
+2025-10-03 22:18:57 [INFO]: New finding: [high] Test
+2025-10-03 22:18:57 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 22:18:57 [INFO]: 📋 Phase 1: Planning
+2025-10-03 22:18:57 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 22:18:57 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:18:57 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in redteam mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in blueteam mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in desktopsecurity mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in webpentest mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in osint mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:18:57 [INFO]: Agent mode changed to blueteam
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:18:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:18:57 [INFO]: Conversation history cleared
+2025-10-03 22:18:57 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:18:57 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmbPPAE4FXUktRNYtJWD"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmbPPAE4FXUktRNYtJWD"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:29:30 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-03 22:29:30 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-10-03 22:29:30 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:29:30 [INFO]: Step completed: FAILED (5000ms)
+2025-10-03 22:29:30 [ERROR]: Error in step b4b7ddc1-ed41-4bfe-9713-f5d983cc47d0: Connection timeout
+2025-10-03 22:29:30 [INFO]: New finding: [high] SQL Injection
+2025-10-03 22:29:30 [INFO]: New finding: [high] Finding 1
+2025-10-03 22:29:30 [INFO]: New finding: [medium] Finding 2
+2025-10-03 22:29:30 [INFO]: New finding: [critical] Critical
+2025-10-03 22:29:30 [INFO]: New finding: [high] High
+2025-10-03 22:29:30 [INFO]: New finding: [medium] Medium
+2025-10-03 22:29:30 [INFO]: Updating execution plan
+2025-10-03 22:29:30 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:29:30 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:29:30 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:29:30 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:29:30 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:29:30 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:29:30 [INFO]: Task marked as completed
+2025-10-03 22:29:30 [ERROR]: Task failed: Test failure
+2025-10-03 22:29:30 [WARN]: Task aborted: User aborted
+2025-10-03 22:29:30 [INFO]: New finding: [high] Test
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in redteam mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in blueteam mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in desktopsecurity mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in webpentest mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in osint mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:29:30 [INFO]: Agent mode changed to blueteam
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:29:30 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:29:30 [INFO]: Conversation history cleared
+2025-10-03 22:29:30 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:29:30 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmcBzz31126R2GqKn3aX"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmcBzz31126R2GqKn3aX"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:29:30 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 22:29:30 [INFO]: 📋 Phase 1: Planning
+2025-10-03 22:29:30 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 22:29:30 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:29:30 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:50:31 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:50:31 [INFO]: Step completed: FAILED (5000ms)
+2025-10-03 22:50:31 [ERROR]: Error in step 4a6ce826-fa47-4785-a5ec-3798b336a2b6: Connection timeout
+2025-10-03 22:50:31 [INFO]: New finding: [high] SQL Injection
+2025-10-03 22:50:31 [INFO]: New finding: [high] Finding 1
+2025-10-03 22:50:31 [INFO]: New finding: [medium] Finding 2
+2025-10-03 22:50:31 [INFO]: New finding: [critical] Critical
+2025-10-03 22:50:31 [INFO]: New finding: [high] High
+2025-10-03 22:50:31 [INFO]: New finding: [medium] Medium
+2025-10-03 22:50:31 [INFO]: Updating execution plan
+2025-10-03 22:50:31 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:50:31 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:50:31 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:50:31 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:50:31 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:50:31 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 22:50:31 [INFO]: Task marked as completed
+2025-10-03 22:50:31 [ERROR]: Task failed: Test failure
+2025-10-03 22:50:31 [WARN]: Task aborted: User aborted
+2025-10-03 22:50:31 [INFO]: New finding: [high] Test
+2025-10-03 22:50:31 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-03 22:50:31 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in redteam mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in blueteam mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in desktopsecurity mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in webpentest mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in osint mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:50:31 [INFO]: Agent mode changed to blueteam
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:50:31 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 22:50:31 [INFO]: Conversation history cleared
+2025-10-03 22:50:31 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmdnxnB1jXY7iZSxGB7j"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmdnxnB1jXY7iZSxGB7j"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:50:31 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:50:31 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 22:50:31 [INFO]: 📋 Phase 1: Planning
+2025-10-03 22:50:31 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 22:50:31 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:50:31 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 23:11:27 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:27 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-10-03 23:11:27 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in redteam mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in blueteam mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in desktopsecurity mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in webpentest mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in osint mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:27 [INFO]: Agent mode changed to blueteam
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:27 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:27 [INFO]: Conversation history cleared
+2025-10-03 23:11:27 [INFO]: Step completed: FAILED (5000ms)
+2025-10-03 23:11:27 [ERROR]: Error in step d351b3b7-80b0-4758-a267-8a21685f6167: Connection timeout
+2025-10-03 23:11:27 [INFO]: New finding: [high] SQL Injection
+2025-10-03 23:11:27 [INFO]: New finding: [high] Finding 1
+2025-10-03 23:11:27 [INFO]: New finding: [medium] Finding 2
+2025-10-03 23:11:27 [INFO]: New finding: [critical] Critical
+2025-10-03 23:11:27 [INFO]: New finding: [high] High
+2025-10-03 23:11:27 [INFO]: New finding: [medium] Medium
+2025-10-03 23:11:27 [INFO]: Updating execution plan
+2025-10-03 23:11:27 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:27 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:27 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:27 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:27 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:27 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:27 [INFO]: Task marked as completed
+2025-10-03 23:11:27 [ERROR]: Task failed: Test failure
+2025-10-03 23:11:27 [WARN]: Task aborted: User aborted
+2025-10-03 23:11:27 [INFO]: New finding: [high] Test
+2025-10-03 23:11:28 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmfPbhVu9cVuMcHaEEtL"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmfPbhVu9cVuMcHaEEtL"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 23:11:28 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 23:11:28 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 23:11:28 [INFO]: 📋 Phase 1: Planning
+2025-10-03 23:11:28 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 23:11:28 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 23:11:28 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 23:11:38 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-03 23:11:38 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-10-03 23:11:38 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:38 [INFO]: Step completed: FAILED (5000ms)
+2025-10-03 23:11:38 [ERROR]: Error in step 04ec3213-57b9-4d0d-9435-4a765f5b3021: Connection timeout
+2025-10-03 23:11:38 [INFO]: New finding: [high] SQL Injection
+2025-10-03 23:11:38 [INFO]: New finding: [high] Finding 1
+2025-10-03 23:11:38 [INFO]: New finding: [medium] Finding 2
+2025-10-03 23:11:38 [INFO]: New finding: [critical] Critical
+2025-10-03 23:11:38 [INFO]: New finding: [high] High
+2025-10-03 23:11:38 [INFO]: New finding: [medium] Medium
+2025-10-03 23:11:38 [INFO]: Updating execution plan
+2025-10-03 23:11:38 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:38 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:38 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:38 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:38 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:38 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:11:38 [INFO]: Task marked as completed
+2025-10-03 23:11:38 [ERROR]: Task failed: Test failure
+2025-10-03 23:11:38 [WARN]: Task aborted: User aborted
+2025-10-03 23:11:38 [INFO]: New finding: [high] Test
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:38 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in redteam mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in blueteam mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in desktopsecurity mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in webpentest mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in osint mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:38 [INFO]: Agent mode changed to blueteam
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:38 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:11:38 [INFO]: Conversation history cleared
+2025-10-03 23:11:38 [INFO]: 📋 Phase 1: Planning
+2025-10-03 23:11:38 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 23:11:38 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 23:11:38 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 23:11:39 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 23:11:39 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmfQQiER69KJNU4CZ6t6"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmfQQiER69KJNU4CZ6t6"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 23:12:12 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:12:12 [INFO]: Step completed: FAILED (5000ms)
+2025-10-03 23:12:12 [ERROR]: Error in step e5687f8e-6b2e-4cf2-844a-62b748ae7800: Connection timeout
+2025-10-03 23:12:12 [INFO]: New finding: [high] SQL Injection
+2025-10-03 23:12:12 [INFO]: New finding: [high] Finding 1
+2025-10-03 23:12:12 [INFO]: New finding: [medium] Finding 2
+2025-10-03 23:12:12 [INFO]: New finding: [critical] Critical
+2025-10-03 23:12:12 [INFO]: New finding: [high] High
+2025-10-03 23:12:12 [INFO]: New finding: [medium] Medium
+2025-10-03 23:12:12 [INFO]: Updating execution plan
+2025-10-03 23:12:12 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:12:12 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:12:12 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:12:12 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:12:12 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:12:12 [INFO]: Step completed: SUCCESS (1000ms)
+2025-10-03 23:12:12 [INFO]: Task marked as completed
+2025-10-03 23:12:12 [ERROR]: Task failed: Test failure
+2025-10-03 23:12:12 [WARN]: Task aborted: User aborted
+2025-10-03 23:12:12 [INFO]: New finding: [high] Test
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:12:12 [INFO]: Sending message to Gemini (gemini-2.5-flash)
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in redteam mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in blueteam mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in desktopsecurity mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in webpentest mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in osint mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Gemini (gemini-2.5-flash) in base mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:12:12 [INFO]: Agent mode changed to blueteam
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:12:12 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-03 23:12:12 [INFO]: Conversation history cleared
+2025-10-03 23:12:12 [INFO]: Sending message to Claude (claude-sonnet-4-5)
+2025-10-03 23:12:12 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 23:12:12 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmfSsZpcPmjgVHgaci3o"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTmfSsZpcPmjgVHgaci3o"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 23:12:12 [INFO]: 🤖 Starting autonomous task: Task with many steps
+2025-10-03 23:12:12 [INFO]: 📋 Phase 1: Planning
+2025-10-03 23:12:12 [INFO]: Creating execution plan for task: Task with many steps
+2025-10-03 23:12:12 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 23:12:12 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5

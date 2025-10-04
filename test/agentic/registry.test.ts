@@ -18,9 +18,9 @@ describe('Tool Registry', () => {
   describe('Registry Completeness', () => {
     it('should have all expected tools', () => {
       expect(ALL_TOOLS.length).toBeGreaterThan(0);
-      expect(BUILTIN_TOOLS.length).toBe(6); // scan, webscan, mobilescan, pcap, recon, harden
-      expect(MCP_TOOLS.length).toBe(9); // Working MCP tools only
-      expect(ALL_TOOLS.length).toBe(15); // 6 builtin + 9 MCP
+      expect(BUILTIN_TOOLS.length).toBe(10); // 6 original + 4 new npm tools
+      expect(MCP_TOOLS.length).toBe(0); // MCP tools removed (packages don't exist)
+      expect(ALL_TOOLS.length).toBe(10); // 10 builtin tools only
     });
 
     it('should have all builtin tools', () => {
@@ -31,20 +31,10 @@ describe('Tool Registry', () => {
       expect(builtinNames).toContain('pcap');
       expect(builtinNames).toContain('recon');
       expect(builtinNames).toContain('harden');
-    });
-
-    it('should have all MCP tools', () => {
-      const mcpNames = MCP_TOOLS.map((t) => t.name);
-      expect(mcpNames).toContain('nuclei');
-      expect(mcpNames).toContain('nmap');
-      expect(mcpNames).toContain('sslscan');
-      expect(mcpNames).toContain('sqlmap');
-      expect(mcpNames).toContain('ffuf');
-      expect(mcpNames).toContain('wpscan');
-      expect(mcpNames).toContain('mobsf');
-      expect(mcpNames).toContain('gowitness');
-      expect(mcpNames).toContain('cero');
-      // Removed: httpx, katana, amass, masscan, http-headers (not integrated)
+      expect(builtinNames).toContain('depscan');
+      expect(builtinNames).toContain('sslcheck');
+      expect(builtinNames).toContain('screenshot');
+      expect(builtinNames).toContain('toolcheck');
     });
   });
 
@@ -84,10 +74,14 @@ describe('Tool Registry', () => {
       });
     });
 
-    it('should have at least one required parameter per tool', () => {
+    it('should have at least one parameter per tool', () => {
       ALL_TOOLS.forEach((tool) => {
-        const hasRequiredParam = tool.parameters.some((p) => p.required);
-        expect(hasRequiredParam).toBe(true);
+        // Tools should have parameters (can be optional for utility tools)
+        expect(tool.parameters.length).toBeGreaterThan(0);
+
+        // At least one parameter should be required OR have a default value
+        const hasRequiredOrDefault = tool.parameters.some((p) => p.required || p.default !== undefined);
+        expect(hasRequiredOrDefault).toBe(true);
       });
     });
 
@@ -104,10 +98,10 @@ describe('Tool Registry', () => {
 
   describe('getTool', () => {
     it('should retrieve tool by name', () => {
-      const nmap = getTool('nmap');
-      expect(nmap).toBeDefined();
-      expect(nmap?.name).toBe('nmap');
-      expect(nmap?.category).toBe('scanning');
+      const scan = getTool('scan');
+      expect(scan).toBeDefined();
+      expect(scan?.name).toBe('scan');
+      expect(scan?.category).toBe('scanning');
     });
 
     it('should return undefined for unknown tool', () => {
@@ -115,8 +109,8 @@ describe('Tool Registry', () => {
       expect(unknown).toBeUndefined();
     });
 
-    it('should retrieve all expected tools', () => {
-      const toolNames = ['scan', 'nmap', 'nuclei', 'sslscan', 'recon', 'webscan'];
+    it('should retrieve all builtin tools', () => {
+      const toolNames = ['scan', 'webscan', 'mobilescan', 'pcap', 'recon', 'harden'];
       toolNames.forEach((name) => {
         const tool = getTool(name);
         expect(tool).toBeDefined();
@@ -135,8 +129,8 @@ describe('Tool Registry', () => {
 
       const names = scanningTools.map((t) => t.name);
       expect(names).toContain('scan');
-      expect(names).toContain('nmap');
-      expect(names).toContain('nuclei');
+      expect(names).toContain('webscan');
+      expect(names).toContain('mobilescan');
     });
 
     it('should get reconnaissance tools', () => {
@@ -148,9 +142,6 @@ describe('Tool Registry', () => {
 
       const names = reconTools.map((t) => t.name);
       expect(names).toContain('recon');
-      expect(names).toContain('ffuf');
-      expect(names).toContain('gowitness');
-      expect(names).toContain('cero');
     });
 
     it('should get analysis tools', () => {
@@ -195,9 +186,9 @@ describe('Tool Registry', () => {
         expect(tool.riskLevel).toBe('high');
       });
 
-      // sqlmap should be high risk
+      // webscan should be high risk
       const names = highRisk.map((t) => t.name);
-      expect(names).toContain('sqlmap');
+      expect(names).toContain('webscan');
     });
   });
 
@@ -218,12 +209,12 @@ describe('Tool Registry', () => {
     });
 
     it('should support partial matches', () => {
-      const certTools = searchByCapability('certificate');
-      expect(certTools.length).toBeGreaterThan(0);
+      const portTools = searchByCapability('port scanning');
+      expect(portTools.length).toBeGreaterThan(0);
 
-      const names = certTools.map((t) => t.name);
-      // sslscan has "certificate validation" capability
-      expect(names).toContain('sslscan');
+      const names = portTools.map((t) => t.name);
+      // scan has "port scanning" capability
+      expect(names).toContain('scan');
     });
 
     it('should return empty array for no matches', () => {
@@ -297,7 +288,7 @@ describe('Tool Registry', () => {
       highRisk.forEach((tool) => {
         // High risk tools should generally require approval
         // (some might not if they're read-only)
-        if (tool.name === 'sqlmap') {
+        if (tool.name === 'webscan') {
           expect(tool.requiresApproval).toBe(true);
         }
       });
@@ -318,10 +309,10 @@ describe('Tool Registry', () => {
     });
 
     it('should have realistic example values', () => {
-      const nmap = getTool('nmap');
-      expect(nmap).toBeDefined();
-      expect(nmap!.examples[0].parameters.target).toBeTruthy();
-      expect(typeof nmap!.examples[0].parameters.target).toBe('string');
+      const scan = getTool('scan');
+      expect(scan).toBeDefined();
+      expect(scan!.examples[0].parameters.target).toBeTruthy();
+      expect(typeof scan!.examples[0].parameters.target).toBe('string');
     });
   });
 });

@@ -131,6 +131,12 @@ Default behavior: `cyber-claude` with no args starts interactive session.
 - **OSINTOrchestrator** - Coordinates all OSINT tools for comprehensive reconnaissance
 - **OSINTReporter** - Formats and exports OSINT results to JSON/Markdown
 
+**NPM-Based Security Tools** (`src/agent/tools/`):
+- **DependencyScanner** - JavaScript dependency vulnerability scanner using retire.js (CVE detection, severity classification, no API key)
+- **SSLAnalyzer** - SSL/TLS certificate analysis using ssl-checker (expiration monitoring, risk scoring, certificate validation)
+- **ScreenshotTool** - Website screenshot capture using Puppeteer (visual reconnaissance, technology detection, full-page captures)
+- **ExternalToolManager** - Auto-detects and manages external CLI security tools (nmap, nuclei, ffuf, sqlmap, wpscan, testssl, gobuster, amass, masscan, subfinder, httpx, katana)
+
 Tools collect data, then `CyberAgent.analyze()` passes data + task description to AI for analysis.
 
 **Web Security Features**:
@@ -358,6 +364,13 @@ Logger is used internally for debugging. User-facing output goes through `ui` mo
 - `uuid` - Unique ID generation
 - `winston` - Logging framework
 
+**Security Tool Dependencies**:
+- `retire` - JavaScript dependency vulnerability scanner (CVE detection, no API key)
+- `ssl-checker` - SSL/TLS certificate analysis and validation
+- `puppeteer` - Headless browser automation for screenshots and web reconnaissance
+- `subquest` - Subdomain enumeration tool
+- `whois-json` - WHOIS lookup functionality
+
 **Professional Features**:
 - IOC extraction patterns (built-in regex)
 - MITRE ATT&CK mappings (built-in database)
@@ -382,4 +395,22 @@ All system prompts enforce defensive-only operations:
 - **Audit logging** tracks all scan authorizations
 
 These constraints are embedded in `SYSTEM_PROMPTS.base` and the `Authorization` class, and should be preserved in any modifications.
+
+## Important Notes
+
+**MCP Tools Removed (v0.6.0)**:
+The Model Context Protocol (MCP) security tools have been removed from the codebase as the external packages (`@cyproxio/mcp-nuclei`, etc.) never existed. These have been replaced with functional npm-based alternatives:
+
+- **MCP Tools Removed**: nuclei, nmap, sslscan, sqlmap, ffuf, wpscan, mobsf, gowitness, cero (9 tools)
+- **Replacements Added**:
+  - DependencyScanner (retire.js) - replaces dependency checking
+  - SSLAnalyzer (ssl-checker) - replaces SSL/TLS scanning
+  - ScreenshotTool (puppeteer) - replaces visual reconnaissance
+  - ExternalToolManager - detects and wraps CLI tools if user has them installed
+
+**Migration Notes**:
+- All tool references in tests have been updated to use builtin tools (scan, webscan, recon, pcap, harden, mobilescan)
+- The tool registry now correctly reports 6 builtin tools instead of 15 (6 builtin + 9 MCP)
+- External tools (nmap, nuclei, etc.) can still be used if installed on the system via ExternalToolManager
+
 - Always update claude.md and readme.md when you make important updates
