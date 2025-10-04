@@ -330,8 +330,9 @@ export class PcapReporter {
    * Create a progress bar
    */
   private createBar(percentage: number, width: number): string {
-    const filled = Math.round((percentage / 100) * width);
-    const empty = width - filled;
+    const clampedPercentage = Math.max(0, Math.min(100, percentage));
+    const filled = Math.round((clampedPercentage / 100) * width);
+    const empty = Math.max(0, width - filled);
     return '█'.repeat(filled) + '░'.repeat(empty);
   }
 }

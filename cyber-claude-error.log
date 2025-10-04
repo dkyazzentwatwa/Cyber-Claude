@@ -242,3 +242,351 @@ Error: Failed to communicate with agent: Error: Claude API error: Error: 400 {"t
     at async executeOsintTutorial (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:422:22)
     at async executeFlow (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:232:17)
     at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/commands/flows.js:492:9)
+<<<<<<< Updated upstream
+=======
+2025-10-01 19:59:27 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-01 19:59:27 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CThd8a5r3i5B2qDGoBEQr"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CThd8a5r3i5B2qDGoBEQr"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-01 20:00:42 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThdE3qqa5xQ4LYZBRz8R"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThdE3qqa5xQ4LYZBRz8R"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:716:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:292:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:179:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:57:5)
+2025-10-01 20:00:42 [ERROR]: Error in chat: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThdE3qqa5xQ4LYZBRz8R"}
+Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThdE3qqa5xQ4LYZBRz8R"}
+    at ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:36:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:716:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:292:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:179:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:57:5)
+2025-10-01 21:12:38 [ERROR]: Error in step 54fb4601-3259-4eb8-82ab-6723854f119c: Connection timeout
+2025-10-01 21:12:38 [ERROR]: Task failed: Test failure
+2025-10-01 21:14:08 [ERROR]: Error in step 2bd928cb-4bb7-4558-af9e-31ce7abf8bfa: Connection timeout
+2025-10-01 21:14:08 [ERROR]: Task failed: Test failure
+2025-10-01 21:14:34 [ERROR]: Error in step 1bd26953-50ec-42c4-bc35-ccdf8b7747b0: Connection timeout
+2025-10-01 21:14:34 [ERROR]: Task failed: Test failure
+2025-10-01 21:14:34 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-01 21:14:34 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CThirnsYeovcH3rf58wBe"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CThirnsYeovcH3rf58wBe"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-01 21:27:12 [ERROR]: Error communicating with Claude: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThjpcfw9XBq6KuSuKtSQ"}
+Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThjpcfw9XBq6KuSuKtSQ"}
+    at APIError.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/core/error.mjs:37:20)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:152:32)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/client.mjs:306:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:716:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:292:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:179:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:59:5)
+2025-10-01 21:27:12 [ERROR]: Error in chat: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThjpcfw9XBq6KuSuKtSQ"}
+Error: Claude API error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CThjpcfw9XBq6KuSuKtSQ"}
+    at ClaudeProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/claude.js:36:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:53:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:716:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:292:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:179:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:59:5)
+2025-10-01 21:50:05 [ERROR]: Error in step 2103318e-c38f-47c2-8d8f-3491a401904f: Connection timeout
+2025-10-01 21:50:05 [ERROR]: Task failed: Test failure
+2025-10-02 09:26:36 [ERROR]: Step 1 failed: httpx MCP executor not yet implemented
+2025-10-02 09:26:36 [ERROR]: Error in step 900c03d9-a99d-4a05-b2ef-69c03fa797f0: httpx MCP executor not yet implemented
+2025-10-02 09:26:38 [ERROR]: Reflection failed: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [503 Service Unavailable] The model is overloaded. Please try again later.
+2025-10-02 09:26:38 [ERROR]: 🛑 Aborting: Step failed: httpx MCP executor not yet implemented (fallback reflection)
+2025-10-02 09:26:38 [ERROR]: [███░░░░░░░░░░░░░░░░░ 13%] Task aborted: Step failed: httpx MCP executor not yet implemented (fallback reflection)
+2025-10-02 09:26:38 [ERROR]: [███░░░░░░░░░░░░░░░░░ 13%] Task aborted: Execution aborted by reflection
+2025-10-02 10:05:22 [ERROR]: Error in step fe627c94-efeb-4885-81e7-e660fa31c0b7: Connection timeout
+2025-10-02 10:05:22 [ERROR]: Task failed: Test failure
+2025-10-02 10:05:32 [ERROR]: Error in step e3a22087-cd3e-4227-863c-b3357af3d033: Connection timeout
+2025-10-02 10:05:32 [ERROR]: Task failed: Test failure
+2025-10-02 10:59:53 [ERROR]: Error in step 26a554e0-57cd-482c-a748-10642637d3f3: Connection timeout
+2025-10-02 10:59:53 [ERROR]: Task failed: Test failure
+2025-10-02 10:59:53 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTioo2GBCmmX6wQdsCobG"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTioo2GBCmmX6wQdsCobG"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-02 10:59:53 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-02 11:01:07 [ERROR]: Error in step 8650f07e-23d1-4afc-b62f-47030556dc46: Connection timeout
+2025-10-02 11:01:07 [ERROR]: Task failed: Test failure
+2025-10-02 11:01:07 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-02 11:01:07 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTiotVNUcd6PYLzx1pGWE"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTiotVNUcd6PYLzx1pGWE"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-02 11:02:00 [ERROR]: Planning failed: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CTioxQwvvDzFFAoX4afeE"}
+2025-10-02 11:42:00 [ERROR]: Planning failed: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTis1KKmwLUrhDv4A68B9"}
+2025-10-02 11:42:00 [ERROR]: ❌ Task failed: Failed to create plan: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTis1KKmwLUrhDv4A68B9"}
+2025-10-02 11:42:00 [ERROR]: Planning failed: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTis1LNHKN4pW7GDWryiG"}
+2025-10-02 11:42:00 [ERROR]: ❌ Task failed: Failed to create plan: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTis1LNHKN4pW7GDWryiG"}
+2025-10-02 11:42:01 [ERROR]: Planning failed: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTis1M1ydot2UFuUcowEA"}
+2025-10-02 11:42:01 [ERROR]: ❌ Task failed: Failed to create plan: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTis1M1ydot2UFuUcowEA"}
+2025-10-02 11:42:01 [ERROR]: Planning failed: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTis1MfvFLPUqjL8J6DAz"}
+2025-10-02 11:42:01 [ERROR]: ❌ Task failed: Failed to create plan: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTis1MfvFLPUqjL8J6DAz"}
+2025-10-02 11:43:26 [ERROR]: Step execution failed: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Error in step 77c98b57-e37f-477b-9f01-ab9fe6664277: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Step execution failed: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Error in step 77c98b57-e37f-477b-9f01-ab9fe6664277: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Step execution failed: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Error in step 77c98b57-e37f-477b-9f01-ab9fe6664277: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Step execution failed: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Error in step 77c98b57-e37f-477b-9f01-ab9fe6664277: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Step execution failed: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Error in step 77c98b57-e37f-477b-9f01-ab9fe6664277: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Task failed: Max iterations reached: 5
+2025-10-02 11:43:26 [ERROR]: Task failed: Max iterations reached: 5
+2025-10-02 11:43:26 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-02 11:43:26 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-02 11:43:26 [ERROR]: Step execution failed: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Error in step d0fc762d-7b13-46b4-838e-a7c98949ec03: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Step execution failed: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Error in step d0fc762d-7b13-46b4-838e-a7c98949ec03: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Step execution failed: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Error in step d0fc762d-7b13-46b4-838e-a7c98949ec03: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Step execution failed: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Error in step d0fc762d-7b13-46b4-838e-a7c98949ec03: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Step execution failed: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Error in step d0fc762d-7b13-46b4-838e-a7c98949ec03: __vite_ssr_import_3__.ToolExecutor.executeStep is not a function
+2025-10-02 11:43:26 [ERROR]: Task failed: Max iterations reached: 5
+2025-10-02 11:44:05 [ERROR]: Reflection failed: Reflection missing successCriteriaMet array
+2025-10-02 11:44:05 [ERROR]: Reflection failed: Cannot read properties of undefined (reading 'content')
+2025-10-02 11:44:05 [ERROR]: Task failed: Max iterations reached: 5
+2025-10-02 11:44:05 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-02 11:44:05 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-02 11:44:05 [ERROR]: Reflection failed: Cannot read properties of undefined (reading 'content')
+2025-10-02 11:45:10 [ERROR]: Reflection failed: Reflection has 1 criteria evaluations, expected 2
+2025-10-02 11:45:10 [ERROR]: Reflection failed: Cannot read properties of undefined (reading 'content')
+2025-10-02 11:45:10 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-02 11:45:10 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-02 11:45:10 [ERROR]: Reflection failed: Cannot read properties of undefined (reading 'content')
+2025-10-02 11:45:36 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-02 11:45:36 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-02 11:45:44 [ERROR]: Error in step c5d945c9-600c-47b9-ad0c-ed788d14a8f0: Connection timeout
+2025-10-02 11:45:44 [ERROR]: Task failed: Test failure
+2025-10-02 11:45:44 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTisHqrmNEnN2cFaDkWYF"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTisHqrmNEnN2cFaDkWYF"}
+    at Function.generate (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/claude.ts:26:24)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/claude.test.ts:45:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-02 11:45:44 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/Users/cypher/Documents/coding/Cyber-Claude/src/agent/providers/gemini.ts:41:22)
+    at /Users/cypher/Documents/coding/Cyber-Claude/test/agent/providers/gemini.test.ts:40:9
+    at file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-02 11:45:45 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-02 11:45:45 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:28:10 [ERROR]: Error in step abd617bb-519d-418e-a7b2-de63038df36c: Connection timeout
+2025-10-03 22:28:10 [ERROR]: Task failed: Test failure
+2025-10-03 22:28:11 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:28:11 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:28:12 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTm44h18djR4FLg2D9uHP"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTm44h18djR4FLg2D9uHP"}
+    at Function.generate (file:///app/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///app/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///app/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/app/src/agent/providers/claude.ts:26:24)
+    at /app/test/agent/providers/claude.test.ts:45:9
+    at file:///app/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:28:12 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///app/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///app/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///app/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///app/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/app/src/agent/providers/gemini.ts:41:22)
+    at /app/test/agent/providers/gemini.test.ts:40:9
+    at file:///app/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:29:17 [ERROR]: Error communicating with Gemini: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"googleapis.com","metadata":{"service":"generativelanguage.googleapis.com"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"API key not valid. Please pass a valid API key."}]
+    at handleResponseNotOk (file:///app/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at makeRequest (file:///app/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at generateContent (file:///app/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at ChatSession.sendMessage (file:///app/node_modules/@google/generative-ai/dist/index.mjs:1208:9)
+    at GeminiProvider.chat (/app/src/agent/providers/gemini.ts:41:22)
+    at /app/test/agent/providers/gemini.test.ts:40:9
+    at file:///app/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:29:17 [ERROR]: Error communicating with Claude: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTm49V79vqDYWKiDeFj8Y"}
+Error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CTm49V79vqDYWKiDeFj8Y"}
+    at Function.generate (file:///app/node_modules/@anthropic-ai/sdk/src/core/error.ts:67:14)
+    at Anthropic.makeStatusError (file:///app/node_modules/@anthropic-ai/sdk/src/client.ts:422:28)
+    at Anthropic.makeRequest (file:///app/node_modules/@anthropic-ai/sdk/src/client.ts:657:24)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at ClaudeProvider.chat (/app/src/agent/providers/claude.ts:26:24)
+    at /app/test/agent/providers/claude.test.ts:45:9
+    at file:///app/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+2025-10-03 22:29:18 [ERROR]: Error in step 582eb162-4820-49e0-8629-34ae8112a953: Connection timeout
+2025-10-03 22:29:18 [ERROR]: Task failed: Test failure
+2025-10-03 22:29:19 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
+2025-10-03 22:29:19 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-03 15:48:24 [ERROR]: Step 5 failed: FFUF MCP server is not enabled. Set MCP_FFUF_ENABLED=true
+2025-10-03 15:48:25 [ERROR]: Failed to connect to MCP server nuclei: MCP error -32000: Connection closed
+McpError: MCP error -32000: Connection closed
+    at Client._onclose (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js:106:23)
+    at _transport.onclose (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js:73:18)
+    at ChildProcess.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/client/stdio.js:95:77)
+    at ChildProcess.emit (node:events:519:28)
+    at maybeClose (node:internal/child_process:1101:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:304:5)
+    at Process.callbackTrampoline (node:internal/async_hooks:130:17)
+2025-10-03 15:48:25 [ERROR]: Nuclei scan failed: MCP connection failed for nuclei: MCP error -32000: Connection closed
+Error: MCP connection failed for nuclei: MCP error -32000: Connection closed
+    at MCPClientManager.connect (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:56:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ensureMCPConnected (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:181:9)
+    at async callMCPTool (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:188:5)
+    at async NucleiMCP.scan (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/tools/nuclei.js:22:28)
+    at async nuclei (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:104:16)
+    at async ToolExecutor.executeStep (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:192:28)
+    at async Promise.all (index 0)
+    at async ToolExecutor.executeParallel (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:248:16)
+    at async AgenticCore.executeParallelSteps (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core/agentic.js:176:29)
+2025-10-03 15:48:25 [ERROR]: Failed to connect to MCP server sslscan: MCP error -32000: Connection closed
+McpError: MCP error -32000: Connection closed
+    at Client._onclose (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js:106:23)
+    at _transport.onclose (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js:73:18)
+    at ChildProcess.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/client/stdio.js:95:77)
+    at ChildProcess.emit (node:events:519:28)
+    at maybeClose (node:internal/child_process:1101:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:304:5)
+    at Process.callbackTrampoline (node:internal/async_hooks:130:17)
+2025-10-03 15:48:25 [ERROR]: SSL/TLS scan failed: MCP connection failed for sslscan: MCP error -32000: Connection closed
+Error: MCP connection failed for sslscan: MCP error -32000: Connection closed
+    at MCPClientManager.connect (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:56:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ensureMCPConnected (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:181:9)
+    at async callMCPTool (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:188:5)
+    at async SSLScanMCP.scan (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/tools/sslscan.js:22:28)
+    at async sslscan (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:118:16)
+    at async ToolExecutor.executeStep (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:192:28)
+    at async Promise.all (index 2)
+    at async ToolExecutor.executeParallel (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:248:16)
+    at async AgenticCore.executeParallelSteps (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core/agentic.js:176:29)
+2025-10-03 15:48:25 [ERROR]: Error in step ab3a3f97-5f4f-4115-86f3-3e3171c0ae79: FFUF MCP server is not enabled. Set MCP_FFUF_ENABLED=true
+2025-10-03 15:48:35 [ERROR]: Failed to connect to MCP server nuclei: MCP error -32000: Connection closed
+McpError: MCP error -32000: Connection closed
+    at Client._onclose (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js:106:23)
+    at _transport.onclose (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js:73:18)
+    at ChildProcess.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/client/stdio.js:95:77)
+    at ChildProcess.emit (node:events:519:28)
+    at maybeClose (node:internal/child_process:1101:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:304:5)
+    at Process.callbackTrampoline (node:internal/async_hooks:130:17)
+2025-10-03 15:48:35 [ERROR]: Nuclei scan failed: MCP connection failed for nuclei: MCP error -32000: Connection closed
+Error: MCP connection failed for nuclei: MCP error -32000: Connection closed
+    at MCPClientManager.connect (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:56:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ensureMCPConnected (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:181:9)
+    at async callMCPTool (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:188:5)
+    at async NucleiMCP.scan (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/tools/nuclei.js:22:28)
+    at async nuclei (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:104:16)
+    at async ToolExecutor.executeStep (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:192:28)
+    at async ToolExecutor.retryStep (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:277:16)
+    at async AgenticCore.handleReflection (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core/agentic.js:204:41)
+    at async AgenticCore.executeParallelSteps (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core/agentic.js:185:17)
+2025-10-03 15:49:01 [ERROR]: Failed to connect to MCP server sslscan: MCP error -32000: Connection closed
+McpError: MCP error -32000: Connection closed
+    at Client._onclose (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js:106:23)
+    at _transport.onclose (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/shared/protocol.js:73:18)
+    at ChildProcess.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/node_modules/@modelcontextprotocol/sdk/dist/esm/client/stdio.js:95:77)
+    at ChildProcess.emit (node:events:519:28)
+    at maybeClose (node:internal/child_process:1101:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:304:5)
+    at Process.callbackTrampoline (node:internal/async_hooks:130:17)
+2025-10-03 15:49:01 [ERROR]: SSL/TLS scan failed: MCP connection failed for sslscan: MCP error -32000: Connection closed
+Error: MCP connection failed for sslscan: MCP error -32000: Connection closed
+    at MCPClientManager.connect (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:56:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async ensureMCPConnected (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:181:9)
+    at async callMCPTool (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/client.js:188:5)
+    at async SSLScanMCP.scan (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/mcp/tools/sslscan.js:22:28)
+    at async sslscan (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:118:16)
+    at async ToolExecutor.executeStep (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:192:28)
+    at async ToolExecutor.retryStep (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/tools/executor.js:277:16)
+    at async AgenticCore.handleReflection (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core/agentic.js:204:41)
+    at async AgenticCore.executeParallelSteps (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core/agentic.js:185:17)
+2025-10-03 15:49:01 [ERROR]: Parallel execution failed: RangeError: Invalid count value: -5
+2025-10-03 15:49:01 [ERROR]: Error in step parallel: RangeError: Invalid count value: -5
+2025-10-03 15:49:01 [ERROR]: ❌ Task failed: Invalid count value: -5
+>>>>>>> Stashed changes

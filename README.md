@@ -20,7 +20,7 @@ An AI-powered cybersecurity agent built with the [Claude Agent SDK](https://docs
 ![Tests](https://img.shields.io/badge/tests-157%20passed-brightgreen)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-excellent-brightgreen)
-![Version](https://img.shields.io/badge/version-0.5.1-blue)
+![Version](https://img.shields.io/badge/version-0.6.0--dev-blue)
 
 ---
 
@@ -70,11 +70,32 @@ cyber-claude
 
 ## 🆕 What's New
 
+### v0.6.0 - Autonomous Agent Mode (Development)
+
+**🤖 NEW: Autonomous AI Execution - Advanced Users**
+
+The new `auto` command enables fully autonomous task execution with AI-powered planning and execution:
+
+```bash
+cyber-claude auto "scan example.com for vulnerabilities"
+cyber-claude auto "analyze this network for suspicious activity" --mode blueteam
+cyber-claude auto "gather OSINT on target.com" --thinking --max-steps 15
+```
+
+**Key Features:**
+- 🧠 **AI Planning** - Automatically breaks down tasks into executable steps
+- 🔄 **Self-Correction** - Reflects on results and adapts strategy
+- 🎯 **Multi-Tool** - Intelligently selects and chains security tools
+- ⚡ **Extended Thinking** - Claude's extended thinking for complex planning
+- 🛡️ **Safety Controls** - Approval workflows for high-risk operations
+
+**NOTE:** MCP (Model Context Protocol) security tools have been removed. Built-in tools provide comprehensive coverage for all scanning needs.
+
 ### v0.5.1 - Workflows & Enhanced User Experience
 
-**🎯 NEW: Pre-Configured Workflows - Perfect for Beginners!**
+**🎯 Pre-Configured Workflows - Perfect for Beginners!**
 
-The new `flows` command provides guided, step-by-step workflows for common security tasks:
+The `flows` command provides guided, step-by-step workflows for common security tasks:
 
 ```bash
 cyber-claude flows                        # Interactive menu
@@ -142,35 +163,11 @@ cyber-claude flows --difficulty beginner  # Beginner-friendly workflows
   - No rate limits (free tier APIs)
   - Privacy-respecting (passive only)
 
-**Previous: v0.4.0 - Professional Security Tool Integration - MCP Powered!**
-
-- **⚡ 9 Professional Security Tools**: Integrated via Model Context Protocol (MCP)
-  ```bash
-  # Web Security
-  cyber-claude webscan https://example.com --nuclei --sslscan --sqlmap
-  cyber-claude webscan https://example.com --with-mcp  # Run all tools
-
-  # Network Security
-  cyber-claude scan --network --nmap --target 192.168.1.0/24
-  ```
-
-- **🛠️ Included Tools**:
-  - **Nuclei** - 5000+ vulnerability templates
-  - **SSLScan** - SSL/TLS security grading
-  - **SQLmap** - SQL injection testing
-  - **Nmap** - Network port scanning
-  - **Httpx** - HTTP probing & tech detection
-  - **Katana** - Web crawler with JS parsing
-  - **Amass** - Subdomain enumeration
-  - **Masscan** - Ultra-fast port scanning
-  - **HTTP Headers** - Security header analysis
-
-- **🎯 Professional Features**:
-  - IOC extraction with STIX 2.1 export
-  - MITRE ATT&CK technique mapping
-  - Evidence preservation with chain of custody
-  - Triple hash verification (MD5/SHA1/SHA256)
-  - Forensically sound metadata tracking
+**Professional Features:**
+- **🎯 IOC Extraction**: Automatic extraction with STIX 2.1 export
+- **🗺️ MITRE ATT&CK**: Technique mapping and threat intelligence
+- **🔬 Evidence Preservation**: Chain of custody with triple hash verification (MD5/SHA1/SHA256)
+- **📊 Forensics**: Forensically sound metadata tracking
 
 **📦 Network Traffic Analysis - AI-Powered Wireshark!**
 
@@ -269,14 +266,13 @@ cyber-claude flows --difficulty beginner  # Beginner-friendly workflows
 - **Compliance Validation**: Security baseline checking
 - **AI-Powered Recommendations**: Prioritized, actionable advice
 
-### 🔧 Professional Security Tools (MCP Integration)
-- **9 Security Tools**: Integrated via Model Context Protocol
-- **Web Security**: Nuclei (5000+ templates), SSLScan, SQLmap, HTTP Headers
-- **Network Security**: Nmap, Masscan, Httpx
-- **Reconnaissance**: Katana (web crawler), Amass (subdomain enum)
-- **Zero Setup**: Tools auto-installed via npx when first used
-- **Enable/Disable**: Simple environment variable configuration
-- **Unified Analysis**: MCP results combined with built-in scanning + AI analysis
+### 🔧 Built-In Security Tools
+- **Web Application Scanning**: OWASP Top 10, security headers, CSRF/XSS detection
+- **Desktop Security**: System scanning, network connections, process analysis
+- **OSINT Reconnaissance**: 10 comprehensive tools (DNS, WHOIS, subdomains, emails, usernames, breaches, tech detection, Wayback, IP lookup)
+- **Network Traffic Analysis**: PCAP parsing, protocol dissection, conversation tracking
+- **Hardening Validation**: Platform-specific security checks (macOS FileVault, Linux UFW, Windows Defender)
+- **AI-Powered Analysis**: All results analyzed by Claude/Gemini models for actionable insights
 
 ### 🔬 Professional Analysis Features
 - **IOC Extraction**: Extract IPs, domains, URLs, emails, hashes, CVEs from pcap files
@@ -337,29 +333,6 @@ npm run build
 # Run in development mode
 npm run dev
 ```
-
-### MCP Security Tools Setup (Optional)
-
-Enable professional security tools by setting environment variables in `.env`:
-
-```bash
-# Web Security Tools
-MCP_NUCLEI_ENABLED=true           # Vulnerability scanning (5000+ templates)
-MCP_SSLSCAN_ENABLED=true          # SSL/TLS security analysis
-MCP_SQLMAP_ENABLED=true           # SQL injection testing
-MCP_HTTP_HEADERS_ENABLED=true     # HTTP security headers analysis
-
-# Network Security Tools
-MCP_NMAP_ENABLED=true             # Network scanning and service detection
-MCP_MASSCAN_ENABLED=true          # Ultra-fast port scanning
-
-# Reconnaissance Tools
-MCP_HTTPX_ENABLED=true            # HTTP probing and tech detection
-MCP_KATANA_ENABLED=true           # Web crawler with JS parsing
-MCP_AMASS_ENABLED=true            # Subdomain enumeration
-```
-
-**No Installation Required!** MCP tools are automatically installed via `npx` when first used. Just enable them in `.env` and start scanning.
 
 ### Basic Usage
 
@@ -496,6 +469,30 @@ flows                                     # Works in interactive session too!
 
 💡 **Pro tip:** Start with "Quick Security Health Check" or "Website Security Audit" to see what Cyber Claude can do!
 
+### `cyber-claude auto` 🆕 **AUTONOMOUS MODE!**
+AI-powered autonomous task execution - advanced planning and self-correction
+
+**Options:**
+- `--mode <mode>` - Agent mode (base, redteam, blueteam, desktopsecurity, webpentest, osint)
+- `--model <model>` - AI model to use (default: claude-sonnet-4-5)
+- `--thinking` - Enable extended thinking for complex planning
+- `--max-steps <n>` - Maximum steps to execute (default: 20)
+- `--max-duration <ms>` - Maximum duration in milliseconds (default: 600000)
+- `--auto-approve` - Auto-approve all steps - USE WITH CAUTION
+- `--verbose` - Verbose output with progress updates
+- `--export <file>` - Export execution context to file
+
+**Examples:**
+```bash
+cyber-claude auto "scan example.com for vulnerabilities"
+cyber-claude auto "analyze network.pcap for threats" --mode blueteam
+cyber-claude auto "gather intel on target.com" --thinking --max-steps 15
+cyber-claude auto "quick security check" --auto-approve --verbose
+cyber-claude auto "investigate suspicious traffic" --export results.json
+```
+
+⚠️ **Advanced Feature:** Requires understanding of autonomous AI execution. Use `flows` for guided experiences.
+
 ### `cyber-claude scan`
 Scan your system for security issues
 
@@ -503,10 +500,6 @@ Scan your system for security issues
 - `-q, --quick` - Quick security check
 - `-f, --full` - Full system scan (default)
 - `-n, --network` - Network connections scan
-- `--nmap` - Use Nmap for professional network scanning (requires MCP_NMAP_ENABLED=true)
-- `--target <target>` - Target IP/hostname/CIDR for Nmap scan
-- `--ports <ports>` - Ports to scan with Nmap (default: top-1000)
-- `--nmap-aggressive` - Enable aggressive Nmap scanning (-A flag)
 - `--model <model>` - AI model to use
 - `--json <file>` - Export results to JSON
 - `--md <file>` - Export results to Markdown
@@ -544,10 +537,6 @@ Scan web applications for security vulnerabilities
 - `-q, --quick` - Quick security scan (headers only)
 - `-f, --full` - Full vulnerability scan (CSRF, XSS detection)
 - `--ctf` - CTF challenge mode
-- `--nuclei` - Run Nuclei vulnerability scan with 5000+ templates (requires MCP_NUCLEI_ENABLED=true)
-- `--sslscan` - Run SSL/TLS security analysis (requires MCP_SSLSCAN_ENABLED=true)
-- `--sqlmap` - Test for SQL injection vulnerabilities (requires MCP_SQLMAP_ENABLED=true)
-- `--with-mcp` - Run all available MCP security tools
 - `--model <model>` - AI model to use
 - `--timeout <ms>` - Request timeout in milliseconds
 
@@ -556,9 +545,7 @@ Scan web applications for security vulnerabilities
 cyber-claude webscan https://example.com
 cyber-claude webscan --full https://myapp.local
 cyber-claude webscan --ctf https://ctf.hackthebox.com/challenge
-cyber-claude webscan https://example.com --nuclei --sslscan
-cyber-claude webscan https://example.com --with-mcp
-cyber-claude webscan https://staging.myapp.com --full --sqlmap
+cyber-claude webscan https://staging.myapp.com --full
 ```
 
 ### `cyber-claude pcap` (NEW!)
@@ -773,7 +760,7 @@ npm test
 
 ### Phase 3: Enhanced Features ✅
 - [x] MITRE ATT&CK mapping (20+ techniques)
-- [x] MCP integration with 9 professional security tools
+- [x] Autonomous agent mode with AI planning and execution
 - [x] IOC extraction and STIX 2.1 export
 - [x] Evidence preservation with chain of custody
 - [x] OSINT reconnaissance suite (10 tools)

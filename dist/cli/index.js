@@ -12,6 +12,7 @@ import { createPcapCommand } from './commands/pcap.js';
 import { createReconCommand } from './commands/recon.js';
 import { createFlowsCommand } from './commands/flows.js';
 import { createMobileScanCommand } from './commands/mobilescan.js';
+import { createAutoCommand } from './commands/auto.js';
 import { InteractiveSession } from './session.js';
 const program = new Command();
 program
@@ -21,6 +22,7 @@ program
 // Add commands
 program.addCommand(createInteractiveCommand());
 program.addCommand(createFlowsCommand());
+program.addCommand(createAutoCommand());
 program.addCommand(createScanCommand());
 program.addCommand(createHardenCommand());
 program.addCommand(createChatCommand());
@@ -37,6 +39,7 @@ program
         console.log('\n' + chalk.bold('Quick Commands:'));
         console.log(`  ${chalk.cyan('cyber-claude interactive')} - Start interactive session ${chalk.green('(Recommended)')}`);
         console.log(`  ${chalk.cyan('cyber-claude flows')}       - Pre-configured workflows ${chalk.green('(Beginner-friendly)')}`);
+        console.log(`  ${chalk.cyan('cyber-claude auto <task>')} - Autonomous AI execution ${chalk.yellow('(Advanced)')}`);
         console.log(`  ${chalk.cyan('cyber-claude scan')}        - Scan your system for security issues`);
         console.log(`  ${chalk.cyan('cyber-claude webscan <url>')} - Scan web applications for vulnerabilities`);
         console.log(`  ${chalk.cyan('cyber-claude mobilescan <file>')} - Scan mobile apps (APK/IPA) for vulnerabilities`);

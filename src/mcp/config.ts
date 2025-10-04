@@ -7,119 +7,10 @@ import { MCPServerConfig } from './client.js';
 
 /**
  * Available MCP Security Tool Servers
+ * NOTE: MCP servers will be added as we discover working implementations
  */
 export const MCP_SERVERS: Record<string, MCPServerConfig> = {
-  nuclei: {
-    name: 'nuclei',
-    enabled: process.env.MCP_NUCLEI_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-nuclei'],
-    description: 'Vulnerability scanning with 5000+ templates',
-  },
-
-  sslscan: {
-    name: 'sslscan',
-    enabled: process.env.MCP_SSLSCAN_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-sslscan'],
-    description: 'SSL/TLS configuration and vulnerability analysis',
-  },
-
-  'http-headers': {
-    name: 'http-headers',
-    enabled: process.env.MCP_HTTP_HEADERS_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-http-headers-security'],
-    description: 'HTTP security headers analysis (OWASP)',
-  },
-
-  sqlmap: {
-    name: 'sqlmap',
-    enabled: process.env.MCP_SQLMAP_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-sqlmap'],
-    description: 'SQL injection detection and testing',
-  },
-
-  nmap: {
-    name: 'nmap',
-    enabled: process.env.MCP_NMAP_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-nmap'],
-    description: 'Network scanning and service detection',
-  },
-
-  httpx: {
-    name: 'httpx',
-    enabled: process.env.MCP_HTTPX_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-httpx'],
-    description: 'HTTP probing and technology detection',
-  },
-
-  katana: {
-    name: 'katana',
-    enabled: process.env.MCP_KATANA_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-katana'],
-    description: 'Web crawler with JavaScript parsing',
-  },
-
-  amass: {
-    name: 'amass',
-    enabled: process.env.MCP_AMASS_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-amass'],
-    description: 'Subdomain enumeration and reconnaissance',
-  },
-
-  masscan: {
-    name: 'masscan',
-    enabled: process.env.MCP_MASSCAN_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-masscan'],
-    description: 'Ultra-fast port scanning',
-  },
-
-  ffuf: {
-    name: 'ffuf',
-    enabled: process.env.MCP_FFUF_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-ffuf'],
-    description: 'Fast web fuzzer for content discovery',
-  },
-
-  mobsf: {
-    name: 'mobsf',
-    enabled: process.env.MCP_MOBSF_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-mobsf'],
-    description: 'Mobile Security Framework for Android/iOS analysis',
-  },
-
-  gowitness: {
-    name: 'gowitness',
-    enabled: process.env.MCP_GOWITNESS_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-gowitness'],
-    description: 'Web screenshot and visual reconnaissance',
-  },
-
-  wpscan: {
-    name: 'wpscan',
-    enabled: process.env.MCP_WPSCAN_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-wpscan'],
-    description: 'WordPress vulnerability scanner',
-  },
-
-  cero: {
-    name: 'cero',
-    enabled: process.env.MCP_CERO_ENABLED === 'true',
-    command: 'npx',
-    args: ['-y', '@cyproxio/mcp-cero'],
-    description: 'Certificate transparency domain enumeration',
-  },
+  // MCP servers will be populated with actual working packages
 };
 
 /**
@@ -155,10 +46,10 @@ export interface MCPCapabilities {
 }
 
 export const MCP_CAPABILITIES: MCPCapabilities = {
-  webSecurity: ['nuclei', 'sslscan', 'http-headers', 'sqlmap', 'httpx', 'katana', 'ffuf', 'wpscan'],
-  networkSecurity: ['nmap', 'masscan'],
-  reconnaissance: ['amass', 'katana', 'httpx', 'gowitness', 'cero'],
-  vulnerability: ['nuclei', 'sqlmap', 'sslscan', 'wpscan', 'mobsf'],
+  webSecurity: [],
+  networkSecurity: [],
+  reconnaissance: [],
+  vulnerability: [],
 };
 
 /**

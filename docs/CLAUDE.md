@@ -85,7 +85,8 @@ src/cli/index.ts (entry point)
     ↓
 Commands (Commander.js):
 ├─ interactive (default) - Persistent REPL session
-├─ flows - Pre-configured workflows for common tasks (NEW! v0.3.1)
+├─ flows - Pre-configured workflows for common tasks
+├─ auto - Autonomous AI execution with planning and self-correction (NEW! v0.6.0 - Advanced)
 ├─ scan - Desktop security scanning (quick/full/network)
 ├─ webscan - Web application vulnerability scanning
 ├─ recon - OSINT reconnaissance (quick/full/domain/person)
@@ -94,9 +95,11 @@ Commands (Commander.js):
 └─ chat - One-off chat mode
 ```
 
-Default behavior: `cyber-claude` with no args starts interactive session (changed in v0.2.0).
+Default behavior: `cyber-claude` with no args starts interactive session.
 
-**New in v0.3.1 - Flows Command**: The `flows` command provides beginner-friendly, pre-configured workflows that combine multiple tools and steps into guided experiences. Perfect for learning or quickly executing common security tasks. See `src/cli/commands/flows.ts` for workflow definitions.
+**New in v0.6.0 - Auto Command**: The `auto` command enables autonomous AI execution where the agent plans tasks, executes steps, reflects on results, and self-corrects. Powered by agentic core (`src/agent/core/agentic.ts`) with planning, reflection, and validation. See `src/cli/commands/auto.ts` for implementation.
+
+**Flows Command**: The `flows` command provides beginner-friendly, pre-configured workflows that combine multiple tools and steps into guided experiences. Perfect for learning or quickly executing common security tasks. See `src/cli/commands/flows.ts` for workflow definitions.
 
 ### Security Tools
 
@@ -181,53 +184,52 @@ Tools collect data, then `CyberAgent.analyze()` passes data + task description t
 - `recon tech <url>` - Technology detection only
 - `recon ip <ip>` - IP analysis only (geolocation + reverse IP)
 
-### MCP Security Tool Integration
+### Autonomous Agent Mode (v0.6.0)
 
-**MCP (Model Context Protocol) Architecture** (`src/mcp/`):
-- **MCPClientManager** (`src/mcp/client.ts`) - Manages connections to MCP servers via stdio transport
-- **MCP Configuration** (`src/mcp/config.ts`) - 9 security tool server definitions with environment-based enable/disable
-- **Tool Adapters** (`src/mcp/tools/`) - TypeScript wrappers for each MCP tool with result parsing
+**Agentic Core Architecture** (`src/agent/core/`):
+- **AgenticCore** (`src/agent/core/agentic.ts`) - Main orchestrator for autonomous task execution
+- **Planner** (`src/agent/core/planner.ts`) - AI-powered task decomposition and step generation
+- **Context Manager** (`src/agent/core/context.ts`) - Execution state, findings, and conversation history
+- **Reflection** (`src/agent/core/reflection.ts`) - Self-assessment and strategy adaptation
+- **Validator** (`src/agent/core/validator.ts`) - Step validation and safety checks
 
-**Available MCP Tools** (9 total):
-1. **NucleiMCP** - Vulnerability scanning with 5000+ templates (CVEs, OWASP, vulns)
-2. **SSLScanMCP** - SSL/TLS analysis with security grading (A+ to F), certificate validation, vulnerability detection
-3. **SQLmapMCP** - SQL injection testing with injection point detection and DBMS identification
-4. **NmapMCP** - Network scanning with host discovery, port scanning, service detection, OS detection
-5. **HttpxMCP** - HTTP probing and technology detection
-6. **KatanaMCP** - Web crawler with JavaScript parsing
-7. **AmassMCP** - Subdomain enumeration for reconnaissance
-8. **MasscanMCP** - Ultra-fast port scanning
-9. **HTTPHeadersMCP** - Security header analysis
-
-**MCP Integration Pattern**:
+**Autonomous Execution Flow**:
 ```typescript
-// Check availability
-if (NucleiMCP.isAvailable()) {
-  // Run scan
-  const result = await NucleiMCP.scan({
-    target: url,
-    templates: ['cves', 'owasp'],
-    severity: ['critical', 'high']
-  });
+// Create autonomous agent
+const agent = new AgenticCore({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+  model: 'claude-sonnet-4-5',
+  mode: 'webpentest',
+  maxSteps: 20,
+  useExtendedThinking: true,
+  requireApprovalCallback: requestUserApproval
+});
 
-  // Display results
-  console.log(`Found ${result.summary.total} vulnerabilities`);
-}
+// Execute task autonomously
+const result = await agent.executeTask(
+  "scan example.com for OWASP Top 10 vulnerabilities"
+);
+
+// Agent automatically:
+// 1. Plans steps (using Planner)
+// 2. Executes tools (using ToolRegistry)
+// 3. Reflects on results (using Reflection)
+// 4. Adapts strategy if needed
+// 5. Generates findings and recommendations
 ```
 
-**Command Integration**:
-- `webscan` command: `--nuclei`, `--sslscan`, `--sqlmap`, `--with-mcp` flags
-- `scan` command: `--nmap`, `--target`, `--ports`, `--nmap-aggressive` flags
-- MCP results combined with built-in scanning and fed into AI analysis
+**Tool Registry** (`src/agent/tools/registry.ts`):
+- Comprehensive metadata for all available security tools
+- Enables AI to intelligently select appropriate tools
+- Supports parameter inference and validation
+- Includes risk levels and approval requirements
 
-**Configuration**: Environment variables in `.env`:
-```bash
-MCP_NUCLEI_ENABLED=true
-MCP_SSLSCAN_ENABLED=true
-MCP_SQLMAP_ENABLED=true
-MCP_NMAP_ENABLED=true
-# ... etc for all 9 tools
-```
+**Safety Controls**:
+- Step-by-step approval for high-risk operations
+- Risk level assessment (low/medium/high)
+- Maximum step and duration limits
+- Validation of tool parameters and outputs
+- Ethical constraints enforced in system prompts
 
 ### Professional Analysis Features
 

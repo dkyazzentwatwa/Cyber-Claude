@@ -71,4 +71,144 @@ export interface ToolResult {
     error?: string;
     message?: string;
 }
+/**
+ * User's high-level task description
+ */
+export interface Task {
+    id: string;
+    description: string;
+    goal: string;
+    constraints?: string[];
+    maxSteps?: number;
+    maxDuration?: number;
+    requiresApproval?: boolean;
+    createdAt: Date;
+}
+/**
+ * AI-generated execution plan
+ */
+export interface Plan {
+    taskId: string;
+    steps: Step[];
+    estimatedDuration?: number;
+    riskLevel: 'low' | 'medium' | 'high';
+    createdAt: Date;
+}
+/**
+ * Single step in execution plan
+ */
+export interface Step {
+    id: string;
+    stepNumber: number;
+    description: string;
+    tool: string;
+    parameters: Record<string, any>;
+    successCriteria: string[];
+    dependencies?: string[];
+    canRunInParallel?: boolean;
+    estimatedDuration?: number;
+    riskLevel: 'low' | 'medium' | 'high';
+    requiresApproval?: boolean;
+}
+/**
+ * Result of executing a single step
+ */
+export interface StepResult {
+    stepId: string;
+    success: boolean;
+    output: any;
+    error?: string;
+    duration: number;
+    timestamp: Date;
+    toolUsed: string;
+    attemptNumber: number;
+}
+/**
+ * AI's reflection on step result
+ */
+export interface Reflection {
+    stepId: string;
+    success: boolean;
+    reasoning: string;
+    successCriteriaMet: boolean[];
+    shouldContinue: boolean;
+    adjustments?: {
+        modifyPlan?: boolean;
+        retryStep?: boolean;
+        skipToStep?: string;
+        additionalSteps?: Array<{
+            stepNumber: number;
+            description: string;
+            tool: string;
+            parameters: Record<string, any>;
+            successCriteria: string[];
+            dependencies?: string[];
+            canRunInParallel?: boolean;
+            estimatedDuration?: number;
+            riskLevel: 'low' | 'medium' | 'high';
+            requiresApproval?: boolean;
+        }>;
+    };
+    confidence: number;
+    taskComplete: boolean;
+    nextAction: 'continue' | 'retry' | 'adjust' | 'complete' | 'abort';
+}
+/**
+ * Context maintained across agentic execution
+ */
+export interface AgenticContext {
+    task: Task;
+    plan: Plan;
+    completedSteps: StepResult[];
+    currentStep?: Step;
+    reflections: Reflection[];
+    findings: SecurityFinding[];
+    errors: Array<{
+        step: string;
+        error: string;
+        timestamp: Date;
+    }>;
+    startTime: Date;
+    endTime?: Date;
+    status: 'planning' | 'executing' | 'reflecting' | 'completed' | 'failed' | 'aborted';
+}
+/**
+ * Tool definition in registry
+ */
+export interface ToolDefinition {
+    name: string;
+    description: string;
+    category: 'scanning' | 'reconnaissance' | 'analysis' | 'reporting' | 'utility';
+    parameters: {
+        name: string;
+        type: string;
+        description: string;
+        required: boolean;
+        default?: any;
+    }[];
+    capabilities: string[];
+    requiresApproval: boolean;
+    estimatedDuration: number;
+    riskLevel: 'low' | 'medium' | 'high';
+    examples: {
+        description: string;
+        parameters: Record<string, any>;
+    }[];
+}
+/**
+ * Progress update during agentic execution
+ */
+export interface ProgressUpdate {
+    type: 'plan' | 'step_start' | 'step_complete' | 'reflection' | 'complete' | 'error';
+    message: string;
+    step?: Step;
+    result?: StepResult;
+    reflection?: Reflection;
+    progress: {
+        current: number;
+        total: number;
+        percentage: number;
+    };
+    timestamp: Date;
+}
 //# sourceMappingURL=types.d.ts.map

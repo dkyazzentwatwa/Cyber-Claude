@@ -3,7 +3,7 @@ import { ui } from '../../utils/ui.js';
 import { CyberAgent } from '../../agent/core.js';
 import { config, validateConfig } from '../../utils/config.js';
 import { getModelByKey } from '../../utils/models.js';
-import { MobSFMCP } from '../../mcp/tools/index.js';
+// MobSFMCP removed - package does not exist
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import ora from 'ora';
@@ -306,24 +306,20 @@ export function createMobileScanCommand(): Command {
           process.exit(1);
         }
 
-        // Check if MobSF is enabled
-        if (!MobSFMCP.isAvailable()) {
-          ui.error('MobSF is not enabled. Set MCP_MOBSF_ENABLED=true in your .env file');
-          process.exit(1);
-        }
-
         ui.banner();
-        ui.section(`Mobile App Security Scan: ${path.basename(file)}`);
 
+        // MobSF MCP tool not available
+        ui.error('Mobile scanning (MobSF) is not currently available - no working MCP package found');
+        ui.info('The @cyproxio/mcp-mobsf package does not exist in the npm registry');
+        process.exit(1);
+
+        /* ALL MobSF scanning code removed - package does not exist
         const spinner = ora('Running MobSF security scan...').start();
-
-        // Run MobSF scan
         const result = await MobSFMCP.scan({
           filePath: file,
           scanType: options.scanType,
           reScan: options.rescan,
         });
-
         spinner.stop();
 
         if (!result.success) {
@@ -370,14 +366,7 @@ export function createMobileScanCommand(): Command {
             mode: 'base',
           });
 
-          const prompt = `Analyze this mobile app security scan result and provide:
-1. Risk assessment and prioritization
-2. Top 3 most critical issues to fix immediately
-3. Security best practices recommendations
-4. Compliance considerations (OWASP MASVS, etc.)
-
-Scan Results:
-${JSON.stringify(result, null, 2)}`;
+          const prompt = `Analyze this mobile app security scan result and provide...`;
 
           try {
             const analysis = await agent.chat(prompt);
@@ -389,7 +378,7 @@ ${JSON.stringify(result, null, 2)}`;
             analysisSpinner.stop();
             ui.error(`AI analysis failed: ${error.message}`);
           }
-        }
+        } */
 
       } catch (error: any) {
         ui.error(`Mobile scan failed: ${error.message}`);
