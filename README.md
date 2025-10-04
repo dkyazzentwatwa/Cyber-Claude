@@ -16,7 +16,7 @@ An AI-powered cybersecurity agent built with the [Claude Agent SDK](https://docs
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
-![Claude](https://img.shields.io/badge/Claude-Sonnet%204-purple)
+![Claude](https://img.shields.io/badge/Claude-Sonnet%204.5-purple)
 ![Tests](https://img.shields.io/badge/tests-157%20passed-brightgreen)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-excellent-brightgreen)

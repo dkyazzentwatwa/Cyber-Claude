@@ -240,6 +240,62 @@ cyber-claude harden --json hardening-report.json
 
 ---
 
+### `cyber-claude auto`
+**NEW!** Autonomous task execution with AI-powered planning and multi-step execution.
+
+```bash
+# Basic autonomous execution
+cyber-claude auto "scan example.com for vulnerabilities"
+
+# Red team mode
+cyber-claude auto "find attack paths in staging.myapp.com" --mode redteam --verbose
+
+# Blue team mode
+cyber-claude auto "analyze logs for IOCs in /var/log/auth.log" --mode blueteam
+
+# Web pentest mode
+cyber-claude auto "audit WordPress site at blog.example.com" --mode webpentest
+
+# OSINT mode
+cyber-claude auto "gather intel on target-company.com" --mode osint
+
+# Extended thinking for complex tasks
+cyber-claude auto "comprehensive security assessment" --thinking --verbose
+
+# Export execution context
+cyber-claude auto "scan 192.168.1.0/24" --export scan-context.json
+```
+
+**Options:**
+- `--mode <mode>` - Agent mode: base, redteam, blueteam, desktopsecurity, webpentest, osint (default: base)
+- `--model <model>` - AI model to use (default: claude-sonnet-4-5)
+- `--thinking` - Enable extended thinking for complex planning (default: false)
+- `--max-steps <n>` - Maximum steps to execute (default: 20)
+- `--max-duration <ms>` - Maximum duration in milliseconds (default: 600000)
+- `--auto-approve` - Auto-approve all steps (⚠️ USE WITH CAUTION) (default: false)
+- `--verbose` - Verbose output with progress updates (default: false)
+- `--export <file>` - Export execution context to JSON file
+
+**Features:**
+- 🤖 AI-powered multi-step planning
+- 🔄 Adaptive execution (adjusts plan based on discoveries)
+- 🔁 Self-correction (retries failures with backoff)
+- 🛡️ Safety controls (approval gates for high-risk ops)
+- 📊 Real-time progress monitoring
+- 💾 Context export for analysis
+- 🎯 Mode-specific behavior (uses agent mode prompts)
+
+**How It Works:**
+1. AI breaks down your task into executable steps
+2. Executes steps autonomously with tool selection
+3. Reflects on results and adapts the plan
+4. Self-corrects on failures with retry logic
+5. Generates comprehensive final report
+
+See [AGENTIC_ARCHITECTURE.md](./AGENTIC_ARCHITECTURE.md) for details.
+
+---
+
 ### `cyber-claude chat`
 One-off chat mode (consider using `interactive` instead for better experience).
 

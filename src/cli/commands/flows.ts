@@ -2,12 +2,9 @@ import { Command } from 'commander';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { ui } from '../../utils/ui.js';
-import { CyberAgent } from '../../agent/core.js';
+import { AgenticCore, AgenticConfig } from '../../agent/core/agentic.js';
 import { config } from '../../utils/config.js';
-import { DesktopScanner } from '../../agent/tools/scanner.js';
-import { SecurityReporter } from '../../agent/tools/reporter.js';
 import { logger } from '../../utils/logger.js';
-import { HardeningChecker } from '../../agent/tools/hardening.js';
 
 /**
  * Pre-configured workflow definition
@@ -197,6 +194,75 @@ export const WORKFLOWS: WorkFlow[] = [
 ];
 
 /**
+ * Execute a workflow autonomously
+ */
+async function executeAutonomousFlow(flow: WorkFlow, options: { model?: string }) {
+  ui.section(`🚀 Executing Autonomously: ${flow.name}`);
+
+  const taskDescription = `
+    Execute the "${flow.name}" workflow.
+    Description: ${flow.description}.
+    Steps to perform:
+    ${flow.steps.map((step, i) => `${i + 1}. ${step}`).join('\n')}
+  `;
+
+  // Get API keys
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const googleApiKey = process.env.GOOGLE_API_KEY;
+
+  if (!apiKey && !googleApiKey) {
+    throw new Error(
+      'No API keys found. Set ANTHROPIC_API_KEY or GOOGLE_API_KEY in environment.'
+    );
+  }
+
+  // Create agentic config
+  const agenticConfig: AgenticConfig = {
+    apiKey,
+    googleApiKey,
+    model: options.model || config.model,
+    mode: flow.mode,
+    autoApprove: true, // Run autonomously
+    verbose: true,
+  };
+
+  // Create agent
+  const agent = new AgenticCore(agenticConfig);
+
+  // Execute task
+  const startTime = Date.now();
+  const result = await agent.executeTask(taskDescription);
+  const duration = Date.now() - startTime;
+
+  // Display results
+  if (result.success) {
+    ui.success('\n✅ WORKFLOW COMPLETED');
+
+    const summary = {
+      status: result.context.status,
+      stepsCompleted: result.context.completedSteps.length,
+      findingsCount: result.context.findings.length,
+      errorsCount: result.context.errors.length,
+      duration: (duration / 1000).toFixed(1) + 's',
+    };
+
+    ui.box(
+      `Status: ${summary.status}\n` +
+      `Steps Completed: ${summary.stepsCompleted}\n` +
+      `Findings: ${summary.findingsCount}\n` +
+      `Errors: ${summary.errorsCount}\n` +
+      `Duration: ${summary.duration}`
+    );
+  } else {
+    ui.error('\n❌ WORKFLOW FAILED');
+    ui.box(
+      `Error: ${result.error}\n` +
+      `Duration: ${(duration / 1000).toFixed(1)}s`
+    );
+  }
+}
+
+/**
  * Execute a workflow
  */
 async function executeFlow(flow: WorkFlow, options: { model?: string }) {
@@ -226,264 +292,15 @@ async function executeFlow(flow: WorkFlow, options: { model?: string }) {
     return;
   }
 
-  // Execute flow based on ID
+  // Execute flow autonomously
   try {
-    switch (flow.id) {
-      case 'quick-security-check':
-        await executeQuickSecurityCheck(flow, options);
-        break;
-      case 'website-security-audit':
-        await executeWebsiteAudit(flow, options);
-        break;
-      case 'domain-intel-gathering':
-        await executeDomainIntel(flow, options);
-        break;
-      case 'incident-response-triage':
-        await executeIncidentTriage(flow, options);
-        break;
-      case 'pcap-threat-hunt':
-        await executePcapThreatHunt(flow, options);
-        break;
-      case 'full-osint-investigation':
-        await executeFullOsint(flow, options);
-        break;
-      case 'harden-system':
-        await executeSystemHardening(flow, options);
-        break;
-      case 'learn-osint-basics':
-        await executeOsintTutorial(flow, options);
-        break;
-      default:
-        console.log(chalk.yellow(`Flow "${flow.id}" implementation coming soon!`));
-        console.log(chalk.gray('Use the interactive mode for guided assistance.'));
-    }
+    await executeAutonomousFlow(flow, options);
   } catch (error: any) {
     logger.error('Flow execution error:', error);
     console.log(chalk.red(`\n❌ Error: ${error.message}`));
   }
 }
 
-/**
- * Quick Security Check Flow
- */
-async function executeQuickSecurityCheck(flow: WorkFlow, options: { model?: string }) {
-  const spinner = ui.spinner('Scanning system security...').start();
-
-  // Step 1: Quick scan
-  const scanner = new DesktopScanner();
-  const scanResultRaw = await scanner.quickCheck();
-  spinner.succeed('System scan complete');
-
-  // Step 2: Security hardening check
-  const hardeningSpinner = ui.spinner('Checking security settings...').start();
-  const hardeningChecker = new HardeningChecker();
-  const hardeningResultRaw = await hardeningChecker.checkHardening();
-  hardeningSpinner.succeed('Security settings analyzed');
-
-  // Step 3: Generate report
-  const reporter = new SecurityReporter();
-  const allFindings = [
-    ...(scanResultRaw.success && scanResultRaw.data?.findings ? scanResultRaw.data.findings : []),
-    ...(hardeningResultRaw.success && hardeningResultRaw.data?.findings ? hardeningResultRaw.data.findings : [])
-  ];
-
-  const scanResult = reporter.createScanResult(allFindings, new Date());
-  reporter.displayReport(scanResult);
-
-  // Step 4: AI Analysis
-  const aiSpinner = ui.spinner('Getting AI security recommendations...').start();
-  const agent = new CyberAgent({
-    mode: flow.mode,
-    apiKey: config.anthropicApiKey,
-    googleApiKey: config.googleApiKey,
-    model: options.model || config.model,
-  });
-
-  const prompt = `Analyze this security scan and provide actionable recommendations:\n\nFindings: ${JSON.stringify(allFindings, null, 2)}`;
-  const analysis = await agent.chat(prompt);
-  aiSpinner.succeed('AI analysis complete');
-
-  console.log('');
-  ui.section('🤖 AI Security Recommendations');
-  console.log(ui.formatAIResponse(analysis));
-}
-
-/**
- * Website Security Audit Flow
- */
-async function executeWebsiteAudit(flow: WorkFlow, options: { model?: string }) {
-  const { url } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'url',
-      message: 'Enter website URL to audit:',
-      validate: (input) => input.startsWith('http') || 'Please enter a valid URL (http:// or https://)',
-    },
-  ]);
-
-  console.log(chalk.yellow('\n⚠️  Make sure you have permission to scan this website!'));
-  const { authorized } = await inquirer.prompt([
-    {
-      type: 'confirm',
-      name: 'authorized',
-      message: 'Do you have authorization to scan this website?',
-      default: false,
-    },
-  ]);
-
-  if (!authorized) {
-    console.log(chalk.red('❌ Authorization required. Scan cancelled.'));
-    return;
-  }
-
-  console.log(chalk.green('\n✓ Starting website security audit...\n'));
-  console.log(chalk.gray('Tip: Use "webscan" command for more options'));
-  console.log(chalk.gray(`Run: cyber-claude webscan ${url} --full\n`));
-}
-
-/**
- * Domain Intelligence Gathering Flow
- */
-async function executeDomainIntel(flow: WorkFlow, options: { model?: string }) {
-  const { domain } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'domain',
-      message: 'Enter domain to investigate:',
-      validate: (input) => input.length > 0 || 'Domain is required',
-    },
-  ]);
-
-  console.log(chalk.green('\n✓ Starting OSINT reconnaissance...\n'));
-  console.log(chalk.gray('Tip: Use "recon" command for more options'));
-  console.log(chalk.gray(`Run: cyber-claude recon ${domain} --domain\n`));
-}
-
-/**
- * Incident Response Triage Flow
- */
-async function executeIncidentTriage(flow: WorkFlow, options: { model?: string }) {
-  const spinner = ui.spinner('Performing incident triage scan...').start();
-
-  const scanner = new DesktopScanner();
-  const scanResultRaw = await scanner.scanSystem();
-  spinner.succeed('Full system scan complete');
-
-  const reporter = new SecurityReporter();
-  const findings = scanResultRaw.success && scanResultRaw.data?.findings ? scanResultRaw.data.findings : [];
-  const scanResult = reporter.createScanResult(findings, new Date());
-  reporter.displayReport(scanResult);
-
-  const aiSpinner = ui.spinner('Analyzing for incident indicators...').start();
-  const agent = new CyberAgent({
-    mode: 'blueteam',
-    apiKey: config.anthropicApiKey,
-    googleApiKey: config.googleApiKey,
-    model: options.model || config.model,
-  });
-
-  const prompt = `Perform incident response triage on this system scan. Look for:\n- Suspicious processes\n- Unusual network connections\n- Potential compromise indicators\n- Recommended immediate actions\n\nScan Results:\n${JSON.stringify(findings, null, 2)}`;
-  const analysis = await agent.chat(prompt);
-  aiSpinner.succeed('Incident analysis complete');
-
-  console.log('');
-  ui.section('🚨 Incident Triage Report');
-  console.log(ui.formatAIResponse(analysis));
-}
-
-/**
- * PCAP Threat Hunt Flow
- */
-async function executePcapThreatHunt(flow: WorkFlow, options: { model?: string }) {
-  const { pcapFile } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'pcapFile',
-      message: 'Enter path to PCAP file:',
-      validate: (input) => input.endsWith('.pcap') || input.endsWith('.pcapng') || 'Please provide a .pcap or .pcapng file',
-    },
-  ]);
-
-  console.log(chalk.green('\n✓ Starting network threat hunting...\n'));
-  console.log(chalk.gray('Tip: Use "pcap" command for more options'));
-  console.log(chalk.gray(`Run: cyber-claude pcap ${pcapFile} --extract-iocs --mitre\n`));
-}
-
-/**
- * Full OSINT Investigation Flow
- */
-async function executeFullOsint(flow: WorkFlow, options: { model?: string }) {
-  const { target } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'target',
-      message: 'Enter target (domain, email, or username):',
-      validate: (input) => input.length > 0 || 'Target is required',
-    },
-  ]);
-
-  console.log(chalk.green('\n✓ Starting comprehensive OSINT investigation...\n'));
-  console.log(chalk.gray('Tip: Use "recon" command for more control'));
-  console.log(chalk.gray(`Run: cyber-claude recon ${target} --full\n`));
-}
-
-/**
- * System Hardening Flow
- */
-async function executeSystemHardening(flow: WorkFlow, options: { model?: string }) {
-  const spinner = ui.spinner('Auditing security configuration...').start();
-
-  const hardeningChecker = new HardeningChecker();
-  const resultsRaw = await hardeningChecker.checkHardening();
-  spinner.succeed('Security audit complete');
-
-  const reporter = new SecurityReporter();
-  const findings = resultsRaw.success && resultsRaw.data?.findings ? resultsRaw.data.findings : [];
-  const scanResult = reporter.createScanResult(findings, new Date());
-  reporter.displayReport(scanResult);
-
-  const aiSpinner = ui.spinner('Generating hardening recommendations...').start();
-  const agent = new CyberAgent({
-    mode: 'desktopsecurity',
-    apiKey: config.anthropicApiKey,
-    googleApiKey: config.googleApiKey,
-    model: options.model || config.model,
-  });
-
-  const prompt = `Based on this security audit, provide step-by-step hardening recommendations:\n\n${JSON.stringify(findings, null, 2)}`;
-  const analysis = await agent.chat(prompt);
-  aiSpinner.succeed('Hardening guide generated');
-
-  console.log('');
-  ui.section('🔒 System Hardening Guide');
-  console.log(ui.formatAIResponse(analysis));
-}
-
-/**
- * OSINT Tutorial Flow
- */
-async function executeOsintTutorial(flow: WorkFlow, options: { model?: string }) {
-  ui.section('📚 OSINT Basics Tutorial');
-  console.log(chalk.gray('Starting interactive OSINT learning session...\n'));
-
-  const agent = new CyberAgent({
-    mode: 'osint',
-    apiKey: config.anthropicApiKey,
-    googleApiKey: config.googleApiKey,
-    model: options.model || config.model,
-  });
-
-  const tutorial = await agent.chat(`Provide a beginner-friendly tutorial on OSINT basics including:
-1. What is OSINT and why it's important
-2. Legal and ethical considerations
-3. Basic DNS reconnaissance
-4. WHOIS lookups
-5. Best practices
-
-Make it interactive and educational.`);
-
-  console.log(ui.formatAIResponse(tutorial));
-}
 
 /**
  * Create flows command

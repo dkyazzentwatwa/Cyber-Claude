@@ -287,6 +287,9 @@ export class InteractiveSession {
             case 'flows':
                 await this.handleFlows();
                 return false;
+            case 'auto':
+                await this.handleAuto(command);
+                return false;
             default:
                 // If not a built-in command, send to agent as chat
                 await this.handleChat(command);
@@ -326,9 +329,12 @@ export class InteractiveSession {
         console.log(chalk.yellow('    Example: ') + chalk.cyan('harden') + '\n');
         console.log(chalk.bold('  flows') + chalk.dim(' - Pre-configured workflows for common tasks') + chalk.green(' (Beginner-friendly)'));
         console.log(chalk.dim('    Includes: Quick security check, web audits, OSINT, incident response, CTF, tutorials'));
-        console.log(chalk.yellow('    Example: ') + chalk.cyan('flows'));
-        console.log(chalk.dim('    Checks: Firewall, encryption, updates, security settings'));
-        console.log(chalk.yellow('    Example: ') + chalk.cyan('harden') + '\n');
+        console.log(chalk.yellow('    Example: ') + chalk.cyan('flows') + '\n');
+        console.log(chalk.bold('  auto <task>') + chalk.dim(' - Autonomous task execution with AI planning') + chalk.green(' (NEW!)'));
+        console.log(chalk.dim('    AI breaks down tasks into steps and executes autonomously'));
+        console.log(chalk.yellow('    Example: ') + chalk.cyan('auto scan example.com for vulnerabilities'));
+        console.log(chalk.yellow('    Example: ') + chalk.cyan('auto gather intel on target-company.com'));
+        console.log(chalk.dim('    Options: --mode <mode>, --verbose, --export <file>') + '\n');
         // SESSION CONTROL
         console.log(chalk.bold.cyan('⚙️  SESSION CONTROL\n'));
         console.log(chalk.bold('  mode <mode>') + chalk.dim(' - Switch the AI agent\'s focus and expertise'));
@@ -709,6 +715,78 @@ Provide prioritized findings and actionable next steps.`, findings);
         console.log('');
         ui.section('🔒 System Hardening Guide');
         console.log(ui.formatAIResponse(analysis) + '\n');
+    }
+    /**
+     * Handle autonomous task execution
+     */
+    async handleAuto(command) {
+        // Extract task from command (everything after "auto ")
+        const task = command.substring(5).trim(); // Remove "auto " prefix
+        if (!task) {
+            ui.error('Please provide a task description');
+            ui.info('Usage: auto <task description>');
+            ui.info('Example: auto scan example.com for vulnerabilities');
+            ui.info('Example: auto gather intel on target-company.com');
+            return;
+        }
+        // Import AgenticCore dynamically
+        const { AgenticCore } = await import('../agent/core/agentic.js');
+        ui.section('🤖 AUTONOMOUS AGENT');
+        console.log(chalk.gray(`Task: ${task}`));
+        console.log(chalk.gray(`Mode: ${this.state.mode.toUpperCase()}`));
+        console.log(chalk.gray(`Model: ${this.state.model}\n`));
+        try {
+            // Get model info
+            const modelInfo = getModelByKey(this.state.model);
+            if (!modelInfo) {
+                throw new Error(`Invalid model: ${this.state.model}`);
+            }
+            // Create agentic config using session's current mode and model
+            const agenticConfig = {
+                apiKey: modelInfo.provider === 'claude' ? config.anthropicApiKey : undefined,
+                googleApiKey: modelInfo.provider === 'gemini' ? config.googleApiKey : undefined,
+                model: modelInfo.id,
+                mode: this.state.mode,
+                maxSteps: 20,
+                maxDuration: 600000,
+                autoApprove: false,
+                verbose: true, // Always verbose in interactive mode
+            };
+            const agent = new AgenticCore(agenticConfig);
+            const result = await agent.executeTask(task);
+            if (result.success) {
+                ui.success('\n✅ Task completed successfully');
+                const summary = {
+                    stepsCompleted: result.context.completedSteps.length,
+                    stepsTotal: result.context.plan.steps.length,
+                    findingsCount: result.context.findings.length,
+                    errorsCount: result.context.errors.length,
+                    duration: (result.duration / 1000).toFixed(1) + 's',
+                };
+                ui.box(`Steps: ${summary.stepsCompleted}/${summary.stepsTotal}\n` +
+                    `Findings: ${summary.findingsCount}\n` +
+                    `Errors: ${summary.errorsCount}\n` +
+                    `Duration: ${summary.duration}`);
+                // Show findings if any
+                if (result.context.findings.length > 0) {
+                    console.log('\n' + chalk.bold('Security Findings:'));
+                    result.context.findings.slice(0, 5).forEach((finding, idx) => {
+                        console.log(chalk.gray(`${idx + 1}. [${finding.severity.toUpperCase()}] ${finding.title}`));
+                    });
+                    if (result.context.findings.length > 5) {
+                        console.log(chalk.gray(`  ... and ${result.context.findings.length - 5} more`));
+                    }
+                }
+                console.log('');
+            }
+            else {
+                ui.error('\n❌ Task failed');
+                ui.box(`Error: ${result.error}\nDuration: ${(result.duration / 1000).toFixed(1)}s`);
+            }
+        }
+        catch (error) {
+            ui.error(`\nAutonomous execution failed: ${error instanceof Error ? error.message : String(error)}`);
+        }
     }
     async handleChat(message) {
         const spinner = ui.spinner('Thinking...');

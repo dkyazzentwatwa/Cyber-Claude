@@ -21,6 +21,7 @@ program
     .version('0.3.0');
 // Add commands
 program.addCommand(createInteractiveCommand());
+program.addCommand(createAutoCommand());
 program.addCommand(createFlowsCommand());
 program.addCommand(createAutoCommand());
 program.addCommand(createScanCommand());
