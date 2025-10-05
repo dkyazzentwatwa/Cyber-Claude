@@ -12,7 +12,8 @@ An AI-powered cybersecurity agent built with the [Claude Agent SDK](https://docs
 
 **🎯 NEW: Guided Workflows** - Step-by-step security tasks perfect for learning and fast execution!
 **🔒 Defensive-Only** - No exploitation, credential harvesting, or offensive capabilities
-**🤖 AI-Powered** - Uses Claude and Gemini models for intelligent security analysis
+**🤖 AI-Powered** - Claude, Gemini (cloud) or DeepSeek-R1, Gemma (local) for intelligent analysis
+**🏠 Privacy Option** - Run 100% locally with Ollama (no cloud, no API keys, offline capable)
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
@@ -26,6 +27,7 @@ An AI-powered cybersecurity agent built with the [Claude Agent SDK](https://docs
 
 ## 🚀 Getting Started (60 seconds!)
 
+**Option 1: Cloud Models (Fastest Setup)**
 ```bash
 # 1. Install
 npm install
@@ -44,7 +46,26 @@ cyber-claude
 # AI will scan your system and give you recommendations
 ```
 
-**First time?** Try the **"Quick Security Health Check"** workflow - it's the fastest way to see what Cyber Claude can do!
+**Option 2: Local Models (Privacy-Focused)**
+```bash
+# 1. Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+# 2. Pull a model
+ollama pull gemma3:4b  # Quick option (2GB)
+# OR
+ollama pull deepseek-r1:8b  # Better reasoning (6GB)
+
+# 3. Install Cyber Claude
+npm install && npm run build
+
+# 4. Use with local model (no API key needed!)
+cyber-claude scan --model gemma3-4b
+```
+
+**First time?**
+- **Cloud users:** Try the **"Quick Security Health Check"** workflow
+- **Local users:** Start with `gemma3-4b` for fast responses, upgrade to `deepseek-r1-8b` for better analysis
 
 ---
 
@@ -71,9 +92,18 @@ cyber-claude
 ## 🚀 Quick Start
 
 ### Prerequisites
+
+**Required:**
 - Node.js 18+
 - npm or yarn
-- Anthropic API key ([Get one here](https://console.anthropic.com/)) or Google API key ([Get one here](https://aistudio.google.com/apikey))
+
+**Choose at least one AI provider:**
+- **Cloud (API-based):**
+  - Anthropic API key ([Get one here](https://console.anthropic.com/)) for Claude models, OR
+  - Google API key ([Get one here](https://aistudio.google.com/apikey)) for Gemini models
+- **Local (Privacy-focused):**
+  - Ollama ([Install here](https://ollama.com)) for DeepSeek-R1 and Gemma models
+  - 8-16GB RAM recommended for local models
 
 ### Installation
 
@@ -956,14 +986,68 @@ cyber-claude scan --full --model opus-4 --json deep-scan.json
 
 ## 🔑 Model Selection Guide
 
-| Scenario | Recommended Model | Reason |
-|----------|------------------|---------|
-| Daily security checks | **Sonnet 4** | Balanced speed & quality |
-| Deep vulnerability analysis | **Opus 4** | Most capable, thorough |
-| Quick status checks | **Haiku 4** | Fastest responses |
-| Batch scanning | **Haiku 4** | Speed for multiple scans |
-| Complex red team ops | **Opus 4** | Best reasoning |
-| Learning & questions | **Sonnet 4** | Great explanations |
+### Comprehensive Model Comparison
+
+| Model | Provider | Speed | Quality | Cost | Best For | RAM Req. |
+|-------|----------|-------|---------|------|----------|----------|
+| **Claude Opus 4.1** | Cloud | Slow | ⭐⭐⭐⭐⭐ | $$$$ | Complex forensics, deep threat analysis | N/A |
+| **Claude Opus 4** | Cloud | Slow | ⭐⭐⭐⭐⭐ | $$$$ | Advanced red team ops, thorough audits | N/A |
+| **Claude Sonnet 4.5** | Cloud | Fast | ⭐⭐⭐⭐ | $$ | Daily security checks, general analysis | N/A |
+| **Claude Sonnet 4** | Cloud | Fast | ⭐⭐⭐⭐ | $$ | Balanced performance for most tasks | N/A |
+| **Claude Haiku 3.5** | Cloud | Fastest | ⭐⭐⭐ | $ | Quick scans, batch processing | N/A |
+| **Gemini 2.5 Pro** | Cloud | Moderate | ⭐⭐⭐⭐ | $$ | Complex reasoning, thinking model | N/A |
+| **Gemini 2.5 Flash** | Cloud | Very Fast | ⭐⭐⭐ | $ | Fast scanning, cost-effective | N/A |
+| **Gemini Flash Lite** | Cloud | Fastest | ⭐⭐ | $ | Simple checks, high volume | N/A |
+| **DeepSeek R1 14B** | Local | Slow* | ⭐⭐⭐⭐ | Free | Privacy-critical, offline analysis | 16GB |
+| **DeepSeek R1 8B** | Local | Moderate* | ⭐⭐⭐ | Free | Balanced local performance | 8-10GB |
+| **Gemma 3 4B** | Local | Fast | ⭐⭐ | Free | Quick local scans, learning | 4-6GB |
+
+**Note:** DeepSeek-R1 models use extended reasoning (thinking) which can take 2-15 minutes on complex questions.
+
+### Use Case Recommendations
+
+#### 🔒 **Privacy-Critical Work** (Sensitive Data, Compliance)
+- **Best:** `deepseek-r1-14b` or `deepseek-r1-8b` (local)
+- **Why:** All data stays on your machine, no cloud transmission
+- **Caveat:** Slower responses, requires patience
+
+#### 💰 **Cost-Sensitive / High Volume**
+- **Best:** `gemini-2.5-flash-lite` or `gemma3-4b` (local)
+- **Why:** Lowest API costs or completely free (local)
+- **Good for:** Batch scanning, automated workflows
+
+#### ⚡ **Speed-Critical Operations**
+- **Best:** `haiku-3.5` (cloud) or `gemma3-4b` (local)
+- **Why:** Fastest responses
+- **Good for:** Quick health checks, rapid triage
+
+#### 🧠 **Complex Security Analysis**
+- **Best:** `opus-4` (cloud) or `deepseek-r1-14b` (local)
+- **Why:** Best reasoning and depth
+- **Good for:** Threat hunting, vulnerability research, forensics
+
+#### 🎯 **Balanced Daily Use** (Recommended)
+- **Best:** `sonnet-4.5` (default)
+- **Why:** Great quality, reasonable cost, good speed
+- **Good for:** Most security tasks, interactive sessions
+
+#### 🌐 **Offline / Air-Gapped Environments**
+- **Best:** `deepseek-r1-14b` or `deepseek-r1-8b`
+- **Why:** No internet required after model download
+- **Good for:** Secure facilities, disconnected networks
+
+### Task-Specific Recommendations
+
+| Task | Cloud Option | Local Option | Notes |
+|------|-------------|--------------|-------|
+| Quick security scan | `haiku-3.5` | `gemma3-4b` | Fast triage |
+| Full system audit | `sonnet-4.5` | `deepseek-r1-8b` | Balanced depth |
+| Web vulnerability scan | `sonnet-4` | `deepseek-r1-8b` | Good reasoning |
+| PCAP analysis | `opus-4` | `deepseek-r1-14b` | Complex patterns |
+| OSINT reconnaissance | `gemini-2.5-flash` | `gemma3-4b` | Fast enumeration |
+| Incident response | `opus-4` | `deepseek-r1-14b` | Thorough investigation |
+| CTF challenges | `opus-4.1` | `deepseek-r1-14b` | Creative problem-solving |
+| Learning/tutorials | `sonnet-4` | `deepseek-r1-8b` | Clear explanations |
 
 
 ## 🔮 Google Gemini Support
@@ -1005,8 +1089,27 @@ Cyber Claude now supports **Ollama** for running AI models locally! Perfect for 
 
 **System Requirements:**
 - 16GB RAM recommended for 14B models
-- 8GB RAM sufficient for 8B models
+- 8-10GB RAM sufficient for 8B models
 - 4-6GB RAM for 4B models
+
+**⚠️ Performance Characteristics:**
+
+**DeepSeek-R1 Models (Extended Reasoning):**
+- 🧠 Uses "thinking" process before answering (like o1/o3)
+- ⏱️ **Response times:** 2-15 minutes for complex questions
+- ✅ **Best for:** Deep analysis, thorough investigation, complex reasoning
+- ❌ **Not ideal for:** Quick scans, rapid iteration, simple questions
+- 💡 **Tip:** Ask focused questions, break complex tasks into steps
+
+**Speed Comparison:**
+- `gemma3-4b`: 5-30 seconds (instant feel)
+- `deepseek-r1-8b`: 1-5 minutes (extended reasoning)
+- `deepseek-r1-14b`: 2-15 minutes (deep reasoning)
+
+**When to Use Each:**
+- **gemma3-4b** → Quick scans, learning, rapid testing
+- **deepseek-r1-8b** → Balanced analysis, moderate complexity
+- **deepseek-r1-14b** → Complex investigations, forensics, critical decisions
 
 **Configuration (Optional):**
 Add to `.env` only if Ollama runs on a different port:
@@ -1028,4 +1131,48 @@ cyber-claude recon example.com --model gemma3-4b
 # Interactive session
 cyber-claude interactive --model deepseek-r1-14b
 ```
+
+**🔧 Troubleshooting:**
+
+**Timeout Errors:**
+```bash
+# If you see "Headers Timeout Error" with DeepSeek-R1:
+# This is normal for complex questions - the model is thinking deeply
+
+# Solutions:
+1. Wait patiently (can take 2-15 minutes)
+2. Ask simpler, more focused questions
+3. Use deepseek-r1-8b for faster responses
+4. Use gemma3-4b for quick tasks
+```
+
+**Connection Errors:**
+```bash
+# "Failed to connect to Ollama"
+# Make sure Ollama is running:
+ollama serve
+
+# Verify model is pulled:
+ollama list
+ollama pull deepseek-r1:14b  # if not listed
+```
+
+**Memory Issues:**
+```bash
+# "Out of memory" or system slowdown
+# Use smaller models:
+ollama pull deepseek-r1:8b   # Instead of 14b
+ollama pull gemma3:4b        # Lightest option
+```
+
+**📋 Quick Reference Card:**
+
+| Need | Use This | Command |
+|------|----------|---------|
+| Fast scans | `gemma3-4b` | `cyber-claude scan --model gemma3-4b` |
+| Balanced analysis | `deepseek-r1-8b` | `cyber-claude webscan example.com --model deepseek-r1-8b` |
+| Deep investigation | `deepseek-r1-14b` | `cyber-claude pcap capture.pcap --model deepseek-r1-14b` |
+| Privacy critical | Any Ollama model | All processing happens locally |
+| Offline work | Any Ollama model | No internet needed after download |
+| Learning/practice | `gemma3-4b` | Fast iteration for trying things |
 
