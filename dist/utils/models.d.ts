@@ -62,8 +62,29 @@ export declare const AVAILABLE_MODELS: {
         readonly provider: "gemini";
         readonly recommended: false;
     };
+    readonly 'deepseek-r1-14b': {
+        readonly id: "deepseek-r1:14b";
+        readonly name: "DeepSeek R1 14B (Local)";
+        readonly description: "Local reasoning model - Best for complex security analysis (14B)";
+        readonly provider: "ollama";
+        readonly recommended: true;
+    };
+    readonly 'deepseek-r1-8b': {
+        readonly id: "deepseek-r1:8b";
+        readonly name: "DeepSeek R1 8B (Local)";
+        readonly description: "Local reasoning model - Balanced performance (8B)";
+        readonly provider: "ollama";
+        readonly recommended: false;
+    };
+    readonly 'gemma3-4b': {
+        readonly id: "gemma3:4b";
+        readonly name: "Gemma 3 4B (Local)";
+        readonly description: "Local Google model - Fast for quick scans (4B)";
+        readonly provider: "ollama";
+        readonly recommended: false;
+    };
 };
-export type Provider = 'claude' | 'gemini';
+export type Provider = 'claude' | 'gemini' | 'ollama';
 export type ModelKey = keyof typeof AVAILABLE_MODELS;
 export declare function getModelById(id: string): {
     key: ModelKey;

@@ -65,9 +65,31 @@ export const AVAILABLE_MODELS = {
     provider: 'gemini',
     recommended: false,
   },
+  // Ollama models (local)
+  'deepseek-r1-14b': {
+    id: 'deepseek-r1:14b',
+    name: 'DeepSeek R1 14B (Local)',
+    description: 'Local reasoning model - Best for complex security analysis (14B)',
+    provider: 'ollama',
+    recommended: true,
+  },
+  'deepseek-r1-8b': {
+    id: 'deepseek-r1:8b',
+    name: 'DeepSeek R1 8B (Local)',
+    description: 'Local reasoning model - Balanced performance (8B)',
+    provider: 'ollama',
+    recommended: false,
+  },
+  'gemma3-4b': {
+    id: 'gemma3:4b',
+    name: 'Gemma 3 4B (Local)',
+    description: 'Local Google model - Fast for quick scans (4B)',
+    provider: 'ollama',
+    recommended: false,
+  },
 } as const;
 
-export type Provider = 'claude' | 'gemini';
+export type Provider = 'claude' | 'gemini' | 'ollama';
 
 export type ModelKey = keyof typeof AVAILABLE_MODELS;
 

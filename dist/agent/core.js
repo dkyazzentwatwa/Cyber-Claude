@@ -2,6 +2,7 @@ import { SYSTEM_PROMPTS } from './prompts/system.js';
 import { logger } from '../utils/logger.js';
 import { ClaudeProvider } from './providers/claude.js';
 import { GeminiProvider } from './providers/gemini.js';
+import { OllamaProvider } from './providers/ollama.js';
 import { getModelById } from '../utils/models.js';
 export class CyberAgent {
     provider;
@@ -23,6 +24,12 @@ export class CyberAgent {
             }
             this.provider = new GeminiProvider(agentConfig.googleApiKey, agentConfig.model || 'gemini-2.5-flash');
             logger.info(`CyberAgent initialized with Gemini (${agentConfig.model}) in ${agentConfig.mode} mode`);
+        }
+        else if (providerType === 'ollama') {
+            // Ollama (local models)
+            const ollamaBaseUrl = process.env.OLLAMA_BASE_URL || 'http://localhost:11434';
+            this.provider = new OllamaProvider(ollamaBaseUrl, agentConfig.model || 'deepseek-r1:14b');
+            logger.info(`CyberAgent initialized with Ollama (${agentConfig.model}) at ${ollamaBaseUrl} in ${agentConfig.mode} mode`);
         }
         else {
             // Default to Claude

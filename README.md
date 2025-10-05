@@ -68,6 +68,101 @@ cyber-claude
 
 ---
 
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+- Anthropic API key ([Get one here](https://console.anthropic.com/)) or Google API key ([Get one here](https://aistudio.google.com/apikey))
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd cyber_claude
+
+# Install dependencies
+npm install
+
+# Configure environment
+cp .env.example .env
+# Edit .env and add your ANTHROPIC_API_KEY or GOOGLE_API_KEY
+
+# Build the project
+npm run build
+
+# Run in development mode
+npm run dev
+```
+
+### Basic Usage
+
+**🎯 FASTEST START: Pre-Configured Workflows (Perfect for Beginners!)**
+```bash
+# Start with guided workflows - best way to get started!
+cyber-claude flows
+
+# Try a beginner workflow
+cyber-claude flows --difficulty beginner
+
+# Quick security check (takes 2-3 minutes)
+# The flow will guide you through:
+# 1. Select "Quick Security Health Check"
+# 2. AI scans your system automatically
+# 3. Get clear security recommendations
+# 4. Done!
+```
+
+**🌟 Interactive Session (Recommended for Power Users)**
+```bash
+# Start interactive session (default command)
+cyber-claude
+
+# Inside session, just type commands:
+> flows                   # Browse workflows (easiest!)
+> scan                    # Quick security check
+> scan full               # Full system scan
+> webscan https://example.com  # Scan web application
+> pcap capture.pcap       # Analyze network traffic
+> harden                  # Check hardening
+> mode redteam            # Switch to red team mode
+> model                   # Select AI model
+> What are the top 3 risks on my system?  # Natural chat
+> exit                    # Leave session
+```
+
+**📋 One-Off Commands (For Scripts & Automation)**
+```bash
+# Perform security scan
+cyber-claude scan
+cyber-claude scan --quick
+cyber-claude scan --network --model opus-4
+
+# Web application scanning
+cyber-claude webscan https://example.com
+cyber-claude webscan --full https://myapp.local
+
+# OSINT reconnaissance
+cyber-claude recon example.com --full
+cyber-claude recon username john_doe
+cyber-claude recon breach user@example.com
+
+# Network traffic analysis
+cyber-claude pcap capture.pcap
+cyber-claude pcap --mode threat-hunt suspicious.pcap
+cyber-claude pcap --filter tcp --port 443 traffic.pcap
+cyber-claude pcap --packets --export-json report.json capture.pcap
+
+# Check system hardening
+cyber-claude harden --model haiku-4
+
+# One-off chat mode
+cyber-claude chat --mode redteam
+```
+
+---
+
 ## 🆕 What's New
 
 ### v0.6.0 - Autonomous Agent Mode (Development)
@@ -317,12 +412,13 @@ cyber-claude flows --difficulty beginner  # Beginner-friendly workflows
 - **Case Management**: Track analyst, case number, collection method
 
 ### 🤖 Multi-Provider AI Models (NEW!)
-- **9 Models Total**: 6 Claude + 3 Gemini models
+- **12 Models Total**: 6 Claude + 3 Gemini + 3 Ollama (local) models
 - **Claude Models**: Opus 4.1, Opus 4, Sonnet 4.5 (default), Sonnet 4, Sonnet 3.7, Haiku 3.5
 - **Gemini Models**: 2.5 Flash, 2.5 Pro, 2.5 Flash Lite
+- **Ollama Models (Local)**: DeepSeek R1 14B, DeepSeek R1 8B, Gemma 3 4B
 - **Interactive Selector**: Choose any model in session with menu
-- **Seamless Switching**: Switch between Claude and Gemini anytime
-- **Use Cases**: Opus for complex analysis, Gemini Flash for speed & cost-efficiency
+- **Seamless Switching**: Switch between Claude, Gemini, and Ollama anytime
+- **Use Cases**: Opus for complex analysis, Gemini Flash for speed, Ollama for privacy & offline use
 
 ### 💬 Multiple Agent Modes (6 total)
 - **Switch On-The-Fly**: Change modes without restarting
@@ -340,98 +436,7 @@ cyber-claude flows --difficulty beginner  # Beginner-friendly workflows
 - **Severity Classification**: Critical, High, Medium, Low, Info
 - **Actionable Remediation**: Clear steps to fix issues
 
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+
-- npm or yarn
-- Anthropic API key ([Get one here](https://console.anthropic.com/)) or Google API key ([Get one here](https://aistudio.google.com/apikey))
-
-### Installation
-
-```bash
-# Clone the repository
-git clone <your-repo-url>
-cd cyber_claude
-
-# Install dependencies
-npm install
-
-# Configure environment
-cp .env.example .env
-# Edit .env and add your ANTHROPIC_API_KEY or GOOGLE_API_KEY
-
-# Build the project
-npm run build
-
-# Run in development mode
-npm run dev
-```
-
-### Basic Usage
-
-**🎯 FASTEST START: Pre-Configured Workflows (Perfect for Beginners!)**
-```bash
-# Start with guided workflows - best way to get started!
-cyber-claude flows
-
-# Try a beginner workflow
-cyber-claude flows --difficulty beginner
-
-# Quick security check (takes 2-3 minutes)
-# The flow will guide you through:
-# 1. Select "Quick Security Health Check"
-# 2. AI scans your system automatically
-# 3. Get clear security recommendations
-# 4. Done!
-```
-
-**🌟 Interactive Session (Recommended for Power Users)**
-```bash
-# Start interactive session (default command)
-cyber-claude
-
-# Inside session, just type commands:
-> flows                   # Browse workflows (easiest!)
-> scan                    # Quick security check
-> scan full               # Full system scan
-> webscan https://example.com  # Scan web application
-> pcap capture.pcap       # Analyze network traffic
-> harden                  # Check hardening
-> mode redteam            # Switch to red team mode
-> model                   # Select AI model
-> What are the top 3 risks on my system?  # Natural chat
-> exit                    # Leave session
-```
-
-**📋 One-Off Commands (For Scripts & Automation)**
-```bash
-# Perform security scan
-cyber-claude scan
-cyber-claude scan --quick
-cyber-claude scan --network --model opus-4
-
-# Web application scanning
-cyber-claude webscan https://example.com
-cyber-claude webscan --full https://myapp.local
-
-# OSINT reconnaissance
-cyber-claude recon example.com --full
-cyber-claude recon username john_doe
-cyber-claude recon breach user@example.com
-
-# Network traffic analysis
-cyber-claude pcap capture.pcap
-cyber-claude pcap --mode threat-hunt suspicious.pcap
-cyber-claude pcap --filter tcp --port 443 traffic.pcap
-cyber-claude pcap --packets --export-json report.json capture.pcap
-
-# Check system hardening
-cyber-claude harden --model haiku-4
-
-# One-off chat mode
-cyber-claude chat --mode redteam
-```
+---
 
 ## 📖 Commands
 
@@ -976,4 +981,51 @@ Cyber Claude now supports **Google Gemini** models! Use Gemini for fast, cost-ef
 - `gemini-2.5-flash-lite` - Fastest & most cost-efficient
 
 **📖 Full Guide**: See [GEMINI_INTEGRATION.md](GEMINI_INTEGRATION.md) for complete details!
+
+## 🏠 Ollama (Local Models) Support
+
+Cyber Claude now supports **Ollama** for running AI models locally! Perfect for privacy, offline use, and zero API costs.
+
+**Quick Start with Ollama:**
+1. Install Ollama: [ollama.com](https://ollama.com)
+2. Pull a model: `ollama pull deepseek-r1:14b`
+3. Start Ollama: `ollama serve` (runs on port 11434 by default)
+4. Use with Cyber Claude: `cyber-claude scan --model deepseek-r1-14b`
+
+**Available Ollama Models:**
+- `deepseek-r1-14b` - DeepSeek R1 14B (recommended) - Best reasoning for complex security analysis
+- `deepseek-r1-8b` - DeepSeek R1 8B - Faster, balanced performance
+- `gemma3-4b` - Gemma 3 4B - Quickest for simple scans
+
+**Why Ollama?**
+- 🔒 **Privacy**: All data stays on your machine
+- 💰 **Cost**: No API fees, unlimited usage
+- 🌐 **Offline**: Works without internet connection
+- ⚡ **Performance**: Fast local inference (with sufficient RAM)
+
+**System Requirements:**
+- 16GB RAM recommended for 14B models
+- 8GB RAM sufficient for 8B models
+- 4-6GB RAM for 4B models
+
+**Configuration (Optional):**
+Add to `.env` only if Ollama runs on a different port:
+```bash
+OLLAMA_BASE_URL=http://localhost:11434  # default, usually not needed
+```
+
+**Example Usage:**
+```bash
+# Quick scan with local model
+cyber-claude scan --quick --model deepseek-r1-14b
+
+# Web security test (no API costs!)
+cyber-claude webscan https://example.com --model deepseek-r1-8b
+
+# OSINT with privacy
+cyber-claude recon example.com --model gemma3-4b
+
+# Interactive session
+cyber-claude interactive --model deepseek-r1-14b
+```
 

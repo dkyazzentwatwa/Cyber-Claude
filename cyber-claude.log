@@ -1920,3 +1920,67 @@ Error: 401 {"type":"error","error":{"type":"authentication_error","message":"inv
 2025-10-03 23:12:12 [INFO]: Creating execution plan for task: Task with many steps
 2025-10-03 23:12:12 [ERROR]: Planning failed: Plan exceeds maximum steps: 30 > 5
 2025-10-03 23:12:12 [ERROR]: ❌ Task failed: Failed to create plan: Plan exceeds maximum steps: 30 > 5
+2025-10-04 21:34:34 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-04 21:34:45 [INFO]: CyberAgent initialized with Ollama (gemma3:4b) at http://localhost:11434 in base mode
+2025-10-04 21:34:48 [INFO]: Sending message to Ollama (gemma3:4b) (mode: base)
+2025-10-04 21:34:48 [INFO]: Sending message to Ollama (gemma3:4b)
+2025-10-04 21:35:31 [INFO]: Received response from Ollama
+2025-10-04 21:35:31 [INFO]: Received response from Ollama (gemma3:4b)
+2025-10-04 21:36:01 [INFO]: Starting desktop security scan
+2025-10-04 21:36:01 [INFO]: Desktop security scan completed
+2025-10-04 21:36:01 [INFO]: Sending message to Ollama (gemma3:4b) (mode: base)
+2025-10-04 21:36:01 [INFO]: Sending message to Ollama (gemma3:4b)
+2025-10-04 21:38:37 [INFO]: Received response from Ollama
+2025-10-04 21:38:37 [INFO]: Received response from Ollama (gemma3:4b)
+2025-10-04 21:39:52 [INFO]: Agent mode changed to webpentest
+2025-10-04 21:40:10 [INFO]: Sending message to Ollama (gemma3:4b) (mode: webpentest)
+2025-10-04 21:40:10 [INFO]: Sending message to Ollama (gemma3:4b)
+2025-10-04 21:41:52 [INFO]: Received response from Ollama
+2025-10-04 21:41:52 [INFO]: Received response from Ollama (gemma3:4b)
+2025-10-04 21:43:18 [INFO]: CyberAgent initialized with Ollama (deepseek-r1:14b) at http://localhost:11434 in webpentest mode
+2025-10-04 21:46:57 [INFO]: CyberAgent initialized with Claude (claude-sonnet-4-5) in base mode
+2025-10-04 21:47:02 [INFO]: CyberAgent initialized with Ollama (deepseek-r1:14b) at http://localhost:11434 in base mode
+2025-10-04 21:47:06 [INFO]: Agent mode changed to webpentest
+2025-10-04 21:47:21 [INFO]: Sending message to Ollama (deepseek-r1:14b) (mode: webpentest)
+2025-10-04 21:47:21 [INFO]: Sending message to Ollama (deepseek-r1:14b)
+2025-10-04 21:52:20 [INFO]: Received response from Ollama
+2025-10-04 21:52:20 [INFO]: Received response from Ollama (deepseek-r1:14b)
+2025-10-04 21:53:30 [INFO]: Agent mode changed to redteam
+2025-10-04 21:53:41 [INFO]: Sending message to Ollama (deepseek-r1:14b) (mode: redteam)
+2025-10-04 21:53:41 [INFO]: Sending message to Ollama (deepseek-r1:14b)
+2025-10-04 21:58:42 [ERROR]: Error communicating with Ollama: fetch failed
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at async OllamaProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/ollama.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:60:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:794:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:295:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:179:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:72:5)
+2025-10-04 21:58:42 [ERROR]: Error in chat: Failed to connect to Ollama at http://localhost:11434. Make sure Ollama is running (ollama serve) and the model is pulled (ollama pull deepseek-r1:14b)
+Error: Failed to connect to Ollama at http://localhost:11434. Make sure Ollama is running (ollama serve) and the model is pulled (ollama pull deepseek-r1:14b)
+    at OllamaProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/ollama.js:47:23)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:60:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:794:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:295:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:179:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:72:5)
+2025-10-04 21:59:44 [INFO]: Sending message to Ollama (deepseek-r1:14b) (mode: redteam)
+2025-10-04 21:59:44 [INFO]: Sending message to Ollama (deepseek-r1:14b)
+2025-10-04 22:04:46 [ERROR]: Error communicating with Ollama: fetch failed
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at async OllamaProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/ollama.js:20:30)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:60:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:794:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:295:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:179:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:72:5)
+2025-10-04 22:04:46 [ERROR]: Error in chat: Failed to connect to Ollama at http://localhost:11434. Make sure Ollama is running (ollama serve) and the model is pulled (ollama pull deepseek-r1:14b)
+Error: Failed to connect to Ollama at http://localhost:11434. Make sure Ollama is running (ollama serve) and the model is pulled (ollama pull deepseek-r1:14b)
+    at OllamaProvider.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/providers/ollama.js:47:23)
+    at async CyberAgent.chat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/agent/core.js:60:38)
+    at async InteractiveSession.handleChat (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:794:30)
+    at async InteractiveSession.handleCommand (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:295:17)
+    at async InteractiveSession.start (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/session.js:179:36)
+    at async Command.<anonymous> (file:///Users/cypher/Documents/coding/Cyber-Claude/dist/cli/index.js:72:5)
