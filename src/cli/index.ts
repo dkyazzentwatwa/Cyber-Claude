@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { ui } from '../utils/ui.js';
-import { config } from '../utils/config.js';
+import { config, getSetupSuggestions } from '../utils/config.js';
 import { createScanCommand } from './commands/scan.js';
 import { createHardenCommand } from './commands/harden.js';
 import { createChatCommand } from './commands/chat.js';
@@ -18,14 +18,17 @@ import { createDepsCommand } from './commands/deps.js';
 import { createSSLCommand } from './commands/ssl.js';
 import { createScreenshotCommand } from './commands/screenshot.js';
 import { createToolsCommand } from './commands/tools.js';
+import { createCVECommand } from './commands/cve.js';
+import { createLogsCommand } from './commands/logs.js';
 import { InteractiveSession } from './session.js';
+import { checkProviderAvailability } from '../agent/providers/fallback.js';
 
 const program = new Command();
 
 program
   .name('cyber-claude')
   .description('🛡️  AI-powered cybersecurity agent for red/blue teaming and desktop security')
-  .version('0.3.0');
+  .version('0.6.0');
 
 // Add commands
 program.addCommand(createInteractiveCommand());
@@ -42,12 +45,18 @@ program.addCommand(createDepsCommand());
 program.addCommand(createSSLCommand());
 program.addCommand(createScreenshotCommand());
 program.addCommand(createToolsCommand());
+program.addCommand(createCVECommand());
+program.addCommand(createLogsCommand());
 
 // Default action - start interactive session
 program
   .action(async () => {
-    // Check if API key is configured
-    if (!config.anthropicApiKey) {
+    // Check for available AI providers
+    const providerStatuses = await checkProviderAvailability();
+    const availableProviders = providerStatuses.filter(s => s.available);
+
+    if (availableProviders.length === 0) {
+      // No providers available - show setup instructions
       ui.welcome();
       console.log('\n' + chalk.bold('Quick Commands:'));
       console.log(`  ${chalk.cyan('cyber-claude interactive')} - Start interactive session ${chalk.green('(Recommended)')}`);
@@ -61,24 +70,43 @@ program
       console.log(`  ${chalk.cyan('cyber-claude deps [path]')}   - Scan JavaScript dependencies for vulnerabilities`);
       console.log(`  ${chalk.cyan('cyber-claude ssl <host>')}    - Analyze SSL/TLS certificates`);
       console.log(`  ${chalk.cyan('cyber-claude screenshot <url>')} - Capture website screenshots`);
+      console.log(`  ${chalk.cyan('cyber-claude cve <cve-id>')}  - Lookup CVE vulnerability details`);
+      console.log(`  ${chalk.cyan('cyber-claude logs <file>')}  - Analyze log files for security issues`);
       console.log(`  ${chalk.cyan('cyber-claude tools')}        - Manage external security tools`);
       console.log(`  ${chalk.cyan('cyber-claude harden')}      - Check system hardening status`);
       console.log(`  ${chalk.cyan('cyber-claude chat')}        - One-off chat mode`);
       console.log(`  ${chalk.cyan('cyber-claude --help')}      - Show all commands and options\n`);
 
       ui.box(
-        `⚠️  ${chalk.yellow.bold('API Key Not Configured')}\n\n` +
-        `To use Cyber Claude, you need to set your Anthropic API key:\n\n` +
-        `1. Copy ${chalk.cyan('.env.example')} to ${chalk.cyan('.env')}\n` +
-        `2. Add your API key: ${chalk.cyan('ANTHROPIC_API_KEY=your_key_here')}\n` +
-        `3. Get your key at: ${chalk.blue('https://console.anthropic.com/')}`,
+        `⚠️  ${chalk.yellow.bold('No AI Provider Available')}\n\n` +
+        `Configure at least one AI provider:\n\n` +
+        `${chalk.bold('Option 1: Claude (Anthropic)')}\n` +
+        `  • Set ${chalk.cyan('ANTHROPIC_API_KEY')} in .env file\n` +
+        `  • Get key: ${chalk.blue('https://console.anthropic.com/')}\n\n` +
+        `${chalk.bold('Option 2: Gemini (Google)')}\n` +
+        `  • Set ${chalk.cyan('GOOGLE_API_KEY')} in .env file\n` +
+        `  • Get key: ${chalk.blue('https://aistudio.google.com/apikey')}\n\n` +
+        `${chalk.bold('Option 3: Ollama (Free, Local)')} ${chalk.green('← No API key needed!')}\n` +
+        `  • Install: ${chalk.cyan('curl -fsSL https://ollama.com/install.sh | sh')}\n` +
+        `  • Pull model: ${chalk.cyan('ollama pull deepseek-r1:8b')}\n` +
+        `  • Start: ${chalk.cyan('ollama serve')}`,
         '⚙️  Configuration Required',
         'warning'
       );
       return;
     }
 
-    // API key is configured - start interactive session directly
+    // At least one provider is available - show status and start
+    const providerNames = availableProviders.map(p => {
+      if (p.provider === 'ollama') return `${chalk.green('Ollama')} (local)`;
+      if (p.provider === 'claude') return chalk.blue('Claude');
+      if (p.provider === 'gemini') return chalk.yellow('Gemini');
+      return p.provider;
+    }).join(', ');
+
+    console.log(chalk.dim(`Available providers: ${providerNames}\n`));
+
+    // Start interactive session
     const session = new InteractiveSession();
     await session.start();
   });

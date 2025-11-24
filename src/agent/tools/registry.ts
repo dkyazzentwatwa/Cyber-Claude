@@ -400,6 +400,102 @@ export const BUILTIN_TOOLS: ToolDefinition[] = [
       },
     ],
   },
+  {
+    name: 'cvelookup',
+    description: 'Lookup CVE (Common Vulnerabilities and Exposures) from NVD database',
+    category: 'analysis',
+    parameters: [
+      {
+        name: 'cveId',
+        type: 'string',
+        description: 'CVE ID to lookup (e.g., CVE-2024-1234)',
+        required: false,
+      },
+      {
+        name: 'product',
+        type: 'string',
+        description: 'Product name to search vulnerabilities for',
+        required: false,
+      },
+      {
+        name: 'version',
+        type: 'string',
+        description: 'Product version (used with product)',
+        required: false,
+      },
+    ],
+    capabilities: [
+      'CVE lookup and details',
+      'CVSS scoring information',
+      'vulnerability database search',
+      'product vulnerability enumeration',
+      'CWE weakness identification',
+    ],
+    requiresApproval: false,
+    estimatedDuration: 5000,
+    riskLevel: 'low',
+    examples: [
+      {
+        description: 'Lookup specific CVE',
+        parameters: { cveId: 'CVE-2024-1234' },
+      },
+      {
+        description: 'Search vulnerabilities for a product',
+        parameters: { product: 'nginx', version: '1.18.0' },
+      },
+    ],
+  },
+  {
+    name: 'loganalysis',
+    description: 'Analyze log files for security issues, anomalies, and threats',
+    category: 'analysis',
+    parameters: [
+      {
+        name: 'file',
+        type: 'string',
+        description: 'Path to log file',
+        required: true,
+      },
+      {
+        name: 'format',
+        type: 'string',
+        description: 'Log format: syslog, apache, auth, json, windows, firewall, auto',
+        required: false,
+        default: 'auto',
+      },
+      {
+        name: 'mode',
+        type: 'string',
+        description: 'Analysis mode: quick, full, threat-hunt',
+        required: false,
+        default: 'quick',
+      },
+    ],
+    capabilities: [
+      'multi-format log parsing (6 formats)',
+      'anomaly detection',
+      'failed login detection',
+      'privilege escalation detection',
+      'brute force attack detection',
+      'SQL injection attempt detection',
+      'port scan detection',
+      'IOC extraction',
+      'MITRE ATT&CK mapping',
+    ],
+    requiresApproval: false,
+    estimatedDuration: 30000,
+    riskLevel: 'low',
+    examples: [
+      {
+        description: 'Quick log analysis',
+        parameters: { file: '/var/log/auth.log', format: 'auth', mode: 'quick' },
+      },
+      {
+        description: 'Threat hunting in logs',
+        parameters: { file: '/var/log/apache2/access.log', mode: 'threat-hunt' },
+      },
+    ],
+  },
 ];
 
 /**

@@ -6,6 +6,8 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { logger } from '../../utils/logger.js';
+import { VulnEnricher } from './vuln/VulnEnricher.js';
+import { VulnerabilityInfo } from './vuln/types.js';
 
 const execAsync = promisify(exec);
 
@@ -13,6 +15,7 @@ export interface VulnerableComponent {
   component: string;
   version: string;
   vulnerabilities: Vulnerability[];
+  enrichedCVEs?: VulnerabilityInfo[]; // CVE enrichment data
 }
 
 export interface Vulnerability {
@@ -40,14 +43,18 @@ export interface DependencyScanResult {
   };
   scannedPath: string;
   timestamp: Date;
+  enriched?: boolean; // Whether CVE enrichment was performed
   error?: string;
 }
 
 export class DependencyScanner {
   /**
    * Scan a directory for vulnerable JavaScript dependencies
+   * @param path Directory to scan
+   * @param enrich Whether to enrich with CVE data from NVD (default: false)
+   * @param nvdApiKey Optional NVD API key for higher rate limits
    */
-  static async scan(path: string = '.'): Promise<DependencyScanResult> {
+  static async scan(path: string = '.', enrich: boolean = false, nvdApiKey?: string): Promise<DependencyScanResult> {
     try {
       logger.info(`Scanning dependencies in ${path}`);
 
@@ -94,7 +101,14 @@ export class DependencyScanner {
         summary,
         scannedPath: path,
         timestamp: new Date(),
+        enriched: false,
       };
+
+      // Enrich with CVE data if requested
+      if (enrich && vulnerableComponents.length > 0) {
+        logger.info('Enriching vulnerabilities with CVE data from NVD...');
+        await this.enrichWithCVEData(result, nvdApiKey);
+      }
 
       logger.info(`Found ${result.totalVulnerabilities} vulnerabilities in dependencies`);
       return result;
@@ -214,6 +228,51 @@ export class DependencyScanner {
   }
 
   /**
+   * Enrich vulnerabilities with CVE data from NVD
+   */
+  private static async enrichWithCVEData(result: DependencyScanResult, nvdApiKey?: string): Promise<void> {
+    try {
+      const enricher = new VulnEnricher(nvdApiKey);
+      let enrichedCount = 0;
+
+      for (const component of result.vulnerableComponents) {
+        // Collect all CVE IDs for this component
+        const cveIds = new Set<string>();
+
+        for (const vuln of component.vulnerabilities) {
+          if (vuln.identifiers.CVE && vuln.identifiers.CVE.length > 0) {
+            vuln.identifiers.CVE.forEach(cve => cveIds.add(cve));
+          }
+        }
+
+        // Enrich if we have CVE IDs
+        if (cveIds.size > 0) {
+          const enrichResult = await enricher.enrichComponent(
+            component.component,
+            component.version,
+            Array.from(cveIds)
+          );
+
+          if (enrichResult.enriched && enrichResult.vulnInfo) {
+            component.enrichedCVEs = enrichResult.vulnInfo;
+            enrichedCount++;
+          }
+
+          // Rate limiting: 1 second delay between enrichments
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+      }
+
+      result.enriched = enrichedCount > 0;
+      logger.info(`Enriched ${enrichedCount} components with CVE data`);
+
+    } catch (error: any) {
+      logger.error(`CVE enrichment failed: ${error.message}`);
+      result.enriched = false;
+    }
+  }
+
+  /**
    * Check if retire.js is available
    */
   static async isAvailable(): Promise<boolean> {
@@ -240,7 +299,11 @@ export class DependencyScanner {
     const lines: string[] = [];
     lines.push(`\n🔍 Dependency Vulnerability Scan Results`);
     lines.push(`📁 Path: ${result.scannedPath}`);
-    lines.push(`📊 Total Vulnerabilities: ${result.totalVulnerabilities}\n`);
+    lines.push(`📊 Total Vulnerabilities: ${result.totalVulnerabilities}`);
+    if (result.enriched) {
+      lines.push(`✨ Enriched with CVE data from NVD`);
+    }
+    lines.push('');
 
     lines.push(`Severity Breakdown:`);
     lines.push(`  🔴 Critical: ${result.summary.critical}`);
@@ -273,6 +336,33 @@ export class DependencyScanner {
 
           if (vuln.info && vuln.info.length > 0) {
             lines.push(`     Info: ${vuln.info[0]}`);
+          }
+        }
+
+        // Show enriched CVE data if available
+        if (component.enrichedCVEs && component.enrichedCVEs.length > 0) {
+          lines.push(`\n  📋 Enriched CVE Details:`);
+
+          for (const cve of component.enrichedCVEs) {
+            const cveIcon = this.getSeverityIcon(cve.severity);
+            lines.push(`  ${cveIcon} ${cve.cveId} - ${cve.severity.toUpperCase()}`);
+
+            if (cve.cvssScore) {
+              lines.push(`     CVSS: ${cve.cvssScore.toFixed(1)}/10.0`);
+            }
+
+            if (cve.description) {
+              const shortDesc = cve.description.slice(0, 150);
+              lines.push(`     ${shortDesc}${cve.description.length > 150 ? '...' : ''}`);
+            }
+
+            if (cve.cwe && cve.cwe.length > 0) {
+              lines.push(`     Weakness: ${cve.cwe.slice(0, 3).join(', ')}`);
+            }
+
+            if (cve.published) {
+              lines.push(`     Published: ${cve.published.toLocaleDateString()}`);
+            }
           }
         }
 
