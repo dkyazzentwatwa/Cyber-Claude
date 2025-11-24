@@ -5,6 +5,62 @@ All notable changes to Cyber Claude will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2025-11-24
+
+### Added
+
+- **Log Analysis Command** (`cyber-claude logs <file>`): Analyze security logs with AI-powered insights
+  - 6 log format parsers: syslog, apache, auth, json, windows, firewall
+  - 15+ anomaly detection types: brute force, SQL injection, port scans, privilege escalation, etc.
+  - IOC extraction (IPs, domains, hashes, emails) with MITRE ATT&CK mapping
+  - Three analysis modes: quick, full, threat-hunt
+  - Export capabilities: JSON and Markdown reports
+
+- **CVE Lookup Command** (`cyber-claude cve <cve-id>`): Search National Vulnerability Database
+  - Direct CVE ID lookup with detailed information
+  - Search by product name and version
+  - Keyword and severity filtering
+  - CVSS scoring and severity classification
+  - CWE (Common Weakness Enumeration) mapping
+  - Affected version tracking and fix recommendations
+  - Local cache with 24-hour TTL for faster repeated lookups
+
+- **Multi-Provider Smart Fallbacks**: Intelligent provider switching and error recovery
+  - Automatic provider availability detection at startup
+  - Credit/billing error detection with helpful suggestions
+  - Authentication error handling with setup guidance
+  - Rate limit error handling
+  - Ollama health checking (local model support)
+  - Context-aware error messages with alternative provider suggestions
+
+- **Enhanced Provider Support**:
+  - Improved Ollama integration for offline/privacy-focused usage
+  - Better error messages for all providers (Claude, Gemini, Ollama)
+  - Provider health status displayed at startup
+  - No API key required messaging when Ollama is available
+
+### Changed
+
+- CLI now checks all providers (Claude, Gemini, Ollama) before requiring setup
+- Improved startup experience with provider availability status
+- Better error messages when API credits are depleted
+- Enhanced type safety in CLI commands (cve.ts, logs.ts)
+- Updated CLI version to 0.6.0
+
+### Fixed
+
+- **TypeScript Build Errors**: Resolved 5 compilation errors in new commands
+  - Fixed severity emoji/color mapping type errors in cve.ts
+  - Fixed LogAnalysisOptions type usage in logs.ts
+  - Fixed unknown type for count variable in severity distribution
+- Provider type tracking for better error suggestions
+
+### Documentation
+
+- Updated CHANGELOG with comprehensive v0.6.0 release notes
+- Added log analysis and CVE lookup command documentation
+- Updated roadmap to reflect completed features
+
 ## [0.3.0] - 2025-09-30
 
 ### Added

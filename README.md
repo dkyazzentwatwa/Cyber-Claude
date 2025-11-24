@@ -21,7 +21,7 @@ An AI-powered cybersecurity agent built with the [Claude Agent SDK](https://docs
 ![Tests](https://img.shields.io/badge/tests-157%20passed-brightgreen)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-excellent-brightgreen)
-![Version](https://img.shields.io/badge/version-0.6.0--dev-blue)
+![Version](https://img.shields.io/badge/version-0.6.0-blue)
 
 ---
 
@@ -841,8 +841,9 @@ npm test
 - [x] OSINT reconnaissance suite (10 tools)
 - [x] PCAP network traffic analysis
 - [x] Pre-configured workflows (10 guided tasks)
-- [ ] Log file analysis
-- [ ] Vulnerability database integration
+- [x] Log file analysis (6 formats, 15+ anomaly types) ✨ **NEW in v0.6.0**
+- [x] Vulnerability database integration (NVD/CVE lookup) ✨ **NEW in v0.6.0**
+- [x] Multi-provider smart fallbacks ✨ **NEW in v0.6.0**
 - [ ] Advanced web vulnerability detection (SQLi, XSS payloads)
 - [ ] Scheduled scanning (daemon mode)
 - [ ] Security posture dashboard

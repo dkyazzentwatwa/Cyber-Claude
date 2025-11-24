@@ -30,3 +30,7 @@ scans/
 
 # Archived planning documents
 EXPLOITATION_PLAN.md
+
+# Development planning documents
+benchmark_ideas.md
+task*.md
