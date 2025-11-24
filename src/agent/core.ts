@@ -6,6 +6,13 @@ import { ClaudeProvider } from './providers/claude.js';
 import { GeminiProvider } from './providers/gemini.js';
 import { OllamaProvider } from './providers/ollama.js';
 import { getModelById } from '../utils/models.js';
+import {
+  isCreditError,
+  isAuthError,
+  isRateLimitError,
+  getErrorSuggestion,
+  ProviderType
+} from './providers/fallback.js';
 
 export class CyberAgent {
   private provider: AIProvider;
@@ -13,6 +20,7 @@ export class CyberAgent {
   private conversationHistory: ConversationMessage[] = [];
   private systemPrompt: string;
   private model: string;
+  private providerType: ProviderType;
 
   constructor(agentConfig: AgentConfig) {
     this.mode = agentConfig.mode;
@@ -24,9 +32,11 @@ export class CyberAgent {
     const providerType = modelInfo?.model.provider || 'claude';
 
     // Initialize appropriate provider
+    this.providerType = providerType as ProviderType;
+
     if (providerType === 'gemini') {
       if (!agentConfig.googleApiKey) {
-        throw new Error('Google API key required for Gemini models');
+        throw new Error('Google API key required for Gemini models. Set GOOGLE_API_KEY in .env or use --model with Claude/Ollama.');
       }
       this.provider = new GeminiProvider(agentConfig.googleApiKey, agentConfig.model || 'gemini-2.5-flash');
       logger.info(`CyberAgent initialized with Gemini (${agentConfig.model}) in ${agentConfig.mode} mode`);
@@ -38,7 +48,7 @@ export class CyberAgent {
     } else {
       // Default to Claude
       if (!agentConfig.apiKey) {
-        throw new Error('Anthropic API key required for Claude models');
+        throw new Error('Anthropic API key required for Claude models. Set ANTHROPIC_API_KEY in .env or use --model with Gemini/Ollama.');
       }
       this.provider = new ClaudeProvider(
         agentConfig.apiKey,
@@ -83,8 +93,18 @@ export class CyberAgent {
       logger.info(`Received response from ${this.provider.getProviderName()}`);
       return assistantMessage;
     } catch (error) {
+      // Remove the failed user message from history
+      this.conversationHistory.pop();
+
+      // Provide helpful error messages based on error type
+      if (isCreditError(error) || isAuthError(error) || isRateLimitError(error)) {
+        const suggestion = getErrorSuggestion(error, this.providerType);
+        logger.error(`Provider error:\n${suggestion}`);
+        throw new Error(`${this.provider.getProviderName()} API error.\n\n${suggestion}`);
+      }
+
       logger.error('Error in chat:', error);
-      throw new Error(`Failed to communicate with agent: ${error}`);
+      throw new Error(`Failed to communicate with ${this.provider.getProviderName()}: ${error}`);
     }
   }
 
