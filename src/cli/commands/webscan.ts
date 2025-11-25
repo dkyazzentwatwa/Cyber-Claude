@@ -93,6 +93,19 @@ function formatScanMarkdown(result: WebScanResult, analysis?: string): string {
           lines.push(`**Remediation:** ${finding.remediation}`);
           lines.push('');
         }
+        if (finding.evidence) {
+          lines.push(`**Evidence:**`);
+          if (finding.evidence.parameter) {
+            lines.push(`- **Parameter:** \`${finding.evidence.parameter}\``);
+          }
+          if (finding.evidence.payload) {
+            lines.push(`- **Payload:** \`${finding.evidence.payload}\``);
+          }
+          if (finding.evidence.evidence) {
+            lines.push(`- **Response:** \`${finding.evidence.evidence}\``);
+          }
+          lines.push('');
+        }
         if (finding.references && finding.references.length > 0) {
           lines.push(`**References:**`);
           finding.references.forEach(ref => {
@@ -137,14 +150,13 @@ export function createWebScanCommand(): Command {
     .argument('<url>', 'Target URL to scan')
     .option('-q, --quick', 'Quick security scan (headers only)')
     .option('-f, --full', 'Full vulnerability scan')
+    .option('-a, --aggressive', '⚠️  AGGRESSIVE scan with payload testing (requires authorization!)')
     .option('--ctf', 'CTF challenge mode')
     .option('--skip-auth', 'Skip authorization checks (use only for sites you own)')
     .option('--model <model>', 'AI model to use for analysis')
     .option('--timeout <ms>', 'Request timeout in milliseconds', '10000')
-    .option('--nuclei', 'Run Nuclei vulnerability scan (5000+ templates)')
-    .option('--sslscan', 'Run SSL/TLS security analysis')
-    .option('--sqlmap', 'Test for SQL injection vulnerabilities')
-    .option('--with-mcp', 'Run all available MCP security tools')
+    .option('--test-types <types>', 'Vulnerability types to test (comma-separated): sqli,xss,cmd_injection,path_traversal,ssrf', 'sqli,xss,cmd_injection,path_traversal,ssrf')
+    .option('--max-payloads <number>', 'Maximum payloads per vulnerability type', '10')
     .action(async (url: string, options) => {
       const validation = validateConfig();
       if (!validation.valid) {
@@ -178,7 +190,21 @@ export function createWebScanCommand(): Command {
 
         // Perform scan based on options
         let result;
-        if (options.full) {
+        if (options.aggressive) {
+          // Parse test types
+          const testTypes = options.testTypes.split(',').map((t: string) => t.trim());
+
+          result = await scanner.aggressiveScan(url, {
+            timeout: parseInt(options.timeout),
+            ctfMode: options.ctf,
+            skipAuth: options.skipAuth,
+            onProgress,
+            aggressive: true,
+            testTypes,
+            maxPayloadsPerType: parseInt(options.maxPayloads),
+          });
+          ui.success('✓ Aggressive scan completed\n');
+        } else if (options.full) {
           result = await scanner.fullScan(url, {
             timeout: parseInt(options.timeout),
             ctfMode: options.ctf,

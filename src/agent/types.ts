@@ -18,6 +18,7 @@ export interface SecurityFinding {
   references?: string[];
   category: string;
   timestamp: Date;
+  evidence?: Record<string, any>; // Optional evidence for vulnerability findings
 }
 
 export type VulnType =
