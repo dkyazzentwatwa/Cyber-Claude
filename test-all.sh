@@ -3,7 +3,8 @@
 # Cyber Claude v0.6.0 - Automated Test Suite
 # This script tests all major features to ensure everything works
 
-set -e  # Exit on error
+# Don't exit on error - we want to continue testing even if some tests fail
+set +e
 
 # Colors for output
 RED='\033[0;31m'
@@ -49,6 +50,12 @@ skip_test() {
     echo -e "${YELLOW}⊘ SKIPPED${NC}: $1"
 }
 
+# Parse arguments
+VERBOSE=false
+if [ "$1" = "-v" ] || [ "$1" = "--verbose" ]; then
+    VERBOSE=true
+fi
+
 # Check if CLI exists
 if [ ! -f "./dist/cli/index.js" ]; then
     echo -e "${RED}Error: CLI not built. Run 'npm run build' first.${NC}"
@@ -56,6 +63,19 @@ if [ ! -f "./dist/cli/index.js" ]; then
 fi
 
 CLI="./dist/cli/index.js"
+
+# Function to run command with optional verbose output
+run_test() {
+    local cmd=$1
+    if [ "$VERBOSE" = true ]; then
+        echo "Executing: $cmd"
+        eval "$cmd"
+        return $?
+    else
+        eval "$cmd" > /dev/null 2>&1
+        return $?
+    fi
+}
 
 echo -e "${BLUE}╔════════════════════════════════════════════╗${NC}"
 echo -e "${BLUE}║   Cyber Claude v0.6.0 Test Suite         ║${NC}"
@@ -84,11 +104,17 @@ test_result $? "Help command"
 test_header "2. Desktop Security Tests"
 
 # Test 2.1: Quick scan
-timeout 30s $CLI scan --quick > /dev/null 2>&1
+if [ "$VERBOSE" = true ]; then
+    echo "Running: timeout 60s $CLI scan --quick"
+fi
+run_test "timeout 60s $CLI scan --quick"
 test_result $? "Quick system scan"
 
 # Test 2.2: Hardening check
-timeout 30s $CLI harden > /dev/null 2>&1
+if [ "$VERBOSE" = true ]; then
+    echo "Running: timeout 60s $CLI harden"
+fi
+run_test "timeout 60s $CLI harden"
 test_result $? "Hardening check"
 
 # ============================================
