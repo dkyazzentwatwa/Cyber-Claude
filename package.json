@@ -35,6 +35,7 @@
     "cli-table3": "^0.6.5",
     "commander": "^14.0.1",
     "cookie": "^1.0.2",
+    "cron": "^4.3.4",
     "dotenv": "^17.2.2",
     "fast-glob": "^3.3.2",
     "figlet": "^1.9.3",
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "@types/cookie": "^0.6.0",
+    "@types/cron": "^2.0.1",
     "@types/figlet": "^1.7.0",
     "@types/inquirer": "^9.0.9",
     "@types/node": "^24.6.0",

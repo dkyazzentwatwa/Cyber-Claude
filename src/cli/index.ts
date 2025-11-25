@@ -20,6 +20,7 @@ import { createScreenshotCommand } from './commands/screenshot.js';
 import { createToolsCommand } from './commands/tools.js';
 import { createCVECommand } from './commands/cve.js';
 import { createLogsCommand } from './commands/logs.js';
+import { createDaemonCommand } from './commands/daemon.js';
 import { InteractiveSession } from './session.js';
 import { checkProviderAvailability } from '../agent/providers/fallback.js';
 
@@ -47,6 +48,7 @@ program.addCommand(createScreenshotCommand());
 program.addCommand(createToolsCommand());
 program.addCommand(createCVECommand());
 program.addCommand(createLogsCommand());
+program.addCommand(createDaemonCommand());
 
 // Default action - start interactive session
 program
