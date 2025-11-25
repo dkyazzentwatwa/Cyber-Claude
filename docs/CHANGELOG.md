@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Advanced Web Vulnerability Testing** (`webscan --aggressive`): Payload-based vulnerability detection
+  - **PayloadDatabase**: 65+ real-world vulnerability payloads
+    - 20+ SQL injection payloads (classic, union, error-based, time-based, boolean)
+    - 15+ XSS payloads (basic, event handler, encoded, polyglot, DOM-based)
+    - 10+ command injection payloads (Unix, Windows, bypass techniques)
+    - 10+ path traversal payloads (basic, encoded, null byte, unicode)
+    - 10+ SSRF payloads (basic, AWS/GCP/Azure metadata, internal network)
+  - **VulnDetector**: Pattern-based vulnerability detection with confidence scoring
+  - **VulnTester**: Orchestrated vulnerability testing with rate limiting
+  - **WebScanner enhancements**: aggressiveScan() method with evidence collection
+  - **CLI updates**: --aggressive, --test-types, --max-payloads flags
+  - **Evidence reporting**: Payload, parameter, and response evidence in scan results
+  - Supports SQLi, XSS, Command Injection, Path Traversal, and SSRF detection
+
+- **Daemon Mode for Scheduled Scanning** (`cyber-claude daemon`): Background scheduled security scanning
+  - **Cron-based scheduling**: Schedule scans to run automatically (every 6 hours, daily, weekly, etc.)
+  - **Job management**: Add, remove, enable, disable, and execute jobs
+  - **Multiple job types**: webscan (quick/full/aggressive), log-analysis, cve-check
+  - **Persistent configuration**: Jobs saved to .cyber-claude/jobs.json
+  - **Automatic result storage**: Scan results saved to .cyber-claude/results/{job-id}/
+  - **Execution tracking**: Last run, next run, duration, findings count, and error tracking
+  - **Status monitoring**: Real-time daemon status, running jobs, and next scheduled runs
+  - **Subcommands**: start, stop, status, jobs (list), add, remove, enable, disable, run
+  - **Configurable options**: Max concurrent jobs, retry attempts, rate limiting
+  - **Future-ready**: Notification infrastructure (email, webhook) for alerts
+
 - **Log Analysis Command** (`cyber-claude logs <file>`): Analyze security logs with AI-powered insights
   - 6 log format parsers: syslog, apache, auth, json, windows, firewall
   - 15+ anomaly detection types: brute force, SQL injection, port scans, privilege escalation, etc.
@@ -55,11 +81,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Fixed unknown type for count variable in severity distribution
 - Provider type tracking for better error suggestions
 
+### Dependencies
+
+- **Added**: `cron` - Cron-based job scheduling for daemon mode
+- **Added**: `@types/cron` - TypeScript type definitions for cron
+
 ### Documentation
 
 - Updated CHANGELOG with comprehensive v0.6.0 release notes
-- Added log analysis and CVE lookup command documentation
-- Updated roadmap to reflect completed features
+- Added log analysis, CVE lookup, daemon mode, and advanced web scanning documentation
+- Updated roadmap to reflect all completed Phase 3 features
+- Added daemon command documentation with cron expression examples
+- Updated webscan command documentation with aggressive scan options
 
 ## [0.3.0] - 2025-09-30
 

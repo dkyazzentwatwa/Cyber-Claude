@@ -605,16 +605,21 @@ Scan web applications for security vulnerabilities
 **Options:**
 - `-q, --quick` - Quick security scan (headers only)
 - `-f, --full` - Full vulnerability scan (CSRF, XSS detection)
+- `-a, --aggressive` - ⚠️ AGGRESSIVE scan with payload testing (requires authorization!)
 - `--ctf` - CTF challenge mode
+- `--skip-auth` - Skip authorization checks (use only for sites you own)
 - `--model <model>` - AI model to use
 - `--timeout <ms>` - Request timeout in milliseconds
+- `--test-types <types>` - Vulnerability types to test (comma-separated): sqli,xss,cmd_injection,path_traversal,ssrf
+- `--max-payloads <number>` - Maximum payloads per vulnerability type (default: 10)
 
 **Examples:**
 ```bash
 cyber-claude webscan https://example.com
 cyber-claude webscan --full https://myapp.local
+cyber-claude webscan --aggressive https://myapp.local --skip-auth
+cyber-claude webscan --aggressive --test-types sqli,xss https://test-app.local
 cyber-claude webscan --ctf https://ctf.hackthebox.com/challenge
-cyber-claude webscan https://staging.myapp.com --full
 ```
 
 ### `cyber-claude pcap` (NEW!)
@@ -653,11 +658,65 @@ cyber-claude pcap capture.pcap --extract-iocs --mitre --export-iocs iocs.json
 cyber-claude pcap suspicious.pcap --preserve-evidence --case-number CASE-2024-001 --analyst "John Doe"
 ```
 
-### `cyber-claude chat`
-- Authorization required before scanning
-- Domain blocklists prevent scanning sensitive sites
-- Legal warnings displayed
-- CTF mode has separate authorization flow
+### `cyber-claude daemon` ✨ **NEW in v0.6.0**
+Background daemon for scheduled security scanning
+
+**Subcommands:**
+- `daemon start` - Start the daemon (foreground or detached)
+- `daemon stop` - Stop the daemon
+- `daemon status` - Show daemon status and statistics
+- `daemon jobs` - List all scheduled jobs
+- `daemon add` - Add a new scheduled job
+- `daemon remove <job-id>` - Remove a job
+- `daemon enable <job-id>` - Enable a job
+- `daemon disable <job-id>` - Disable a job
+- `daemon run <job-id>` - Execute a job immediately
+
+**Add Job Options:**
+- `-n, --name <name>` - Job name (required)
+- `-t, --type <type>` - Job type: webscan, log-analysis, cve-check (required)
+- `-T, --target <target>` - Scan target (URL, log file, CVE keyword) (required)
+- `-s, --schedule <cron>` - Cron schedule expression (required)
+- `--disabled` - Create job in disabled state
+- `-o, --options <json>` - Job options as JSON string
+
+**Examples:**
+```bash
+# Start daemon
+cyber-claude daemon start
+
+# Add scheduled web scan (every 6 hours)
+cyber-claude daemon add \
+  -n "Daily Web Scan" \
+  -t webscan \
+  -T https://myapp.com \
+  -s "0 */6 * * *" \
+  -o '{"full": true}'
+
+# Add log analysis (every day at 2 AM)
+cyber-claude daemon add \
+  -n "Nightly Log Analysis" \
+  -t log-analysis \
+  -T /var/log/app.log \
+  -s "0 2 * * *"
+
+# List all jobs
+cyber-claude daemon jobs
+
+# Run a job immediately
+cyber-claude daemon run <job-id>
+
+# Check daemon status
+cyber-claude daemon status
+```
+
+**Supported Cron Expressions:**
+- `* * * * *` - Every minute
+- `0 * * * *` - Every hour
+- `0 */6 * * *` - Every 6 hours
+- `0 2 * * *` - Daily at 2 AM
+- `0 0 * * 0` - Weekly on Sunday
+- `0 0 1 * *` - Monthly on the 1st
 
 ### `cyber-claude chat`
 Interactive chat with security agent (one-off conversation)
@@ -844,8 +903,8 @@ npm test
 - [x] Log file analysis (6 formats, 15+ anomaly types) ✨ **NEW in v0.6.0**
 - [x] Vulnerability database integration (NVD/CVE lookup) ✨ **NEW in v0.6.0**
 - [x] Multi-provider smart fallbacks ✨ **NEW in v0.6.0**
-- [ ] Advanced web vulnerability detection (SQLi, XSS payloads)
-- [ ] Scheduled scanning (daemon mode)
+- [x] Advanced web vulnerability detection (SQLi, XSS, Command Injection, Path Traversal, SSRF) ✨ **NEW in v0.6.0**
+- [x] Scheduled scanning (daemon mode with cron scheduling) ✨ **NEW in v0.6.0**
 - [ ] Security posture dashboard
 
 ### Phase 4: Advanced Capabilities (In Progress)
