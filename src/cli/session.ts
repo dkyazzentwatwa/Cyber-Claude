@@ -259,20 +259,25 @@ export class InteractiveSession {
 
   private showWelcome(): void {
     ui.box(
-      `Welcome to ${chalk.bold('Cyber Claude Interactive Session')}!\n\n` +
+      `Welcome to ${chalk.bold('Cyber Claude Interactive Session')}! ${chalk.green('v0.6.0')}\n\n` +
       `${chalk.bold('🚀 Quick Start Guide:')}\n\n` +
       `${chalk.bold('1. Scan Your System:')}\n` +
       `   ${chalk.cyan('scan')} ${chalk.dim('- Quick security check')}\n` +
       `   ${chalk.cyan('scan full')} ${chalk.dim('- Comprehensive scan with AI analysis')}\n\n` +
       `${chalk.bold('2. Test Websites:')}\n` +
-      `   ${chalk.cyan('webscan https://example.com')} ${chalk.dim('- Find vulnerabilities')}\n\n` +
-      `${chalk.bold('3. Gather Intel:')}\n` +
+      `   ${chalk.cyan('webscan https://example.com')} ${chalk.dim('- Find vulnerabilities')}\n` +
+      `   ${chalk.cyan('webscan https://test.local --aggressive')} ${chalk.green('(NEW!)')} ${chalk.dim('- Active payload testing')}\n\n` +
+      `${chalk.bold('3. Analyze Logs:')}\n` +
+      `   ${chalk.cyan('logs /var/log/auth.log')} ${chalk.green('(NEW!)')} ${chalk.dim('- AI-powered log analysis')}\n\n` +
+      `${chalk.bold('4. CVE Lookup:')}\n` +
+      `   ${chalk.cyan('cve CVE-2024-1234')} ${chalk.green('(NEW!)')} ${chalk.dim('- Vulnerability database search')}\n\n` +
+      `${chalk.bold('5. Scheduled Scans:')}\n` +
+      `   ${chalk.cyan('daemon status')} ${chalk.green('(NEW!)')} ${chalk.dim('- Manage background scanning')}\n\n` +
+      `${chalk.bold('6. Gather Intel:')}\n` +
       `   ${chalk.cyan('recon example.com')} ${chalk.dim('- OSINT reconnaissance')}\n\n` +
-      `${chalk.bold('4. Analyze Network Traffic:')}\n` +
-      `   ${chalk.cyan('pcap capture.pcap')} ${chalk.dim('- Parse .pcap files')}\n\n` +
-      `${chalk.bold('5. Get Help:')}\n` +
+      `${chalk.bold('7. Get Help:')}\n` +
       `   ${chalk.cyan('help')} ${chalk.dim('- Show detailed command guide with examples')}\n\n` +
-      `${chalk.bold('6. Chat Naturally:')}\n` +
+      `${chalk.bold('8. Chat Naturally:')}\n` +
       `   ${chalk.dim('Just type: ')}${chalk.cyan('How do I secure SSH?')}${chalk.dim(' or ')}${chalk.cyan('Explain XSS attacks')}\n\n` +
       `${chalk.dim('💡 Tip: Type ')}${chalk.cyan('help')}${chalk.dim(' for detailed examples of every command')}\n` +
       `${chalk.dim('💡 Tip: Change modes with ')}${chalk.cyan('mode <name>')}${chalk.dim(' (base, redteam, blueteam, osint, etc.)')}`,
@@ -346,6 +351,18 @@ export class InteractiveSession {
         await this.handleAuto(command);
         return false;
 
+      case 'cve':
+        await this.handleCVE(args);
+        return false;
+
+      case 'logs':
+        await this.handleLogs(args);
+        return false;
+
+      case 'daemon':
+        await this.handleDaemon(args);
+        return false;
+
       default:
         // If not a built-in command, send to agent as chat
         await this.handleChat(command);
@@ -402,6 +419,24 @@ export class InteractiveSession {
     console.log(chalk.yellow('    Example: ') + chalk.cyan('auto scan example.com for vulnerabilities'));
     console.log(chalk.yellow('    Example: ') + chalk.cyan('auto gather intel on target-company.com'));
     console.log(chalk.dim('    Options: --mode <mode>, --verbose, --export <file>') + '\n');
+
+    console.log(chalk.bold('  logs <file>') + chalk.dim(' - Analyze security logs with AI') + chalk.green(' (NEW v0.6.0)'));
+    console.log(chalk.dim('    Analyzes: syslog, apache, auth, json, windows, firewall formats'));
+    console.log(chalk.dim('    Detects: 15+ anomaly types, brute force, SQL injection, port scans'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('logs /var/log/auth.log'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('logs access.log') + '\n');
+
+    console.log(chalk.bold('  cve <cve-id|keyword>') + chalk.dim(' - Search CVE vulnerability database') + chalk.green(' (NEW v0.6.0)'));
+    console.log(chalk.dim('    Searches: National Vulnerability Database (NVD) with AI analysis'));
+    console.log(chalk.dim('    Shows: CVSS scores, severity, affected versions, remediation'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('cve CVE-2024-1234'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('cve apache') + '\n');
+
+    console.log(chalk.bold('  daemon <subcommand>') + chalk.dim(' - Manage scheduled security scans') + chalk.green(' (NEW v0.6.0)'));
+    console.log(chalk.dim('    Subcommands: start, stop, status, jobs, add, remove, enable, disable, run'));
+    console.log(chalk.dim('    Schedule scans to run automatically with cron expressions'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('daemon status'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('daemon jobs') + '\n');
 
     // SESSION CONTROL
     console.log(chalk.bold.cyan('⚙️  SESSION CONTROL\n'));
@@ -1217,5 +1252,286 @@ Provide prioritized findings and actionable next steps.`,
     if (ms < 60000) return `${(ms / 1000).toFixed(2)}s`;
     if (ms < 3600000) return `${(ms / 60000).toFixed(2)}m`;
     return `${(ms / 3600000).toFixed(2)}h`;
+  }
+
+  /**
+   * Handle CVE lookup command
+   */
+  private async handleCVE(args: string[]): Promise<void> {
+    if (args.length === 0) {
+      ui.error('Please provide a CVE ID or search keyword');
+      ui.info('Usage: cve <cve-id|keyword>');
+      ui.info('Example: cve CVE-2024-1234');
+      ui.info('Example: cve apache');
+      return;
+    }
+
+    const query = args.join(' ');
+    const isCVEId = /^CVE-\d{4}-\d+$/i.test(query);
+
+    try {
+      const { VulnerabilityDB } = await import('../agent/tools/vuln/VulnerabilityDB.js');
+      const vulnDb = new VulnerabilityDB();
+
+      if (isCVEId) {
+        // Direct CVE lookup
+        const spinner = ui.spinner(`Looking up ${query}...`);
+        const cve = await vulnDb.getCVE(query);
+        spinner.succeed('CVE data retrieved');
+
+        if (!cve) {
+          ui.error(`CVE ${query} not found in database`);
+          return;
+        }
+
+        // Display CVE info
+        console.log('\n' + chalk.bold.cyan('═'.repeat(80)));
+        console.log(chalk.bold.cyan(`CVE ID: ${cve.id}`));
+        console.log(chalk.bold.cyan('═'.repeat(80)) + '\n');
+
+        console.log(chalk.bold('Description:'));
+        const englishDesc = cve.descriptions.find(d => d.lang === 'en') || cve.descriptions[0];
+        console.log(chalk.gray(englishDesc?.value || 'No description available') + '\n');
+
+        // Get CVSS score (prefer V3 over V2)
+        const cvss = cve.cvssV3 || cve.cvssV2;
+        if (cvss) {
+          const severityMap: Record<string, typeof chalk.red> = {
+            'CRITICAL': chalk.red,
+            'HIGH': chalk.red,
+            'MEDIUM': chalk.yellow,
+            'LOW': chalk.green,
+            'NONE': chalk.blue,
+          };
+          const severityColor = severityMap[cvss.baseSeverity] || chalk.white;
+
+          console.log(chalk.bold('CVSS Score: ') + severityColor(`${cvss.baseScore}/10 (${cvss.baseSeverity})`));
+        }
+
+        if (cve.published) {
+          console.log(chalk.bold('Published: ') + new Date(cve.published).toLocaleDateString());
+        }
+
+        if (cve.lastModified) {
+          console.log(chalk.bold('Last Modified: ') + new Date(cve.lastModified).toLocaleDateString());
+        }
+
+        if (cve.references && cve.references.length > 0) {
+          console.log('\n' + chalk.bold('References:'));
+          cve.references.slice(0, 5).forEach(ref => {
+            console.log(chalk.gray('  - ' + ref));
+          });
+          if (cve.references.length > 5) {
+            console.log(chalk.gray(`  ... and ${cve.references.length - 5} more`));
+          }
+        }
+
+        console.log('');
+      } else {
+        // Keyword search
+        const spinner = ui.spinner(`Searching for "${query}"...`);
+        const results = await vulnDb.searchCVEs({
+          keyword: query,
+          resultsPerPage: 10,
+        });
+        spinner.succeed(`Found ${results.totalResults} vulnerabilities`);
+
+        if (results.vulnerabilities.length === 0) {
+          ui.info('No vulnerabilities found matching that keyword');
+          return;
+        }
+
+        console.log('\n' + chalk.bold(`Top ${results.vulnerabilities.length} results:\n`));
+
+        results.vulnerabilities.forEach((cve, idx) => {
+          const cvss = cve.cvssV3 || cve.cvssV2;
+          const severityMap: Record<string, typeof chalk.red> = {
+            'CRITICAL': chalk.red,
+            'HIGH': chalk.red,
+            'MEDIUM': chalk.yellow,
+            'LOW': chalk.green,
+            'NONE': chalk.blue,
+          };
+          const severityColor = cvss ? (severityMap[cvss.baseSeverity] || chalk.white) : chalk.white;
+          const severityText = cvss ? cvss.baseSeverity : 'UNKNOWN';
+
+          console.log(chalk.bold(`${idx + 1}. ${cve.id}`) + ` ${severityColor(`[${severityText}]`)}`);
+          const englishDesc = cve.descriptions.find(d => d.lang === 'en') || cve.descriptions[0];
+          const description = englishDesc?.value || 'No description';
+          console.log(chalk.gray('   ' + (description.substring(0, 100) + (description.length > 100 ? '...' : ''))));
+          console.log('');
+        });
+      }
+    } catch (error: any) {
+      ui.error(`CVE lookup failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Handle log analysis command
+   */
+  private async handleLogs(args: string[]): Promise<void> {
+    if (args.length === 0) {
+      ui.error('Please provide a log file to analyze');
+      ui.info('Usage: logs <file>');
+      ui.info('Example: logs /var/log/auth.log');
+      ui.info('Example: logs access.log');
+      return;
+    }
+
+    const filePath = args[0];
+
+    try {
+      console.log('');
+      ui.section(`📝 Log Analysis: ${filePath}`);
+      console.log('');
+
+      const { LogAnalyzer } = await import('../agent/tools/log/LogAnalyzer.js');
+      const analyzer = new LogAnalyzer();
+
+      const spinner = ui.spinner('Analyzing log file...');
+      const result = await analyzer.analyze(filePath, {
+        format: 'auto',
+        detectAnomalies: true,
+        maxLines: 10000,
+      });
+      spinner.succeed('Log analysis completed');
+
+      console.log('');
+      console.log(chalk.bold('File: ') + result.filePath);
+      console.log(chalk.bold('Format: ') + result.format);
+      console.log(chalk.bold('Total Entries: ') + result.statistics.parsedLines.toLocaleString());
+      console.log('');
+
+      // Show severity distribution
+      if (result.statistics.severityDistribution) {
+        console.log(chalk.bold('Severity Distribution:'));
+        const severities: Array<'emergency' | 'alert' | 'critical' | 'error' | 'warning' | 'notice' | 'info' | 'debug'> =
+          ['emergency', 'alert', 'critical', 'error', 'warning', 'notice', 'info', 'debug'];
+        severities.forEach(sev => {
+          const count = result.statistics.severityDistribution[sev] || 0;
+          if (count > 0) {
+            console.log(chalk.gray(`  ${sev}: ${count}`));
+          }
+        });
+        console.log('');
+      }
+
+      // Show anomalies
+      if (result.anomalies && result.anomalies.length > 0) {
+        console.log(chalk.bold.red(`⚠️  Detected ${result.anomalies.length} Anomalies:\n`));
+
+        result.anomalies.slice(0, 10).forEach((anomaly, idx) => {
+          const severityColor = {
+            critical: chalk.red,
+            high: chalk.red,
+            medium: chalk.yellow,
+            low: chalk.green,
+            info: chalk.blue,
+          }[anomaly.severity] || chalk.white;
+
+          console.log(severityColor(`${idx + 1}. [${anomaly.severity.toUpperCase()}] ${anomaly.type}: ${anomaly.description}`));
+          if (anomaly.recommendation) {
+            console.log(chalk.gray(`   → ${anomaly.recommendation}`));
+          }
+          console.log('');
+        });
+
+        if (result.anomalies.length > 10) {
+          console.log(chalk.gray(`... and ${result.anomalies.length - 10} more anomalies\n`));
+        }
+      } else {
+        ui.success('No anomalies detected');
+        console.log('');
+      }
+
+      // AI Analysis
+      if (result.anomalies && result.anomalies.length > 0) {
+        const aiSpinner = ui.spinner('🤖 Analyzing with AI...');
+        const analysis = await this.state.agent.analyze(
+          'Analyze these log file anomalies and security events. Identify patterns, assess risk, and provide actionable recommendations.',
+          { filePath: result.filePath, statistics: result.statistics, anomalies: result.anomalies }
+        );
+        aiSpinner.succeed('✓ Analysis complete');
+        console.log('\n' + ui.formatAIResponse(analysis) + '\n');
+      }
+
+      ui.success('✓ Log analysis complete!');
+    } catch (error: any) {
+      ui.error(`Log analysis failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Handle daemon command
+   */
+  private async handleDaemon(args: string[]): Promise<void> {
+    if (args.length === 0) {
+      ui.info('Daemon command requires a subcommand');
+      ui.info('Available subcommands: status, jobs, start, stop, add, remove, enable, disable, run');
+      ui.info('Example: daemon status');
+      ui.info('Example: daemon jobs');
+      ui.info('Note: Use standalone command for full daemon features: cyber-claude daemon <subcommand>');
+      return;
+    }
+
+    const subcommand = args[0];
+
+    try {
+      const { Daemon } = await import('../daemon/Daemon.js');
+      const daemon = new Daemon();
+
+      switch (subcommand) {
+        case 'status': {
+          await daemon.start();
+          const status = daemon.getStatus();
+          daemon.stop();
+
+          console.log('');
+          ui.section('Daemon Status');
+          console.log(`Running: ${status.running ? chalk.green('Yes') : chalk.red('No')}`);
+          if (status.running) {
+            console.log(`Jobs executed: ${status.jobsExecuted}`);
+            console.log(`Jobs failed: ${status.jobsFailed}`);
+            if (status.nextScheduledJob) {
+              console.log(`Next job: ${status.nextScheduledJob.jobName} at ${status.nextScheduledJob.scheduledTime.toLocaleString()}`);
+            }
+          }
+          console.log('');
+          break;
+        }
+
+        case 'jobs': {
+          await daemon.start();
+          const jobs = daemon.getJobs();
+          daemon.stop();
+
+          if (jobs.length === 0) {
+            ui.info('No scheduled jobs');
+            ui.info('Use "cyber-claude daemon add" to create a scheduled job');
+          } else {
+            console.log('');
+            ui.section(`Scheduled Jobs (${jobs.length})`);
+            jobs.forEach(job => {
+              const statusIcon = job.enabled ? chalk.green('✓') : chalk.gray('○');
+              console.log(`${statusIcon} ${chalk.bold(job.name)} (${job.type})`);
+              console.log(chalk.gray(`  Schedule: ${job.schedule}`));
+              if (job.lastRun) {
+                console.log(chalk.gray(`  Last run: ${job.lastRun.toLocaleString()}`));
+              }
+              console.log('');
+            });
+          }
+          break;
+        }
+
+        default:
+          ui.info(`For daemon subcommand "${subcommand}", use the standalone command:`);
+          ui.info(chalk.cyan(`cyber-claude daemon ${args.join(' ')}`));
+          ui.info('The interactive session supports: status, jobs');
+      }
+    } catch (error: any) {
+      ui.error(`Daemon command failed: ${error.message}`);
+    }
   }
 }
