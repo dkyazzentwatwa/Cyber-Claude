@@ -9,6 +9,8 @@ import { WebScanner } from '../agent/tools/web/WebScanner.js';
 import { PcapAnalyzer } from '../agent/tools/PcapAnalyzer.js';
 import { PcapReporter } from '../agent/tools/PcapReporter.js';
 import { OSINTOrchestrator, OSINTReporter } from '../agent/tools/osint/index.js';
+import { SmartContractScanner } from '../agent/tools/web3/SmartContractScanner.js';
+import { Web3Reporter } from '../agent/tools/web3/reporter/Web3Reporter.js';
 import { WORKFLOWS } from './commands/flows.js';
 import { config } from '../utils/config.js';
 import { AgentMode, WebScanResult } from '../agent/types.js';
@@ -153,6 +155,8 @@ export class InteractiveSession {
   private pcapReporter: PcapReporter;
   private osintOrchestrator: OSINTOrchestrator;
   private osintReporter: OSINTReporter;
+  private web3Scanner: SmartContractScanner;
+  private web3Reporter: Web3Reporter;
 
   constructor(initialMode: AgentMode = 'base', model?: string) {
     this.scanner = new DesktopScanner();
@@ -163,6 +167,8 @@ export class InteractiveSession {
     this.pcapReporter = new PcapReporter();
     this.osintOrchestrator = new OSINTOrchestrator();
     this.osintReporter = new OSINTReporter();
+    this.web3Scanner = new SmartContractScanner();
+    this.web3Reporter = new Web3Reporter();
 
     const selectedModel = model || config.model;
 
@@ -228,6 +234,7 @@ export class InteractiveSession {
       desktopsecurity: '🔒',
       webpentest: '🌐',
       osint: '🔍',
+      smartcontract: '📜',
     };
 
     const icon = modeIcons[this.state.mode];
@@ -245,6 +252,8 @@ export class InteractiveSession {
         return chalk.magenta(text);
       case 'osint':
         return chalk.yellow(text);
+      case 'smartcontract':
+        return chalk.hex('#F0B90B')(text); // Solidity/Web3 gold color
       default:
         return chalk.cyan(text);
     }
@@ -259,28 +268,30 @@ export class InteractiveSession {
 
   private showWelcome(): void {
     ui.box(
-      `Welcome to ${chalk.bold('Cyber Claude Interactive Session')}! ${chalk.green('v0.6.0')}\n\n` +
+      `Welcome to ${chalk.bold('Cyber Claude Interactive Session')}! ${chalk.green('v0.7.0')}\n\n` +
       `${chalk.bold('🚀 Quick Start Guide:')}\n\n` +
       `${chalk.bold('1. Scan Your System:')}\n` +
       `   ${chalk.cyan('scan')} ${chalk.dim('- Quick security check')}\n` +
       `   ${chalk.cyan('scan full')} ${chalk.dim('- Comprehensive scan with AI analysis')}\n\n` +
       `${chalk.bold('2. Test Websites:')}\n` +
       `   ${chalk.cyan('webscan https://example.com')} ${chalk.dim('- Find vulnerabilities')}\n` +
-      `   ${chalk.cyan('webscan https://test.local --aggressive')} ${chalk.green('(NEW!)')} ${chalk.dim('- Active payload testing')}\n\n` +
-      `${chalk.bold('3. Analyze Logs:')}\n` +
-      `   ${chalk.cyan('logs /var/log/auth.log')} ${chalk.green('(NEW!)')} ${chalk.dim('- AI-powered log analysis')}\n\n` +
-      `${chalk.bold('4. CVE Lookup:')}\n` +
-      `   ${chalk.cyan('cve CVE-2024-1234')} ${chalk.green('(NEW!)')} ${chalk.dim('- Vulnerability database search')}\n\n` +
-      `${chalk.bold('5. Scheduled Scans:')}\n` +
-      `   ${chalk.cyan('daemon status')} ${chalk.green('(NEW!)')} ${chalk.dim('- Manage background scanning')}\n\n` +
+      `   ${chalk.cyan('webscan https://test.local --aggressive')} ${chalk.dim('- Active payload testing')}\n\n` +
+      `${chalk.bold('3. Smart Contract Security:')}\n` +
+      `   ${chalk.cyan('web3 scan contract.sol')} ${chalk.hex('#F0B90B')('(NEW!)')} ${chalk.dim('- Scan Solidity contracts')}\n` +
+      `   ${chalk.cyan('web3 audit 0x...')} ${chalk.hex('#F0B90B')('(NEW!)')} ${chalk.dim('- Audit deployed contract')}\n` +
+      `   ${chalk.cyan('web3 tools')} ${chalk.dim('- Check available Web3 tools')}\n\n` +
+      `${chalk.bold('4. Analyze Logs:')}\n` +
+      `   ${chalk.cyan('logs /var/log/auth.log')} ${chalk.dim('- AI-powered log analysis')}\n\n` +
+      `${chalk.bold('5. CVE Lookup:')}\n` +
+      `   ${chalk.cyan('cve CVE-2024-1234')} ${chalk.dim('- Vulnerability database search')}\n\n` +
       `${chalk.bold('6. Gather Intel:')}\n` +
       `   ${chalk.cyan('recon example.com')} ${chalk.dim('- OSINT reconnaissance')}\n\n` +
       `${chalk.bold('7. Get Help:')}\n` +
       `   ${chalk.cyan('help')} ${chalk.dim('- Show detailed command guide with examples')}\n\n` +
       `${chalk.bold('8. Chat Naturally:')}\n` +
-      `   ${chalk.dim('Just type: ')}${chalk.cyan('How do I secure SSH?')}${chalk.dim(' or ')}${chalk.cyan('Explain XSS attacks')}\n\n` +
+      `   ${chalk.dim('Just type: ')}${chalk.cyan('How do I secure SSH?')}${chalk.dim(' or ')}${chalk.cyan('Explain reentrancy attacks')}\n\n` +
       `${chalk.dim('💡 Tip: Type ')}${chalk.cyan('help')}${chalk.dim(' for detailed examples of every command')}\n` +
-      `${chalk.dim('💡 Tip: Change modes with ')}${chalk.cyan('mode <name>')}${chalk.dim(' (base, redteam, blueteam, osint, etc.)')}`,
+      `${chalk.dim('💡 Tip: Change modes with ')}${chalk.cyan('mode <name>')}${chalk.dim(' (base, redteam, smartcontract, etc.)')}`,
       '🚀 Interactive Session',
       'info'
     );
@@ -363,6 +374,10 @@ export class InteractiveSession {
         await this.handleDaemon(args);
         return false;
 
+      case 'web3':
+        await this.handleWeb3(args, command);
+        return false;
+
       default:
         // If not a built-in command, send to agent as chat
         await this.handleChat(command);
@@ -432,11 +447,30 @@ export class InteractiveSession {
     console.log(chalk.yellow('    Example: ') + chalk.cyan('cve CVE-2024-1234'));
     console.log(chalk.yellow('    Example: ') + chalk.cyan('cve apache') + '\n');
 
-    console.log(chalk.bold('  daemon <subcommand>') + chalk.dim(' - Manage scheduled security scans') + chalk.green(' (NEW v0.6.0)'));
+    console.log(chalk.bold('  daemon <subcommand>') + chalk.dim(' - Manage scheduled security scans'));
     console.log(chalk.dim('    Subcommands: start, stop, status, jobs, add, remove, enable, disable, run'));
     console.log(chalk.dim('    Schedule scans to run automatically with cron expressions'));
     console.log(chalk.yellow('    Example: ') + chalk.cyan('daemon status'));
     console.log(chalk.yellow('    Example: ') + chalk.cyan('daemon jobs') + '\n');
+
+    // WEB3 / SMART CONTRACT
+    console.log(chalk.bold.hex('#F0B90B')('📜 WEB3 / SMART CONTRACT SECURITY\n'));
+
+    console.log(chalk.bold('  web3 scan <file>') + chalk.dim(' - Scan Solidity smart contracts for vulnerabilities') + chalk.hex('#F0B90B')(' (NEW v0.7.0)'));
+    console.log(chalk.dim('    Detects: Reentrancy, access control, precision loss, weak randomness, more'));
+    console.log(chalk.dim('    11 detectors based on DeFiHackLabs real-world exploits'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('web3 scan contract.sol'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('web3 scan ./contracts/Token.sol') + '\n');
+
+    console.log(chalk.bold('  web3 audit <file|address>') + chalk.dim(' - Full AI-powered security audit') + chalk.hex('#F0B90B')(' (NEW v0.7.0)'));
+    console.log(chalk.dim('    Comprehensive analysis with prioritized remediation'));
+    console.log(chalk.dim('    Supports local files and deployed contracts'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('web3 audit MyContract.sol'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('web3 audit 0x123...abc --network mainnet') + '\n');
+
+    console.log(chalk.bold('  web3 tools') + chalk.dim(' - Check available Web3 security tools'));
+    console.log(chalk.dim('    Shows: Slither, Mythril, Solhint, Foundry (forge/cast/anvil)'));
+    console.log(chalk.yellow('    Example: ') + chalk.cyan('web3 tools') + '\n');
 
     // SESSION CONTROL
     console.log(chalk.bold.cyan('⚙️  SESSION CONTROL\n'));
@@ -502,9 +536,13 @@ export class InteractiveSession {
     console.log(chalk.dim('    Use for: Passive reconnaissance, footprinting, information gathering'));
     console.log(chalk.dim('    Best for: Investigating domains, usernames, digital footprints\n'));
 
+    console.log(chalk.hex('#F0B90B')('  smartcontract ') + chalk.bold('📜') + chalk.dim(' - Smart contract and DeFi security'));
+    console.log(chalk.dim('    Use for: Auditing Solidity, finding vulnerabilities, exploit analysis'));
+    console.log(chalk.dim('    Best for: DeFi security, smart contract audits, Web3 developers\n'));
+
     console.log(chalk.bold.cyan('═'.repeat(80)));
     console.log(chalk.dim('💡 Tip: Use ') + chalk.cyan('mode <name>') + chalk.dim(' to switch modes based on your task'));
-    console.log(chalk.dim('💡 Tip: Commands can be combined with chat - try ') + chalk.cyan('scan') + chalk.dim(' then ask about results'));
+    console.log(chalk.dim('💡 Tip: Commands can be combined with chat - try ') + chalk.cyan('web3 scan contract.sol') + chalk.dim(' then ask about findings'));
     console.log(chalk.bold.cyan('═'.repeat(80)) + '\n');
   }
 
@@ -538,12 +576,12 @@ export class InteractiveSession {
   private async handleModeChange(args: string[]): Promise<void> {
     if (args.length === 0) {
       ui.info(`Current mode: ${this.state.mode}`);
-      ui.info('Available modes: base, redteam, blueteam, desktopsecurity, webpentest, osint');
+      ui.info('Available modes: base, redteam, blueteam, desktopsecurity, webpentest, osint, smartcontract');
       return;
     }
 
     const newMode = args[0] as AgentMode;
-    const validModes = ['base', 'redteam', 'blueteam', 'desktopsecurity', 'webpentest', 'osint'];
+    const validModes = ['base', 'redteam', 'blueteam', 'desktopsecurity', 'webpentest', 'osint', 'smartcontract'];
 
     if (validModes.includes(newMode)) {
       this.state.mode = newMode;
@@ -1532,6 +1570,276 @@ Provide prioritized findings and actionable next steps.`,
       }
     } catch (error: any) {
       ui.error(`Daemon command failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Handle Web3/Smart Contract commands
+   */
+  private async handleWeb3(args: string[], fullCommand: string): Promise<void> {
+    if (args.length === 0) {
+      ui.info('Web3 command requires a subcommand');
+      ui.info('Available subcommands: scan, audit, tools');
+      ui.info('Example: web3 scan contract.sol');
+      ui.info('Example: web3 audit MyContract.sol');
+      ui.info('Example: web3 tools');
+      return;
+    }
+
+    const subcommand = args[0];
+    const subArgs = args.slice(1);
+
+    try {
+      switch (subcommand) {
+        case 'scan':
+          await this.handleWeb3Scan(subArgs);
+          break;
+
+        case 'audit':
+          await this.handleWeb3Audit(subArgs);
+          break;
+
+        case 'tools':
+          await this.handleWeb3Tools();
+          break;
+
+        default:
+          ui.error(`Unknown Web3 subcommand: ${subcommand}`);
+          ui.info('Available subcommands: scan, audit, tools');
+      }
+    } catch (error: any) {
+      ui.error(`Web3 command failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Handle web3 scan subcommand
+   */
+  private async handleWeb3Scan(args: string[]): Promise<void> {
+    if (args.length === 0) {
+      ui.error('Please provide a contract file to scan');
+      ui.info('Usage: web3 scan <file.sol>');
+      ui.info('Example: web3 scan contract.sol');
+      return;
+    }
+
+    const target = args[0];
+    const isQuick = !args.includes('--full') && !args.includes('-f');
+
+    try {
+      console.log('');
+      ui.section(`📜 Smart Contract Security Scan`);
+      console.log('');
+
+      // Check if file exists
+      try {
+        await fs.access(target);
+      } catch {
+        ui.error(`File not found: ${target}`);
+        return;
+      }
+
+      console.log(`Target: ${path.resolve(target)}`);
+      console.log(`Mode: ${isQuick ? 'Quick' : 'Full'} scan`);
+      console.log('');
+
+      // Progress callback
+      const onProgress = (message: string) => {
+        console.log(`  ${message}`);
+      };
+
+      // Perform scan
+      const source = {
+        type: 'file' as const,
+        path: target,
+      };
+
+      let result;
+      if (isQuick) {
+        result = await this.web3Scanner.quickScan(source, { onProgress });
+      } else {
+        result = await this.web3Scanner.fullScan(source, { onProgress });
+      }
+
+      console.log('');
+      ui.success(`Scan completed in ${(result.duration / 1000).toFixed(1)}s`);
+      console.log('');
+
+      // Display results
+      this.web3Reporter.displayTerminalReport(result);
+
+      // AI Analysis if findings exist
+      if (result.findings.length > 0) {
+        const aiSpinner = ui.spinner('🤖 Analyzing findings with AI...');
+
+        const analysisPrompt = `Analyze these smart contract security findings from a ${isQuick ? 'quick' : 'full'} scan.
+Contract: ${result.contract.name}
+Compiler: ${result.contract.compiler || 'Unknown'}
+
+Findings (${result.findings.length} total):
+${JSON.stringify(result.findings.slice(0, 10), null, 2)}
+
+Please:
+1. Prioritize findings by actual exploitability and impact
+2. Identify any false positives based on common patterns
+3. Suggest specific remediation code in Solidity
+4. Note any relationships between findings that could enable attack chains`;
+
+        const analysis = await this.state.agent.analyze(analysisPrompt, result);
+        aiSpinner.succeed('AI analysis complete');
+
+        console.log('');
+        ui.section('AI Security Analysis');
+        console.log('');
+        console.log(ui.formatAIResponse(analysis));
+        console.log('');
+      }
+
+      // Save results
+      const savedPath = await this.web3Reporter.saveToScansDir(result);
+      ui.success(`Scan results saved to: ${savedPath}`);
+
+    } catch (error: any) {
+      ui.error(`Scan failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Handle web3 audit subcommand
+   */
+  private async handleWeb3Audit(args: string[]): Promise<void> {
+    if (args.length === 0) {
+      ui.error('Please provide a contract file or address to audit');
+      ui.info('Usage: web3 audit <file.sol|address>');
+      ui.info('Example: web3 audit MyContract.sol');
+      return;
+    }
+
+    const target = args[0];
+
+    try {
+      console.log('');
+      ui.section(`📜 Smart Contract Security Audit`);
+      console.log('');
+      console.log('Starting comprehensive audit with AI analysis...');
+      console.log('');
+
+      // Check if file exists
+      try {
+        await fs.access(target);
+      } catch {
+        ui.error(`File not found: ${target}`);
+        return;
+      }
+
+      // Perform full scan first
+      const source = {
+        type: 'file' as const,
+        path: target,
+      };
+
+      console.log('Phase 1: Running comprehensive security scan...');
+      console.log('');
+
+      const result = await this.web3Scanner.fullScan(source, {
+        onProgress: (msg) => console.log(`  ${msg}`),
+      });
+
+      console.log('');
+      this.web3Reporter.displayTerminalReport(result);
+
+      // Read source code
+      let sourceCode = '';
+      try {
+        sourceCode = await fs.readFile(target, 'utf-8');
+      } catch {
+        // Ignore if can't read
+      }
+
+      // AI Audit
+      console.log('');
+      console.log('Phase 2: AI-powered security audit...');
+      console.log('');
+
+      const auditPrompt = `You are conducting a comprehensive security audit of a smart contract.
+
+Contract: ${result.contract.name}
+Compiler: ${result.contract.compiler || 'Unknown'}
+Metrics: ${JSON.stringify(result.metrics, null, 2)}
+
+Automated scan found ${result.findings.length} issues:
+${JSON.stringify(result.findings, null, 2)}
+
+${sourceCode ? `Source Code:\n\`\`\`solidity\n${sourceCode.slice(0, 8000)}\n\`\`\`` : ''}
+
+Please provide a comprehensive security audit report including:
+1. Executive Summary - Overall security posture
+2. Critical Findings - Issues requiring immediate attention
+3. Detailed Analysis - Deep dive into each vulnerability
+4. Attack Scenarios - How an attacker could exploit these issues
+5. Remediation Plan - Specific code fixes with examples
+6. Best Practices - Additional hardening recommendations
+7. Audit Conclusion - Final assessment and recommendations`;
+
+      const spinner = ui.spinner('Generating audit report...');
+      const analysis = await this.state.agent.analyze(auditPrompt, { result, sourceCode: sourceCode.slice(0, 8000) });
+      spinner.succeed('Audit complete');
+
+      console.log('');
+      ui.section('Security Audit Report');
+      console.log('');
+      console.log(ui.formatAIResponse(analysis));
+      console.log('');
+
+      // Save audit report
+      const savedPath = await this.web3Reporter.saveToScansDir(result, analysis);
+      ui.success(`Full audit report saved to: ${savedPath}`);
+
+    } catch (error: any) {
+      ui.error(`Audit failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Handle web3 tools subcommand
+   */
+  private async handleWeb3Tools(): Promise<void> {
+    const { ExternalToolManager } = await import('../agent/tools/ExternalToolManager.js');
+
+    console.log('');
+    ui.section('Web3 Security Tools');
+    console.log('');
+
+    const allTools = await ExternalToolManager.scan();
+
+    // Web3 tools
+    const web3Tools = ['slither', 'mythril', 'solhint', 'forge', 'cast', 'anvil'];
+
+    for (const toolName of web3Tools) {
+      const tool = allTools.get(toolName);
+      if (tool) {
+        const status = tool.available ? '✓' : '✗';
+        const color = tool.available ? chalk.green : chalk.red;
+        const version = tool.version ? ` (${tool.version})` : '';
+        console.log(`${color(status)} ${tool.name}${version}`);
+        console.log(`  ${chalk.dim(tool.description)}`);
+        if (!tool.available && tool.installInstructions) {
+          console.log(`  ${chalk.yellow('Install:')} ${tool.installInstructions}`);
+        }
+        console.log('');
+      }
+    }
+
+    const available = web3Tools.filter(t => allTools.get(t)?.available).length;
+    console.log(`${available}/${web3Tools.length} tools available`);
+
+    if (available < web3Tools.length) {
+      console.log('');
+      ui.info('Install missing tools for full scanning capabilities');
+      console.log(chalk.dim('  Slither: pip install slither-analyzer'));
+      console.log(chalk.dim('  Mythril: pip install mythril'));
+      console.log(chalk.dim('  Solhint: npm install -g solhint'));
+      console.log(chalk.dim('  Foundry: curl -L https://foundry.paradigm.xyz | bash'));
     }
   }
 }

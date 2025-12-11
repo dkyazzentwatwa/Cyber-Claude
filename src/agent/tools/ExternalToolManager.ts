@@ -111,6 +111,49 @@ export class ExternalToolManager {
       category: 'reconnaissance',
       installInstructions: 'go install github.com/projectdiscovery/katana/cmd/katana@latest',
     },
+    // Web3/Smart Contract Security Tools
+    {
+      name: 'slither',
+      command: 'slither',
+      description: 'Solidity static analysis framework by Trail of Bits',
+      category: 'analysis',
+      installInstructions: 'pip install slither-analyzer',
+    },
+    {
+      name: 'mythril',
+      command: 'myth',
+      description: 'Security analysis tool for EVM bytecode (symbolic execution)',
+      category: 'analysis',
+      installInstructions: 'pip install mythril',
+    },
+    {
+      name: 'solhint',
+      command: 'solhint',
+      description: 'Solidity linter for security and style guide rules',
+      category: 'analysis',
+      installInstructions: 'npm install -g solhint',
+    },
+    {
+      name: 'forge',
+      command: 'forge',
+      description: 'Foundry smart contract testing and development framework',
+      category: 'scanning',
+      installInstructions: 'curl -L https://foundry.paradigm.xyz | bash && foundryup',
+    },
+    {
+      name: 'cast',
+      command: 'cast',
+      description: 'Foundry tool for Ethereum RPC calls and contract interaction',
+      category: 'reconnaissance',
+      installInstructions: 'curl -L https://foundry.paradigm.xyz | bash && foundryup',
+    },
+    {
+      name: 'anvil',
+      command: 'anvil',
+      description: 'Foundry local Ethereum node for testing and forking',
+      category: 'scanning',
+      installInstructions: 'curl -L https://foundry.paradigm.xyz | bash && foundryup',
+    },
   ];
 
   /**

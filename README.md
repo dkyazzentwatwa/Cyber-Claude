@@ -21,7 +21,7 @@ An AI-powered cybersecurity agent built with the [Claude Agent SDK](https://docs
 ![Tests](https://img.shields.io/badge/tests-157%20passed-brightgreen)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-excellent-brightgreen)
-![Version](https://img.shields.io/badge/version-0.6.0-blue)
+![Version](https://img.shields.io/badge/version-0.7.0-blue)
 
 ---
 
@@ -194,6 +194,48 @@ cyber-claude chat --mode redteam
 ---
 
 ## 🆕 What's New
+
+### v0.7.0 - Smart Contract Security (NEW!)
+
+**📜 Web3 / Smart Contract Security Scanner**
+
+Full-featured Solidity smart contract vulnerability detection based on [DeFiHackLabs](https://github.com/SunWeb3Sec/DeFiHackLabs) real-world exploit patterns:
+
+```bash
+# Scan a Solidity contract
+cyber-claude web3 scan contract.sol
+
+# Full audit with AI analysis
+cyber-claude web3 audit MyContract.sol
+
+# Check available Web3 tools
+cyber-claude web3 tools
+
+# Interactive mode with smartcontract focus
+cyber-claude interactive -m smartcontract
+```
+
+**11 Vulnerability Detectors:**
+- 🔄 **Reentrancy** - Cross-function and cross-contract reentrancy
+- 🔐 **Access Control** - Missing modifiers, unprotected functions
+- 🔢 **Integer Overflow** - Arithmetic vulnerabilities (pre-0.8.0)
+- 📝 **State Modification** - Unexpected state changes after external calls
+- ⚡ **Flash Loan** - Flash loan attack vectors
+- 📊 **Oracle Manipulation** - Price oracle vulnerabilities
+- 🎯 **Precision Loss** - Division-before-multiplication, unsafe downcasts
+- 📞 **Arbitrary Call** - User-controlled call targets, delegatecall risks
+- 💾 **Storage Collision** - Non-EIP1967 proxies, missing storage gaps
+- ⏰ **Timestamp Dependence** - Block timestamp manipulation (SWC-116)
+- 🎲 **Weak Randomness** - Predictable randomness sources (SWC-120)
+
+**Real-World Exploit References:**
+- Links to DeFiHackLabs exploit reproductions ($200M+ in documented exploits)
+- Includes: Hundred Finance, Qubit Finance, Multichain, Audius, Furucombo, Fomo3D
+
+**New Agent Mode:**
+- `smartcontract` mode (📜) - Specialized for DeFi security and smart contract auditing
+
+---
 
 ### v0.6.0 - Autonomous Agent Mode (Development)
 
@@ -415,6 +457,14 @@ cyber-claude flows --difficulty beginner  # Beginner-friendly workflows
 - **CTF Support**: Educational challenge assistance
 - **Ethical Framework**: Authorization required before scanning
 
+### 📜 Smart Contract Security (NEW!)
+- **11 Vulnerability Detectors**: Reentrancy, access control, precision loss, weak randomness, and more
+- **DeFiHackLabs Integration**: Real-world exploit references from 674+ documented hacks
+- **SWC Registry**: Maps findings to Smart Contract Weakness Classification IDs
+- **Multi-Format Output**: Terminal display and Markdown reports saved to `scans/`
+- **AI-Powered Analysis**: Deep vulnerability assessment with remediation code
+- **External Tool Support**: Integrates with Slither, Mythril, Solhint if installed
+
 ### 🔒 System Hardening
 - **Hardening Checks**: Verify security configurations
 - **Platform-Specific Recommendations**: macOS, Linux, Windows
@@ -450,7 +500,7 @@ cyber-claude flows --difficulty beginner  # Beginner-friendly workflows
 - **Seamless Switching**: Switch between Claude, Gemini, and Ollama anytime
 - **Use Cases**: Opus for complex analysis, Gemini Flash for speed, Ollama for privacy & offline use
 
-### 💬 Multiple Agent Modes (6 total)
+### 💬 Multiple Agent Modes (7 total)
 - **Switch On-The-Fly**: Change modes without restarting
 - **Modes Available**:
   - 🤖 **base**: General security assistant
@@ -458,7 +508,8 @@ cyber-claude flows --difficulty beginner  # Beginner-friendly workflows
   - 🛡️ **blueteam**: Defensive operations focus
   - 🔒 **desktopsecurity**: Personal computer security
   - 🌐 **webpentest**: Web application security testing
-  - 🕵️ **osint**: Open source intelligence reconnaissance (NEW!)
+  - 🕵️ **osint**: Open source intelligence reconnaissance
+  - 📜 **smartcontract**: Smart contract and DeFi security (NEW!)
 
 ### 📊 Reporting
 - **Beautiful Terminal UI**: Gradient colors, ASCII art, formatted tables
@@ -718,6 +769,53 @@ cyber-claude daemon status
 - `0 0 * * 0` - Weekly on Sunday
 - `0 0 1 * *` - Monthly on the 1st
 
+### `cyber-claude web3` ✨ **NEW in v0.7.0**
+Smart contract security scanning and auditing
+
+**Subcommands:**
+- `web3 scan <file>` - Scan Solidity contract for vulnerabilities
+- `web3 audit <file>` - Full security audit with AI analysis
+- `web3 tools` - Check available Web3 security tools (Slither, Mythril, etc.)
+
+**Scan Options:**
+- `-q, --quick` - Quick pattern-based scan (default)
+- `-f, --full` - Full scan with external tools if available
+- `--no-ai` - Skip AI analysis
+- `--model <model>` - AI model to use for analysis
+
+**Examples:**
+```bash
+# Quick vulnerability scan
+cyber-claude web3 scan contract.sol
+
+# Full audit with AI analysis
+cyber-claude web3 audit MyToken.sol
+
+# Scan with specific model
+cyber-claude web3 scan vault.sol --model gemma3-4b
+
+# Check what tools are installed
+cyber-claude web3 tools
+```
+
+**Detected Vulnerabilities:**
+- Reentrancy (SWC-107)
+- Access Control issues (SWC-105)
+- Integer Overflow/Underflow (SWC-101)
+- Timestamp Dependence (SWC-116)
+- Weak Randomness (SWC-120)
+- Precision Loss / Rounding Errors
+- Arbitrary External Calls
+- Storage Collision in Proxies
+- Flash Loan Attack Vectors
+- Oracle Manipulation
+- Unchecked Return Values
+
+**Output:**
+- Terminal report with severity levels
+- Markdown report saved to `scans/` directory
+- Real-world exploit references from DeFiHackLabs
+
 ### `cyber-claude chat`
 Interactive chat with security agent (one-off conversation)
 
@@ -905,6 +1003,7 @@ npm test
 - [x] Multi-provider smart fallbacks ✨ **NEW in v0.6.0**
 - [x] Advanced web vulnerability detection (SQLi, XSS, Command Injection, Path Traversal, SSRF) ✨ **NEW in v0.6.0**
 - [x] Scheduled scanning (daemon mode with cron scheduling) ✨ **NEW in v0.6.0**
+- [x] Smart contract security scanning (11 detectors, DeFiHackLabs integration) ✨ **NEW in v0.7.0**
 - [ ] Security posture dashboard
 
 ### Phase 4: Advanced Capabilities (In Progress)

@@ -52,6 +52,7 @@ export function createChatCommand(): Command {
         desktopsecurity: '🔒',
         webpentest: '🌐',
         osint: '🔍',
+        smartcontract: '📜',
       };
 
       const currentMode = options.mode as AgentMode;

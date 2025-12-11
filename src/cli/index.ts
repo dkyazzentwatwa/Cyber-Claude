@@ -21,6 +21,7 @@ import { createToolsCommand } from './commands/tools.js';
 import { createCVECommand } from './commands/cve.js';
 import { createLogsCommand } from './commands/logs.js';
 import { createDaemonCommand } from './commands/daemon.js';
+import { createWeb3Command } from './commands/web3.js';
 import { InteractiveSession } from './session.js';
 import { checkProviderAvailability } from '../agent/providers/fallback.js';
 
@@ -29,7 +30,7 @@ const program = new Command();
 program
   .name('cyber-claude')
   .description('🛡️  AI-powered cybersecurity agent for red/blue teaming and desktop security')
-  .version('0.6.0');
+  .version('0.7.0');
 
 // Add commands
 program.addCommand(createInteractiveCommand());
@@ -49,6 +50,7 @@ program.addCommand(createToolsCommand());
 program.addCommand(createCVECommand());
 program.addCommand(createLogsCommand());
 program.addCommand(createDaemonCommand());
+program.addCommand(createWeb3Command());
 
 // Default action - start interactive session
 program
@@ -74,6 +76,7 @@ program
       console.log(`  ${chalk.cyan('cyber-claude screenshot <url>')} - Capture website screenshots`);
       console.log(`  ${chalk.cyan('cyber-claude cve <cve-id>')}  - Lookup CVE vulnerability details`);
       console.log(`  ${chalk.cyan('cyber-claude logs <file>')}  - Analyze log files for security issues`);
+      console.log(`  ${chalk.cyan('cyber-claude web3 scan <file>')} - Scan smart contracts for vulnerabilities`);
       console.log(`  ${chalk.cyan('cyber-claude tools')}        - Manage external security tools`);
       console.log(`  ${chalk.cyan('cyber-claude harden')}      - Check system hardening status`);
       console.log(`  ${chalk.cyan('cyber-claude chat')}        - One-off chat mode`);

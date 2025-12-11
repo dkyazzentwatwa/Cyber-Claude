@@ -1,4 +1,4 @@
-export type AgentMode = 'base' | 'redteam' | 'blueteam' | 'desktopsecurity' | 'webpentest' | 'osint';
+export type AgentMode = 'base' | 'redteam' | 'blueteam' | 'desktopsecurity' | 'webpentest' | 'osint' | 'smartcontract';
 
 export interface AgentConfig {
   mode: AgentMode;
@@ -35,7 +35,13 @@ export type VulnType =
   | 'security-misconfiguration'
   | 'sensitive-data-exposure'
   | 'missing-security-headers'
-  | 'information-disclosure';
+  | 'information-disclosure'
+  // Web3/Smart Contract vulnerabilities
+  | 'reentrancy'
+  | 'access-control'
+  | 'integer-overflow'
+  | 'flash-loan'
+  | 'oracle-manipulation';
 
 export interface VulnerabilityFinding extends SecurityFinding {
   vulnerabilityType: VulnType;
