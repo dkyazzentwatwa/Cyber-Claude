@@ -5,6 +5,7 @@
 
 import { Anthropic } from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import OpenAI from 'openai';
 import { Task, Plan, Step, AgentMode } from '../types.js';
 import { generatePlanPrompt } from '../prompts/agentic.js';
 import { generateToolRegistryPrompt } from '../tools/registry.js';
@@ -18,6 +19,7 @@ import { v4 as uuidv4 } from 'uuid';
 export interface PlannerConfig {
   apiKey?: string;
   googleApiKey?: string;
+  openaiApiKey?: string;
   model?: string;
   mode?: AgentMode;
   useExtendedThinking?: boolean;
@@ -51,6 +53,7 @@ interface ParsedPlanResponse {
 export class TaskPlanner {
   private anthropic?: Anthropic;
   private gemini?: GoogleGenerativeAI;
+  private openai?: OpenAI;
   private config: PlannerConfig;
 
   constructor(config: PlannerConfig) {
@@ -64,8 +67,12 @@ export class TaskPlanner {
       this.gemini = new GoogleGenerativeAI(config.googleApiKey);
     }
 
-    if (!this.anthropic && !this.gemini) {
-      throw new Error('At least one API key (Anthropic or Google) must be provided');
+    if (config.openaiApiKey) {
+      this.openai = new OpenAI({ apiKey: config.openaiApiKey });
+    }
+
+    if (!this.anthropic && !this.gemini && !this.openai) {
+      throw new Error('At least one API key (Anthropic, Google, or OpenAI) must be provided');
     }
   }
 

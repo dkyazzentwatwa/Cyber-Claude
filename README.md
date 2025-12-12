@@ -12,7 +12,7 @@ An AI-powered cybersecurity agent built with the [Claude Agent SDK](https://docs
 
 **🎯 NEW: Guided Workflows** - Step-by-step security tasks perfect for learning and fast execution!
 **🔒 Defensive-Only** - No exploitation, credential harvesting, or offensive capabilities
-**🤖 AI-Powered** - Claude, Gemini (cloud) or DeepSeek-R1, Gemma (local) for intelligent analysis
+**🤖 AI-Powered** - Claude, OpenAI GPT-5.1, Gemini (cloud) or DeepSeek-R1, Gemma (local) for intelligent analysis
 **🏠 Privacy Option** - Run 100% locally with Ollama (no cloud, no API keys, offline capable)
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
@@ -21,7 +21,7 @@ An AI-powered cybersecurity agent built with the [Claude Agent SDK](https://docs
 ![Tests](https://img.shields.io/badge/tests-157%20passed-brightgreen)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-excellent-brightgreen)
-![Version](https://img.shields.io/badge/version-0.7.0-blue)
+![Version](https://img.shields.io/badge/version-0.8.0-blue)
 
 ---
 
@@ -34,7 +34,7 @@ npm install
 
 # 2. Configure (add your API key)
 cp .env.example .env
-# Edit .env and add ANTHROPIC_API_KEY or GOOGLE_API_KEY
+# Edit .env and add ANTHROPIC_API_KEY, OPENAI_API_KEY, or GOOGLE_API_KEY
 
 # 3. Build
 npm run build

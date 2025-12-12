@@ -92,6 +92,7 @@ export function createChatCommand(): Command {
         mode: options.mode as AgentMode,
         apiKey: config.anthropicApiKey,
         googleApiKey: config.googleApiKey,
+        openaiApiKey: config.openaiApiKey,
         model: modelId,
       });
 

@@ -177,6 +177,7 @@ export class InteractiveSession {
         mode: initialMode,
         apiKey: config.anthropicApiKey,
         googleApiKey: config.googleApiKey,
+        openaiApiKey: config.openaiApiKey,
         model: selectedModel,
       }),
       mode: initialMode,
@@ -268,7 +269,7 @@ export class InteractiveSession {
 
   private showWelcome(): void {
     ui.box(
-      `Welcome to ${chalk.bold('Cyber Claude Interactive Session')}! ${chalk.green('v0.7.0')}\n\n` +
+      `Welcome to ${chalk.bold('Cyber Claude Interactive Session')}! ${chalk.green('v0.8.0')}\n\n` +
       `${chalk.bold('🚀 Quick Start Guide:')}\n\n` +
       `${chalk.bold('1. Scan Your System:')}\n` +
       `   ${chalk.cyan('scan')} ${chalk.dim('- Quick security check')}\n` +
@@ -616,6 +617,7 @@ export class InteractiveSession {
         mode: this.state.mode,
         apiKey: config.anthropicApiKey,
         googleApiKey: config.googleApiKey,
+        openaiApiKey: config.openaiApiKey,
         model: model.id,
       });
       ui.success(`Switched to ${chalk.bold(model.name)}`);
@@ -976,6 +978,7 @@ Provide prioritized findings and actionable next steps.`,
       const agenticConfig = {
         apiKey: modelInfo.provider === 'claude' ? config.anthropicApiKey : undefined,
         googleApiKey: modelInfo.provider === 'gemini' ? config.googleApiKey : undefined,
+        openaiApiKey: modelInfo.provider === 'openai' ? config.openaiApiKey : undefined,
         model: modelInfo.id,
         mode: this.state.mode,
         maxSteps: 20,

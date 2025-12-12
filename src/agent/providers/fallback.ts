@@ -7,7 +7,7 @@ import { logger } from '../../utils/logger.js';
 import { config } from '../../utils/config.js';
 import axios from 'axios';
 
-export type ProviderType = 'claude' | 'gemini' | 'ollama';
+export type ProviderType = 'claude' | 'gemini' | 'ollama' | 'openai';
 
 export interface ProviderStatus {
   provider: ProviderType;
@@ -23,11 +23,12 @@ export interface FallbackConfig {
 }
 
 // Default fallback chain prioritizing cloud providers then local
-export const DEFAULT_FALLBACK_CHAIN: ProviderType[] = ['claude', 'gemini', 'ollama'];
+export const DEFAULT_FALLBACK_CHAIN: ProviderType[] = ['claude', 'openai', 'gemini', 'ollama'];
 
 // Model recommendations by provider
 export const PROVIDER_MODELS: Record<ProviderType, string[]> = {
   claude: ['claude-sonnet-4-5-20250929', 'claude-sonnet-4-20250514', 'claude-3-5-haiku-latest'],
+  openai: ['gpt-5.1', 'gpt-5', 'gpt-5-mini'],
   gemini: ['gemini-2.5-flash', 'gemini-2.5-flash-lite'],
   ollama: ['deepseek-r1:8b', 'gemma3:4b']
 };
@@ -131,6 +132,22 @@ export async function checkProviderAvailability(): Promise<ProviderStatus[]> {
     });
   }
 
+  // Check OpenAI
+  if (config.openaiApiKey) {
+    statuses.push({
+      provider: 'openai',
+      available: true,
+      models: PROVIDER_MODELS.openai
+    });
+  } else {
+    statuses.push({
+      provider: 'openai',
+      available: false,
+      reason: 'OPENAI_API_KEY not set',
+      models: []
+    });
+  }
+
   // Check Gemini
   if (config.googleApiKey) {
     statuses.push({
@@ -180,19 +197,30 @@ export function getErrorSuggestion(error: unknown, currentProvider: ProviderType
     if (currentProvider === 'claude') {
       suggestions.push('Options:');
       suggestions.push('  1. Add credits at https://console.anthropic.com/');
-      suggestions.push('  2. Try Gemini: cyber-claude scan --model gemini-2.5-flash');
-      suggestions.push('  3. Use Ollama (free, local): ollama pull deepseek-r1:8b');
+      suggestions.push('  2. Try OpenAI: cyber-claude scan --model gpt-5.1');
+      suggestions.push('  3. Try Gemini: cyber-claude scan --model gemini-2.5-flash');
+      suggestions.push('  4. Use Ollama (free, local): ollama pull deepseek-r1:8b');
+    } else if (currentProvider === 'openai') {
+      suggestions.push('Options:');
+      suggestions.push('  1. Add credits at https://platform.openai.com/');
+      suggestions.push('  2. Try Claude: cyber-claude scan --model sonnet-4.5');
+      suggestions.push('  3. Try Gemini: cyber-claude scan --model gemini-2.5-flash');
+      suggestions.push('  4. Use Ollama (free, local): ollama pull deepseek-r1:8b');
     } else if (currentProvider === 'gemini') {
       suggestions.push('Options:');
       suggestions.push('  1. Check billing at https://aistudio.google.com/');
       suggestions.push('  2. Try Claude: cyber-claude scan --model sonnet-4.5');
-      suggestions.push('  3. Use Ollama (free, local): ollama pull deepseek-r1:8b');
+      suggestions.push('  3. Try OpenAI: cyber-claude scan --model gpt-5.1');
+      suggestions.push('  4. Use Ollama (free, local): ollama pull deepseek-r1:8b');
     }
   } else if (isAuthError(error)) {
     suggestions.push(`${currentProvider} API key is invalid.`);
     if (currentProvider === 'claude') {
       suggestions.push('Check your ANTHROPIC_API_KEY in .env file');
       suggestions.push('Get a new key at: https://console.anthropic.com/');
+    } else if (currentProvider === 'openai') {
+      suggestions.push('Check your OPENAI_API_KEY in .env file');
+      suggestions.push('Get a new key at: https://platform.openai.com/');
     } else if (currentProvider === 'gemini') {
       suggestions.push('Check your GOOGLE_API_KEY in .env file');
       suggestions.push('Get a new key at: https://aistudio.google.com/apikey');
@@ -242,8 +270,9 @@ export async function logProviderHealth(): Promise<void> {
     logger.warn('No AI providers available!');
     logger.info('Options:');
     logger.info('  1. Set ANTHROPIC_API_KEY in .env for Claude');
-    logger.info('  2. Set GOOGLE_API_KEY in .env for Gemini');
-    logger.info('  3. Install Ollama for free local models: https://ollama.com');
+    logger.info('  2. Set OPENAI_API_KEY in .env for OpenAI/ChatGPT');
+    logger.info('  3. Set GOOGLE_API_KEY in .env for Gemini');
+    logger.info('  4. Install Ollama for free local models: https://ollama.com');
   } else {
     logger.info(`Available AI providers: ${available.map(s => s.provider).join(', ')}`);
   }

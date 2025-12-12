@@ -17,6 +17,7 @@ import { v4 as uuidv4 } from 'uuid';
 export interface AgenticConfig {
   apiKey?: string;
   googleApiKey?: string;
+  openaiApiKey?: string;
   model?: string;
   mode?: AgentMode;
   maxSteps?: number;
@@ -58,6 +59,7 @@ export class AgenticCore {
     const plannerConfig: PlannerConfig = {
       apiKey: config.apiKey,
       googleApiKey: config.googleApiKey,
+      openaiApiKey: config.openaiApiKey,
       model: config.model,
       mode: config.mode,
       useExtendedThinking: config.useExtendedThinking,
@@ -69,6 +71,7 @@ export class AgenticCore {
     const reflectorConfig: ReflectionConfig = {
       apiKey: config.apiKey,
       googleApiKey: config.googleApiKey,
+      openaiApiKey: config.openaiApiKey,
       model: config.model,
     };
     this.reflector = new ReflectionEngine(reflectorConfig);

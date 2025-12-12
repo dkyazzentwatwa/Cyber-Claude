@@ -1,7 +1,7 @@
 {
   "name": "cyber-claude",
-  "version": "0.7.0",
-  "description": "AI-powered defensive cybersecurity agent with guided workflows, OSINT reconnaissance, and multi-provider support (Claude & Gemini)",
+  "version": "0.8.0",
+  "description": "AI-powered defensive cybersecurity agent with guided workflows, OSINT reconnaissance, and multi-provider support (Claude, OpenAI, Gemini)",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -43,6 +43,7 @@
     "inquirer": "^12.9.6",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.9",
+    "openai": "^6.10.0",
     "ora": "^9.0.0",
     "pcap-parser": "^0.2.1",
     "pidusage": "^3.0.2",

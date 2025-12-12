@@ -84,10 +84,11 @@ export function createAutoCommand(): Command {
         // Get API keys
         const apiKey = process.env.ANTHROPIC_API_KEY;
         const googleApiKey = process.env.GOOGLE_API_KEY;
+        const openaiApiKey = process.env.OPENAI_API_KEY;
 
-        if (!apiKey && !googleApiKey) {
+        if (!apiKey && !googleApiKey && !openaiApiKey) {
           throw new Error(
-            'No API keys found. Set ANTHROPIC_API_KEY or GOOGLE_API_KEY in environment.'
+            'No API keys found. Set ANTHROPIC_API_KEY, GOOGLE_API_KEY, or OPENAI_API_KEY in environment.'
           );
         }
 
@@ -95,6 +96,7 @@ export function createAutoCommand(): Command {
         const config: AgenticConfig = {
           apiKey,
           googleApiKey,
+          openaiApiKey,
           model: options.model,
           mode: options.mode,
           maxSteps: parseInt(options.maxSteps, 10),

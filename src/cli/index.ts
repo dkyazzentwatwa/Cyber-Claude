@@ -30,7 +30,7 @@ const program = new Command();
 program
   .name('cyber-claude')
   .description('🛡️  AI-powered cybersecurity agent for red/blue teaming and desktop security')
-  .version('0.7.0');
+  .version('0.8.0');
 
 // Add commands
 program.addCommand(createInteractiveCommand());
@@ -88,10 +88,13 @@ program
         `${chalk.bold('Option 1: Claude (Anthropic)')}\n` +
         `  • Set ${chalk.cyan('ANTHROPIC_API_KEY')} in .env file\n` +
         `  • Get key: ${chalk.blue('https://console.anthropic.com/')}\n\n` +
-        `${chalk.bold('Option 2: Gemini (Google)')}\n` +
+        `${chalk.bold('Option 2: OpenAI (ChatGPT)')} ${chalk.green('← GPT-5.1 recommended!')}\n` +
+        `  • Set ${chalk.cyan('OPENAI_API_KEY')} in .env file\n` +
+        `  • Get key: ${chalk.blue('https://platform.openai.com/')}\n\n` +
+        `${chalk.bold('Option 3: Gemini (Google)')}\n` +
         `  • Set ${chalk.cyan('GOOGLE_API_KEY')} in .env file\n` +
         `  • Get key: ${chalk.blue('https://aistudio.google.com/apikey')}\n\n` +
-        `${chalk.bold('Option 3: Ollama (Free, Local)')} ${chalk.green('← No API key needed!')}\n` +
+        `${chalk.bold('Option 4: Ollama (Free, Local)')} ${chalk.green('← No API key needed!')}\n` +
         `  • Install: ${chalk.cyan('curl -fsSL https://ollama.com/install.sh | sh')}\n` +
         `  • Pull model: ${chalk.cyan('ollama pull deepseek-r1:8b')}\n` +
         `  • Start: ${chalk.cyan('ollama serve')}`,
@@ -105,6 +108,7 @@ program
     const providerNames = availableProviders.map(p => {
       if (p.provider === 'ollama') return `${chalk.green('Ollama')} (local)`;
       if (p.provider === 'claude') return chalk.blue('Claude');
+      if (p.provider === 'openai') return chalk.green('OpenAI');
       if (p.provider === 'gemini') return chalk.yellow('Gemini');
       return p.provider;
     }).join(', ');

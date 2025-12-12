@@ -5,6 +5,7 @@
 
 import { Anthropic } from '@anthropic-ai/sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import OpenAI from 'openai';
 import { Step, StepResult, Reflection } from '../types.js';
 import { generateReflectionPrompt } from '../prompts/agentic.js';
 import { logger } from '../../utils/logger.js';
@@ -15,6 +16,7 @@ import { logger } from '../../utils/logger.js';
 export interface ReflectionConfig {
   apiKey?: string;
   googleApiKey?: string;
+  openaiApiKey?: string;
   model?: string;
   maxRetries?: number;
   confidenceThreshold?: number;
@@ -56,6 +58,7 @@ interface ParsedReflectionResponse {
 export class ReflectionEngine {
   private anthropic?: Anthropic;
   private gemini?: GoogleGenerativeAI;
+  private openai?: OpenAI;
   private config: ReflectionConfig;
 
   constructor(config: ReflectionConfig) {
@@ -73,8 +76,12 @@ export class ReflectionEngine {
       this.gemini = new GoogleGenerativeAI(config.googleApiKey);
     }
 
-    if (!this.anthropic && !this.gemini) {
-      throw new Error('At least one API key (Anthropic or Google) must be provided');
+    if (config.openaiApiKey) {
+      this.openai = new OpenAI({ apiKey: config.openaiApiKey });
+    }
+
+    if (!this.anthropic && !this.gemini && !this.openai) {
+      throw new Error('At least one API key (Anthropic, Google, or OpenAI) must be provided');
     }
   }
 

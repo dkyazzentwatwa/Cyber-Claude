@@ -26,6 +26,7 @@ CyberAgent (src/agent/core.ts)
     ↓
 AIProvider interface (src/agent/providers/base.ts)
     ├─ ClaudeProvider (claude.ts)
+    ├─ OpenAIProvider (openai.ts)
     ├─ GeminiProvider (gemini.ts)
     └─ OllamaProvider (ollama.ts)
 ```
@@ -142,6 +143,7 @@ All CLI output should use `ui` module, NOT direct `console.log()`.
 
 ```bash
 ANTHROPIC_API_KEY=sk-ant-...  # For Claude models
+OPENAI_API_KEY=sk-...          # For OpenAI/GPT-5 models
 GOOGLE_API_KEY=AIza...         # For Gemini models
 OLLAMA_BASE_URL=http://localhost:11434  # Optional, for Ollama
 MODEL=claude-sonnet-4-5        # Default model
@@ -151,8 +153,9 @@ At least one AI provider must be configured.
 
 ## Model System
 
-12 models in `src/utils/models.ts` as `AVAILABLE_MODELS`:
+15 models in `src/utils/models.ts` as `AVAILABLE_MODELS`:
 - 6 Claude: opus-4.1, opus-4, sonnet-4.5, sonnet-4, sonnet-3.7, haiku-3.5
+- 3 OpenAI: gpt-5.1, gpt-5, gpt-5-mini
 - 3 Gemini: gemini-2.5-flash, gemini-2.5-pro, gemini-2.5-flash-lite
 - 3 Ollama: deepseek-r1-14b, deepseek-r1-8b, gemma3-4b
 

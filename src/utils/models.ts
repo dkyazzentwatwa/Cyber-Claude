@@ -65,6 +65,28 @@ export const AVAILABLE_MODELS = {
     provider: 'gemini',
     recommended: false,
   },
+  // OpenAI models (ChatGPT) - GPT-5 family
+  'gpt-5.1': {
+    id: 'gpt-5.1',
+    name: 'GPT-5.1',
+    description: 'Latest OpenAI flagship - Configurable reasoning',
+    provider: 'openai',
+    recommended: true,
+  },
+  'gpt-5': {
+    id: 'gpt-5',
+    name: 'GPT-5',
+    description: 'Previous flagship - Excellent all-around',
+    provider: 'openai',
+    recommended: false,
+  },
+  'gpt-5-mini': {
+    id: 'gpt-5-mini',
+    name: 'GPT-5 Mini',
+    description: 'Fast and cost-efficient GPT-5',
+    provider: 'openai',
+    recommended: false,
+  },
   // Ollama models (local)
   'deepseek-r1-14b': {
     id: 'deepseek-r1:14b',
@@ -89,7 +111,7 @@ export const AVAILABLE_MODELS = {
   },
 } as const;
 
-export type Provider = 'claude' | 'gemini' | 'ollama';
+export type Provider = 'claude' | 'gemini' | 'ollama' | 'openai';
 
 export type ModelKey = keyof typeof AVAILABLE_MODELS;
 

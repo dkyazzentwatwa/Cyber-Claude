@@ -5,6 +5,7 @@ import { AIProvider, ConversationMessage } from './providers/base.js';
 import { ClaudeProvider } from './providers/claude.js';
 import { GeminiProvider } from './providers/gemini.js';
 import { OllamaProvider } from './providers/ollama.js';
+import { OpenAIProvider } from './providers/openai.js';
 import { getModelById } from '../utils/models.js';
 import {
   isCreditError,
@@ -40,6 +41,16 @@ export class CyberAgent {
       }
       this.provider = new GeminiProvider(agentConfig.googleApiKey, agentConfig.model || 'gemini-2.5-flash');
       logger.info(`CyberAgent initialized with Gemini (${agentConfig.model}) in ${agentConfig.mode} mode`);
+    } else if (providerType === 'openai') {
+      if (!agentConfig.openaiApiKey) {
+        throw new Error('OpenAI API key required for GPT models. Set OPENAI_API_KEY in .env or use --model with Claude/Gemini/Ollama.');
+      }
+      this.provider = new OpenAIProvider(
+        agentConfig.openaiApiKey,
+        agentConfig.model || 'gpt-5.1',
+        agentConfig.maxTokens || 4096
+      );
+      logger.info(`CyberAgent initialized with OpenAI (${agentConfig.model}) in ${agentConfig.mode} mode`);
     } else if (providerType === 'ollama') {
       // Ollama (local models)
       const ollamaBaseUrl = process.env.OLLAMA_BASE_URL || 'http://localhost:11434';
